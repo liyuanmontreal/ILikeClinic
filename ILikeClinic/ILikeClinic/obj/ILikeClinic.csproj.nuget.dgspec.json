@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {}
+    "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {}
   },
   "projects": {
-    "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {
+    "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
+        "projectUniqueName": "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
         "projectName": "ILikeClinic",
-        "projectPath": "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
-        "packagesPath": "C:\\Users\\liyua\\.nuget\\packages\\",
-        "outputPath": "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\obj\\",
+        "projectPath": "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
+        "packagesPath": "C:\\Users\\miche\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\liyua\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\miche\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -80,7 +77,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -92,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.109\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
