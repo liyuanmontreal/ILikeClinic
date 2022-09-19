@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {}
+    "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {}
   },
   "projects": {
-    "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {
+    "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
+        "projectUniqueName": "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
         "projectName": "ILikeClinic",
-        "projectPath": "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
-        "packagesPath": "C:\\Users\\liyua\\.nuget\\packages\\",
-        "outputPath": "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\obj\\",
+        "projectPath": "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
+        "packagesPath": "C:\\Users\\kicas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\liyua\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kicas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -49,29 +50,29 @@
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.3.0, )"
+              "version": "[6.4.0, )"
             }
           },
           "imports": [
@@ -80,7 +81,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -92,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.109\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
