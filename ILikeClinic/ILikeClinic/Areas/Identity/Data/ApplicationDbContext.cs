@@ -11,9 +11,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         : base(options)
     {    
     }
-   
-    public DbSet<Doctor> Doctor { get; set; }
-    //public DbSet<Message> Message { get; set; }
+     //public DbSet<Message> Message { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
