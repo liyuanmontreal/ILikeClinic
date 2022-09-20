@@ -544,3 +544,10 @@ C:\Users\miche\dan\john abbott\intership project\Clinic\ILikeClinic\ILikeClinic\
 C:\Users\miche\dan\john abbott\intership project\Clinic\ILikeClinic\ILikeClinic\obj\Debug\net6.0\ILikeClinic.pdb
 C:\Users\miche\dan\john abbott\intership project\Clinic\ILikeClinic\ILikeClinic\obj\Debug\net6.0\ILikeClinic.genruntimeconfig.cache
 C:\Users\miche\dan\john abbott\intership project\Clinic\ILikeClinic\ILikeClinic\obj\Debug\net6.0\ref\ILikeClinic.dll
+C:\Users\miche\dan\john abbott\intership project\Clinic\ILikeClinic\ILikeClinic\bin\Debug\net6.0\Azure.Core.dll
+C:\Users\miche\dan\john abbott\intership project\Clinic\ILikeClinic\ILikeClinic\bin\Debug\net6.0\Microsoft.Graph.dll
+C:\Users\miche\dan\john abbott\intership project\Clinic\ILikeClinic\ILikeClinic\bin\Debug\net6.0\Microsoft.Graph.Core.dll
+C:\Users\miche\dan\john abbott\intership project\Clinic\ILikeClinic\ILikeClinic\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\miche\dan\john abbott\intership project\Clinic\ILikeClinic\ILikeClinic\bin\Debug\net6.0\System.Memory.Data.dll
+C:\Users\miche\dan\john abbott\intership project\Clinic\ILikeClinic\ILikeClinic\bin\Debug\net6.0\System.Text.Json.dll
+C:\Users\miche\dan\john abbott\intership project\Clinic\ILikeClinic\ILikeClinic\bin\Debug\net6.0\Microsoft.AspNet.Identity.Core.dll

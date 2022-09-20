@@ -191,8 +191,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/miche/dan/john abbott/intership project/Clinic/ILikeClinic/ILikeClinic/Pages/Patient.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF0aWVudC5jc2h0bWw=
+[C:/Users/miche/dan/john abbott/intership project/Clinic/ILikeClinic/ILikeClinic/Pages/Patient/AddMyFile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF0aWVudFxBZGRNeUZpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/miche/dan/john abbott/intership project/Clinic/ILikeClinic/ILikeClinic/Pages/Patient/PatientAppointment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF0aWVudFxQYXRpZW50QXBwb2ludG1lbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/miche/dan/john abbott/intership project/Clinic/ILikeClinic/ILikeClinic/Pages/Patient/PatientHome.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF0aWVudFxQYXRpZW50SG9tZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/miche/dan/john abbott/intership project/Clinic/ILikeClinic/ILikeClinic/Pages/Patient/PatientMakeAppointment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF0aWVudFxQYXRpZW50TWFrZUFwcG9pbnRtZW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/miche/dan/john abbott/intership project/Clinic/ILikeClinic/ILikeClinic/Pages/Privacy.cshtml]

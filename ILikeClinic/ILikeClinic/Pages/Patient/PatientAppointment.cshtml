@@ -1,0 +1,114 @@
+﻿@page
+@model ILikeClinic.Pages.Patient.PatientAppointmentModel
+@{
+}
+
+<div class="nav-tabs p-4">
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+        <li>
+            <a class="nav-link" asp-page="PatientHome">My Profile</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Doctor</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Appointment</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Message Box</a>
+        </li>
+
+    </ul>
+</div>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary bottom-left">
+                All Appointments
+            </h2>
+            <div>@Model.Patient.Id</div>
+        </div>
+    </div>
+
+    <br />
+   
+
+     <div class="row">
+         <form>
+            <div class="col-6 ">
+                <a asp-route-id="@Model.Patient.Id" asp-page="PatientMakeAppointment" class="btn btn-primary text-bg-light">
+                    <i class="bi bi-plus-circle fs-4 "></i> &nbsp Make An Appointment
+                </a>
+            </div>
+        </form>
+
+        <!--   search and add new button
+        <div class="col-6">
+            <form method="get">
+                <div class="input-group">
+                    <input class="form-control" asp-for="Search" placeholder=" Searching..." />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary text-bg-info">Search</button>
+                    </div>
+                    <div class="input-group-append">
+                        <a asp-page="Vehicle" class="btn btn-secondary form-control text-bg-secondary">Clear</a>
+                    </div>
+
+                </div>
+            </form>
+        </div>    -->
+    </div>
+        
+   
+
+
+
+</div>
+
+<form method="post">
+    <table class="table table-bordered table-striped fs-5 text-center" style="width:100%">
+        <thead>
+            <tr>
+                <th>Doctor Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Appointment)
+            {
+                <tr>
+                    <td width="15%">@item.Patient.FullName</td>
+                    <td width="25%">@item.AppStartAt</td>
+                    <td width="25%">@item.AppStartAt</td>
+                    
+                    <td width="25%">
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-page="VehicleInfo" asp-route-id="@item.Id" class="btn btn-primary mx-2 text-bg-primary">
+                                <i class="bi bi-info-circle-fill">Review</i>
+                            </a>
+                            <a asp-page="VehicleEdit" asp-route-id="@item.Id" class="btn btn-primary mx-2 text-bg-success">
+                                <i class="bi bi-pencil-square">Edit</i>
+                            </a>
+
+                            <button asp-route-id="@item.Id" asp-page-handler="Delete" onclick="return confirm('Are you sure to cancel it?')" class="btn btn-danger mx-2 text-bg-danger">
+                                <i class="bi bi-trash3-fill">Cancel</i>
+                            </button>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <br />
+</form>
+
+
