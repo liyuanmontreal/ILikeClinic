@@ -32,8 +32,8 @@ namespace ILikeClinic.Model
         public DateTime DOB { get; set; }
 
         public Gender Gender { get; set; }
-
         public string PhoneNumber { get; set; }
+
 
         public string ProfilePhoto { get; set; }
 
@@ -50,3 +50,4 @@ namespace ILikeClinic.Model
         public virtual ApplicationUser User { get; set; }
     }
 }
+
