@@ -1,0 +1,176 @@
+﻿@page
+@using ILikeClinic.Model
+@using Microsoft.AspNetCore.Identity
+@model ILikeClinic.Pages.Patient.PatientMakeAppointmentModel
+@{
+}
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> @UserManager.GetUserName(User)! @UserManager.GetUserId(User)</a>
+        </li>
+
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+
+    }
+</ul>
+
+
+<br />
+<h1 class="text-info">Make An Appointment</h1>
+<br />
+
+<div class="border container p-4">
+    <form method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div>patient id:  @Model.Patient.Id</div>
+
+        <div class="form-group row fs-4">
+            <div class="col-3">
+                <label>Patient Name :</label>
+            </div>
+            <div class="col-6">
+                @Model.Patient.FullName
+            </div>
+            <br />
+            <br />
+        </div>
+
+
+        <div class="form-group-lg row fs-5 ">
+            <h3>Step 1:</h3>
+            <span>*Choose your family doctor, or you can choose another doctor, or call us by 456-456-4566</span>
+
+        </div>
+            <br />
+
+        <div class="form-group row fs-4">
+            <div class="col-3 ">
+                <label asp-for="Appointment.Doctor">Choose a doctor: </label>
+            </div>
+            <div class="col-9">
+                <select class="custom-select" asp-for="Appointment.DoctorId" asp-items="Model.DoctorList">
+                    <option value="">--Select a doctor--</option>
+                </select>
+            </div>
+            <span asp-validation-for="Appointment.DoctorId" class="text-danger fs-5"></span>
+        </div>
+        <br />
+        
+        <div class="form-group row fs-4">
+            <div class="col-3 ">
+                <label asp-for="Appointment.Status"> </label>
+            </div>
+            <div class="col-6">
+                <select class="custom-select col-12" asp-for="Appointment.Status" asp-items="Html.GetEnumSelectList<Status>()">
+                    <option value="">--Select status--</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="form-group-lg row fs-5">
+            <h3>Step 2:</h3>
+            <span>*Check the schedule and choose a time slot</span>
+        </div>
+        <br />
+        <br />
+
+        <div class="form-group row fs-4">
+            <div >
+                <input class="form-control" id="dateSelect" asp-for="Appointment.AppStartAt" asp-format="{0:yyyy-MM-dd}" />
+
+            </div>
+            <div id="datepicker" class="col-3 "></div>
+            
+        </div>
+
+        <br />
+        <br />
+
+
+
+
+        <div class="form-group-lg row fs-4">
+            <h3>Step 3:</h3>
+        </div>
+
+        <div class="form-group row fs-5">
+            <div class="col-3">
+                <label asp-for="Appointment.Reason">*Reason for appointment:</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Appointment.Reason" />
+            </div>
+            <span asp-validation-for="Appointment.Reason" class="text-danger fs-5"></span>
+        </div>
+        <br />
+        <br />
+        <br />
+        
+
+        <div class="form-group row fs-5">
+            <div>*If you have medical document needed to declare, please upload it (Optional)</div>
+            <br />
+            <div class="col-3">
+                <label asp-for="Appointment.FileUrl">Upload Medical Document:</label>
+            </div>
+            <div class="col-6">
+                <input type="file" id="uploadbox" class="form-control" name="file" />
+            </div>
+            <span asp-validation-for="Appointment.FileUrl" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+
+
+        <br />
+        <div class="form-group row fs-3">
+            <div class="col-3 offset-3">
+                <button type="submit" class="btn btn-primary form-control text-bg-danger ">Create</button>
+            </div>
+            <div class="col-3">
+                <a asp-page="PatientAppointment" class="btn btn-secondary form-control text-bg-info">Back to the list</a>
+            </div>
+
+
+        </div>
+
+    </form>
+
+</div>
+
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $(function () {
+            var $j = jQuery.noConflict();
+            $("#datepicker").datepicker({
+                dateFormat: "yy-mm-dd",
+                onSelect: function (dateText) {
+                    console.log("date = " +  dateText + " with value of " + this.value)
+                    $("#dateSelect").val(this.value)
+                }
+            });
+        });
+
+
+    </script>
+}

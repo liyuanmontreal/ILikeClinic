@@ -31,9 +31,9 @@ namespace ILikeClinic.Model
         [Display(Name = "Date of Birth")]
         public DateTime DOB { get; set; }
 
-        public string Gender { get; set; }
+        public Gender Gender { get; set; }
+        public string PhoneNumber { get; set; }
 
-        public int PhoneNumber { get; set; }
 
         public string ProfilePhoto { get; set; }
 

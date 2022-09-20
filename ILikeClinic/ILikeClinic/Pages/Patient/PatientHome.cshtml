@@ -1,0 +1,147 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@model ILikeClinic.Pages.Patient.PatientHomeModel
+@{
+}
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> @UserManager.GetUserId(User)</a>
+        </li>
+
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+
+    }
+</ul>
+<div class="nav-tabs p-4">
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">My Profile</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Doctor</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" asp-page="PatientAppointment" >Appointment</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Message Box</a>
+        </li>
+
+    </ul>
+</div>
+
+
+<br />
+<h1 class="text-info">My Profile</h1>
+<br />
+<div class="border container p-4">
+
+    
+
+    <div class="container fs-5">
+
+            <div class="row m-3">
+                <div class="col-2 ">
+                    <div class="text-primary">First Name :</div>
+                </div>
+                <div class="col-4">
+                    <div class="">@Model.Patient.FirstName</div>
+                </div>
+                <div class="col-2 ">
+                    <div class="text-primary">Last Name : </div>
+                 </div>
+                <div class="col-4">
+                    <div class="">@Model.Patient.LastName</div>
+                </div>
+            </div>
+
+            <div class="row  m-3">
+                <div class="col-2 ">
+                    <div class="text-primary">Gender : </div>
+                </div>
+                <div class="col-4">
+                    <div class="">@Model.Patient.Gender</div>
+                </div>
+                <div class="col-2 ">
+                    <div class="text-primary">Date Of Birth : </div>
+                 </div>
+                <div class="col-4">
+                    <div class="">@Model.Patient.DateOfBirth.ToString("yyyy/MM/dd")</div>
+                </div>
+            </div>
+
+            <div class="row  m-3">
+                <div class="col-2 ">
+                    <div class="text-primary">Phone Number : </div>
+                </div>
+                <div class="col-4">
+                    <div class="">@Model.Patient.PhoneNumber</div>
+                </div>
+                <div class="col-2 ">
+                    <div class="text-primary">Medical Card No: </div>
+                 </div>
+                <div class="col-4">
+                    <div class="">@Model.Patient.MedicalCardNo</div>
+                </div>
+            </div>
+
+            <div class="row  m-3">
+                <div class="col-2">
+                    <div class="text-primary">Address : </div>
+                </div>
+                <div class="col-6">
+                    <div class="">@Model.Patient.Address</div>
+                </div>
+            </div>
+
+            <div class="row m-3">
+                <div class="col-2">
+                    <div class="text-primary">Family Doctor : </div>
+                </div>
+                <div class="col-6">
+                    <div class="">@Model.Patient.DoctorId</div>
+                </div>
+            </div>
+
+
+            <br />
+            <br />
+            <div class="btn-group w-100" role="group">
+                <a asp-page="" class="btn btn-secondary form-control text-bg-info">Check My Medical Document</a>
+                <span style="width:100px" class="fs-4">   &nbsp           &nbsp       </span>
+
+                @if (Model.Patient.Id != 0) {
+                    <a asp-route-id="@Model.Patient.Id" asp-page="AddMyFile" class="btn btn-secondary form-control text-bg-info">Edit My File</a>
+                }
+                else
+                {
+                    <a asp-page="AddMyFile" class="btn btn-secondary form-control text-bg-info">Create My File</a>
+                }
+               
+            </div>
+
+        </div>
+
+
+
+
+</div>
+
+

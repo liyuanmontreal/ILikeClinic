@@ -22,6 +22,11 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         // Add your customizations after calling base.OnModelCreating(builder);
        
     }
+
+    public DbSet<Patient> Patient { get; set; }
+    public DbSet<Appointment> Appointment { get; set; }
+
+    public DbSet<Doctor> Doctor { get; set; }
 }
 
 
