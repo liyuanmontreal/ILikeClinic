@@ -31,22 +31,28 @@ namespace ILikeClinic.Model
         [Display(Name = "Date of Birth")]
         public DateTime DOB { get; set; }
 
-        public string Gender { get; set; }
+        public Gender Gender { get; set; }
 
+        [Display(Name ="Phone Number")]
+        [DataType(DataType.PhoneNumber)]
         public int PhoneNumber { get; set; }
 
         public string ProfilePhoto { get; set; }
 
         public string Speciality { get; set; }
 
+        [StringLength(400, MinimumLength =10)]
         public string Description { get; set; }
 
         public int LicenseNumber { get; set; }
 
+        [DataType(DataType.Date), Display(Name = "Hired Date"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime HiredDate { get; set; }
 
 
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
+
+        public virtual ICollection<Availability> Availabilities { get; set; }
     }
 }

@@ -2,6 +2,7 @@ using ILikeClinic.Data;
 using ILikeClinic.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data.Entity;
 
 namespace ILikeClinic.Pages.Doctors
 {
@@ -15,6 +16,8 @@ namespace ILikeClinic.Pages.Doctors
         public IndexModel(ApplicationDbContext db)
         {
             _DB = db;
+            //if want to show every property of other table
+            //_DB.Doctor.Include(u => u.Availabilities);
         }
 
         public void OnGet()
