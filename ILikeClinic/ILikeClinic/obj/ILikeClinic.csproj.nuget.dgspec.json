@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {}
+    "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {
+    "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
+        "projectUniqueName": "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
         "projectName": "ILikeClinic",
-        "projectPath": "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
-        "packagesPath": "C:\\Users\\miche\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\obj\\",
+        "projectPath": "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
+        "packagesPath": "C:\\Users\\kicas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\miche\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kicas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,47 +44,35 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.AspNet.Identity.Core": {
-              "target": "Package",
-              "version": "[2.2.3, )"
-            },
             "Microsoft.AspNetCore.Identity": {
               "target": "Package",
               "version": "[2.2.0, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.8, )"
-            },
-            "Microsoft.Graph": {
-              "target": "Package",
-              "version": "[4.40.0, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.3.0, )"
-            },
-            "jQuery": {
-              "target": "Package",
-              "version": "[3.6.0, )"
+              "version": "[6.4.0, )"
             }
           },
           "imports": [
