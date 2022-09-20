@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - ILikeClinic</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ILikeClinic.styles.css" asp-append-version="true" />
 </head>
 <body>
@@ -18,15 +19,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
+                    <ul class="navbar-nav flex-grow-1">                                             
                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin">Admin</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Index">Admin</a>
                         </li>
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Patient">Patient</a>
@@ -34,7 +29,7 @@
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Doctor">Doctor</a>
                         </li>
-                    </ul>
+                   </ul>
                      <partial name="_LoginPartial" />
                 </div>
             </div>
