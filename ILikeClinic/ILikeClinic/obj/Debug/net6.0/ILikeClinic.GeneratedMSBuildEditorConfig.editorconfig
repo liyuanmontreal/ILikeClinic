@@ -191,6 +191,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/GitHub/IntegrationProject/ILikeClinic/ILikeClinic/Pages/FAQ/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRkFRXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/GitHub/IntegrationProject/ILikeClinic/ILikeClinic/Pages/FAQ/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRkFRXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
