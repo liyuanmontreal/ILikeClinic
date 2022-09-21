@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ILikeClinic.Model
 {
@@ -10,6 +12,9 @@ namespace ILikeClinic.Model
         public DateTime AvailableTime { get; set; }
 
         public int DoctorId { get; set; }
+
+        [ForeignKey("DoctorId")]
+        [ValidateNever]
         public virtual Doctor Doctor { get; set; }
 
 
