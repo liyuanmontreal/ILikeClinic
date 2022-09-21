@@ -10,7 +10,7 @@ namespace ILikeClinic.Pages.Admin
         private readonly ApplicationDbContext _DB;
         public IEnumerable<Doctor> Doctors { get; set; } = default!;
         //public IEnumerable<Doctor> Doctors { get; set; } = default!;
-        public IEnumerable<Message> Messages { get; set; } = default!;
+        //public IEnumerable<Message> Messages { get; set; } = default!;
 
         //Constructor
         public IndexModel(ApplicationDbContext db)
@@ -20,7 +20,7 @@ namespace ILikeClinic.Pages.Admin
         public void OnGet()
         {
             Doctors = _DB.Doctor;
-            Messages = _DB.Message;
+          //  Messages = _DB.Message;
         }
     }
 }

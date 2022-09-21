@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {}
+    "E:\\GitHub\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {
+    "E:\\GitHub\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
+        "projectUniqueName": "E:\\GitHub\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
         "projectName": "ILikeClinic",
-        "projectPath": "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
-        "packagesPath": "C:\\Users\\miche\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\miche\\dan\\john abbott\\intership project\\Clinic\\ILikeClinic\\ILikeClinic\\obj\\",
+        "projectPath": "E:\\GitHub\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
+        "packagesPath": "C:\\Users\\Ali\\.nuget\\packages\\",
+        "outputPath": "E:\\GitHub\\IntegrationProject\\ILikeClinic\\ILikeClinic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\miche\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ali\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -56,15 +56,19 @@
               "target": "Package",
               "version": "[6.0.8, )"
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.9, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.Graph": {
               "target": "Package",
@@ -72,7 +76,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -89,8 +93,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -102,7 +105,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     }
