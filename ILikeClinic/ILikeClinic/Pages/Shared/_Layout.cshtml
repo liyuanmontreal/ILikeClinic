@@ -39,12 +39,13 @@
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Admin">Admin</a>
                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Patient">Patient</a>
-                        </li>
+
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Doctor">Doctor</a>
                         </li>*@
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Patient/PatientHome">Patient</a>
+                        </li>
                     </ul>
                      <partial name="_LoginPartial" />
                 </div>
@@ -135,7 +136,7 @@
         <div class="nav-tabs p-4">
             <ul class="nav nav-tabs nav-justified" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">My Profile</a>
+                    <a class="nav-link" asp-page="/Patient/PatientHome" >My Profile</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Doctor</a>
@@ -144,7 +145,7 @@
                     <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" asp-page="PatientAppointment">Appointment</a>
+                    <a class="nav-link" asp-page="/Patient/PatientAppointment">Appointment</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Message Box</a>

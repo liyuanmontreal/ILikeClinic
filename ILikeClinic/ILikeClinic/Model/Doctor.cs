@@ -49,6 +49,7 @@ namespace ILikeClinic.Model
         [DataType(DataType.Date), Display(Name = "Hired Date"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime HiredDate { get; set; }
 
+        public string UserId { get; set; }
 
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }

@@ -1,17 +1,19 @@
 using ILikeClinic.Data;
 using ILikeClinic.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Graph;
+using System.Data;
 using System.Linq;
 using System.Security.Claims;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ILikeClinic.Pages.Patient
 {
+    [Authorize(Roles = "Patient")]
     public class PatientHomeModel : PageModel
     {
         [BindProperty]

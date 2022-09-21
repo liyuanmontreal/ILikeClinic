@@ -2,7 +2,6 @@ using ILikeClinic.Data;
 using ILikeClinic.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Data.Entity;
 
 namespace ILikeClinic.Pages.Doctors
 {
