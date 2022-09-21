@@ -144,7 +144,7 @@ namespace ILikeClinic.Areas.Identity.Pages.Account
                             await _roleManager.CreateAsync(new IdentityRole(ILikeClinic.Utility.ClinicRoles.DoctorUser));
                         }
                     await _userManager.AddToRoleAsync(user, ILikeClinic.Utility.ClinicRoles.PatientUser);
-                   
+                    //await _userManager.AddToRoleAsync(user, ILikeClinic.Utility.ClinicRoles.DoctorUser);
 
                     _logger.LogInformation("User created a new account with password.");
 
