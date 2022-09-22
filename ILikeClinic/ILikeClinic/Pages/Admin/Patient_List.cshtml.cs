@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ILikeClinic.Pages.Admin
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Doctor")]
     public class Patient_ListModel : PageModel
     {
         private readonly ApplicationDbContext _db;
