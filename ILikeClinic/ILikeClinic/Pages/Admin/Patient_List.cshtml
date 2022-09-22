@@ -3,7 +3,7 @@
 @{
 }
 
-
+<partial name="_ToastrNotification" />
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
@@ -23,6 +23,13 @@
 
 </div>
 
+<form>
+    <p>       
+        Name: <input type="text" asp-for="SearchNameString" />
+        Phone Number: <input type="text" asp-for="SearchPhoneString" />
+        <input type="submit" value="Filter" /> 
+    </p>    
+</form>
 
 
 <table class="table">

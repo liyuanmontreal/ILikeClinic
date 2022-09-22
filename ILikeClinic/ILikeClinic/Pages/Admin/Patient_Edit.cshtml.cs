@@ -10,7 +10,7 @@ namespace ILikeClinic.Pages.Admin
 
         private readonly ApplicationDbContext _db;
 
-
+        [BindProperty]
         public ILikeClinic.Model.Patient Patient { get; set; } = default!;
 
         public Patient_EditModel(ILikeClinic.Data.ApplicationDbContext context)
@@ -40,12 +40,17 @@ namespace ILikeClinic.Pages.Admin
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
-            _db.Attach(Patient).State = EntityState.Modified;
+            //_db.Attach(Patient).State = EntityState.Modified;
+
+
+            _db.Patient.Update(Patient);
+            _db.SaveChanges();
+            TempData["success"] = "Patient profile updated successfully";
 
             try
             {
