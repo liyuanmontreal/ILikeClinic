@@ -1,5 +1,5 @@
 ﻿@page
-@model ILikeClinic.Pages.Admin.Patient_CreateModel
+@model ILikeClinic.Pages.Admin.Doctor_CreateModel
 @{
 }
 <partial name="_ToastrNotification" />
@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-md-4">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new patient account.</h2>
+            <h2>Create a new doctor account.</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">

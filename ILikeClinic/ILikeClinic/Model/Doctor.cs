@@ -35,7 +35,7 @@ namespace ILikeClinic.Model
 
         [Display(Name ="Phone Number")]
         [DataType(DataType.PhoneNumber)]
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         public string ProfilePhoto { get; set; }
 
@@ -52,6 +52,7 @@ namespace ILikeClinic.Model
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]
+        // [ValidateNever]
         public virtual ApplicationUser User { get; set; }
 
         public virtual ICollection<Availability> Availabilities { get; set; }

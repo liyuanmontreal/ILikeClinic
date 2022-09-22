@@ -1,21 +1,24 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
 using ILikeClinic.Data;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ILikeClinic.Pages.Admin
 {
     [Authorize(Roles = "Admin")]
-    public class Patient_EditModel : PageModel
+    public class Doctor_EditModel : PageModel
     {
 
         private readonly ApplicationDbContext _db;
 
         [BindProperty]
-        public ILikeClinic.Model.Patient Patient { get; set; } = default!;
+        public ILikeClinic.Model.Doctor Doctor { get; set; } = default!;
 
-        public Patient_EditModel(ILikeClinic.Data.ApplicationDbContext context)
+        public Doctor_EditModel(ILikeClinic.Data.ApplicationDbContext context)
         {
             _db = context;
         }
@@ -26,14 +29,14 @@ namespace ILikeClinic.Pages.Admin
                 return NotFound();
             }
 
-            var patient = await _db.Patient.FirstOrDefaultAsync(m => m.Id == id);
-            if (patient == null)
+            var doctor = await _db.Doctor.FirstOrDefaultAsync(m => m.Id == id);
+            if (doctor == null)
             {
                 return NotFound();
             }
             else
             {
-                Patient = patient;
+                Doctor = doctor;
             }
             return Page();
         }
@@ -50,9 +53,9 @@ namespace ILikeClinic.Pages.Admin
             //_db.Attach(Patient).State = EntityState.Modified;
 
 
-            _db.Patient.Update(Patient);
+            _db.Doctor.Update(Doctor);
             _db.SaveChanges();
-            TempData["success"] = "Patient profile updated successfully";
+            TempData["success"] = "Doctor profile updated successfully";
 
             try
             {
@@ -60,7 +63,7 @@ namespace ILikeClinic.Pages.Admin
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PatientExists(Patient.Id))
+                if (!DoctorExists(Doctor.Id))
                 {
                     return NotFound();
                 }
@@ -69,14 +72,15 @@ namespace ILikeClinic.Pages.Admin
                     throw;
                 }
             }
-            TempData["success"] = "Patient Profile updated successfully";
+            TempData["success"] = "Doctor Profile updated successfully";
 
-            return RedirectToPage("./Patient_List");
+            return RedirectToPage("./Doctor_List");
         }
 
-        private bool PatientExists(int id)
+        private bool DoctorExists(int id)
         {
-            return (_db.Patient?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_db.Doctor?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
+

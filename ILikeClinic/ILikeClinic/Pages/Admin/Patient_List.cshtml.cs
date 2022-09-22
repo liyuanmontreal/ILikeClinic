@@ -1,10 +1,12 @@
 using ILikeClinic.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace ILikeClinic.Pages.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class Patient_ListModel : PageModel
     {
         private readonly ApplicationDbContext _db;

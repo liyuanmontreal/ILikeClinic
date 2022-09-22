@@ -1,11 +1,13 @@
 using ILikeClinic.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace ILikeClinic.Pages.Admin
     {
-        public class Appointment_ListModel : PageModel
+        [Authorize(Roles = "Admin")]
+    public class Appointment_ListModel : PageModel
         {
          
 

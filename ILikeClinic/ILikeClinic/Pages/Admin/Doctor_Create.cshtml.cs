@@ -20,7 +20,7 @@ using Microsoft.Extensions.Logging;
 namespace ILikeClinic.Pages.Admin
 {
     [Authorize(Roles = "Admin")]
-    public class Patient_CreateModel : PageModel
+    public class Doctor_CreateModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
@@ -33,10 +33,10 @@ namespace ILikeClinic.Pages.Admin
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationDbContext _db;
 
-       
+
         public ILikeClinic.Model.Patient Patient { get; set; }
 
-        public Patient_CreateModel(
+        public Doctor_CreateModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
@@ -112,13 +112,13 @@ namespace ILikeClinic.Pages.Admin
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            ReturnUrl = "~/Admin/Patient_CreateProfile";
+            ReturnUrl = "~/Admin/Doctor_CreateProfile";
             //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/Admin/Patient_CreateProfile");
+            returnUrl ??= Url.Content("~/Admin/Doctor_CreateProfile");
             //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
@@ -144,7 +144,7 @@ namespace ILikeClinic.Pages.Admin
                     {
                         await _roleManager.CreateAsync(new IdentityRole(ILikeClinic.Utility.ClinicRoles.DoctorUser));
                     }
-                    await _userManager.AddToRoleAsync(user, ILikeClinic.Utility.ClinicRoles.PatientUser);
+                    await _userManager.AddToRoleAsync(user, ILikeClinic.Utility.ClinicRoles.DoctorUser);
 
 
                     _logger.LogInformation("Admin created a new user account with password.");
@@ -162,7 +162,7 @@ namespace ILikeClinic.Pages.Admin
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
 
-                    TempData["success"] = "New Patient Account created successfully";
+                    TempData["success"] = "New Doctor Account created successfully";
 
                     //add cookie
 

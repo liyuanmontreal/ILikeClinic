@@ -1,30 +1,29 @@
 using ILikeClinic.Data;
+using ILikeClinic.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace ILikeClinic.Pages.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class Doctor_ListModel : PageModel
     {
-        private readonly ApplicationDbContext _db;
+        private readonly ApplicationDbContext _DB;
 
+        public IEnumerable<Doctor> Doctors { get; set; }
 
-        public IList<ILikeClinic.Model.Doctor> Doctors { get; set; } = default!;
-
-        public Doctor_ListModel(ILikeClinic.Data.ApplicationDbContext context)
+        //Constructor
+        public Doctor_ListModel(ApplicationDbContext db)
         {
-            _db = context;
+            _DB = db;
+            //if want to show every property of other table
+            //_DB.Doctor.Include(u => u.Availabilities);
         }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            if (_db.Doctor != null)
-            {
-                Doctors = await _db.Doctor.ToListAsync();
-            }
-
-
+            Doctors = _DB.Doctor;
         }
     }
 }

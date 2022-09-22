@@ -8,37 +8,37 @@ using Microsoft.AspNetCore.Authorization;
 namespace ILikeClinic.Pages.Admin
 {
     [Authorize(Roles = "Admin")]
-    public class Patient_DeleteModel : PageModel
+    public class Doctor_DeleteModel : PageModel
     {
 
         private readonly ApplicationDbContext _db;
 
 
-        public ILikeClinic.Model.Patient Patient { get; set; } = default!;
+        public ILikeClinic.Model.Doctor Doctor { get; set; } = default!;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public Patient_DeleteModel(ILikeClinic.Data.ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public Doctor_DeleteModel(ILikeClinic.Data.ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _db = context;
             _userManager = userManager;
         }
 
-        
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _db.Patient == null)
+            if (id == null || _db.Doctor == null)
             {
                 return NotFound();
             }
 
-            var patient = await _db.Patient.FirstOrDefaultAsync(m => m.Id == id);
-            if (patient == null)
+            var doctor = await _db.Doctor.FirstOrDefaultAsync(m => m.Id == id);
+            if (doctor == null)
             {
                 return NotFound();
             }
             else
             {
-                Patient = patient;
+                Doctor = doctor;
             }
             return Page();
         }
@@ -46,23 +46,24 @@ namespace ILikeClinic.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _db.Patient == null)
+            if (id == null || _db.Doctor == null)
             {
                 return NotFound();
             }
-            var patient = await _db.Patient.FindAsync(id);
-            var user = await _userManager.FindByIdAsync(patient.UserId);
+            var doctor = await _db.Doctor.FindAsync(id);
+            var user = await _userManager.FindByIdAsync(doctor.UserId);
 
-            if (patient != null)
+            if (doctor != null)
             {
-                Patient = patient;
-                _db.Patient.Remove(Patient);
+                Doctor = doctor;
+                _db.Doctor.Remove(Doctor);
                 await _db.SaveChangesAsync();
-                _ = _userManager.DeleteAsync(user);                
-             
+                _ = _userManager.DeleteAsync(user);
+
             }
-            TempData["delete"] = "Patient Account Deleted successfully";
-            return RedirectToPage("./Patient_List");
+            TempData["delete"] = "Doctor Account Deleted successfully";
+            return RedirectToPage("./Doctor_List");
         }
     }
 }
+

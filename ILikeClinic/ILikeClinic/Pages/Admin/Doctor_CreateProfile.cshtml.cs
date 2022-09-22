@@ -7,23 +7,23 @@ using Microsoft.EntityFrameworkCore;
 namespace ILikeClinic.Pages.Admin
 {
     [Authorize(Roles = "Admin")]
-    public class Patient_CreateProfileModel : PageModel
+    public class Doctor_CreateProfileModel : PageModel
     {
 
         private readonly ApplicationDbContext _db;
 
         [BindProperty]
-        public ILikeClinic.Model.Patient Patient { get; set; } = default!;
+        public ILikeClinic.Model.Doctor Doctor { get; set; } = default!;
 
 
 
-        public Patient_CreateProfileModel(ILikeClinic.Data.ApplicationDbContext context)
+        public Doctor_CreateProfileModel(ILikeClinic.Data.ApplicationDbContext context)
         {
             _db = context;
         }
         public async Task<IActionResult> OnGetAsync()
         {
-          
+
             return Page();
         }
 
@@ -36,18 +36,19 @@ namespace ILikeClinic.Pages.Admin
             //string userId = Request.Cookies["userid"];
             var userId = HttpContext.Request.Cookies["userid"];
 
-            Patient.UserId = userId;
+            Doctor.UserId = userId;
             Response.Cookies.Delete("userid");
 
-            _db.Patient.Add(Patient);
+            _db.Doctor.Add(Doctor);
             _db.SaveChanges();
 
-            TempData["success"] = "Patient profile created successfully";
-         
+            TempData["success"] = "Doctor profile created successfully";
 
-            return RedirectToPage("Patient_List");
+
+            return RedirectToPage("Doctor_List");
         }
 
-     
+
     }
 }
+
