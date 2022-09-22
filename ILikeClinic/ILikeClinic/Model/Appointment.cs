@@ -18,23 +18,20 @@ namespace ILikeClinic.Model
 
         public Status Status { get; set; }
 
-        [ForeignKey("PatientId")]
-        public int PatientId { get; set; }
 
-        [ForeignKey("DoctorId")]
-        public int DoctorId { get; set; }
-
-        public string Reason { get; set; }
+         public string Reason { get; set; }
 
         public string? FileUrl { get; set; }
 
 
         
         [ValidateNever]
-        public virtual Patient Patient { get; set; }
+        public virtual Patient? Patient { get; set; }
+        public int? PatientId { get; set; }
 
         
         [ValidateNever]
-        public virtual Doctor Doctor { get; set; }
+        public virtual Doctor? Doctor { get; set; }
+        public int? DoctorId { get; set; }
     }
 }
