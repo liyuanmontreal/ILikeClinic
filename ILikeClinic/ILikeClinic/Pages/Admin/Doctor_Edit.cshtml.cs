@@ -24,7 +24,7 @@ namespace ILikeClinic.Pages.Admin
         }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _db.Patient == null)
+            if (id == null || _db.Doctor == null)
             {
                 return NotFound();
             }
