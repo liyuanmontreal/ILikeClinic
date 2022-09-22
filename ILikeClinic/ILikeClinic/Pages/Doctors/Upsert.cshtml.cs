@@ -1,13 +1,16 @@
 using ILikeClinic.Data;
 using ILikeClinic.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Packaging.Signing;
+using System.Data;
 using System.Security.Claims;
 
 namespace ILikeClinic.Pages.Doctors
 {
+    [Authorize(Roles = "Doctor")]
     [BindProperties]
     public class UpsertModel : PageModel
     {
@@ -60,8 +63,8 @@ namespace ILikeClinic.Pages.Doctors
                 _DB.Doctor.Update(Doctor);
             }
             _DB.SaveChanges();
-            TempData["success"] = "Your profile has been updated successfully";
-            return Page();
+            //TempData["success"] = "Your profile has been updated successfully";
+            return RedirectToPage("ProfileDetail");
         }
 
         private void updateProfilePhoto(Doctor doctor)
