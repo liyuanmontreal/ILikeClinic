@@ -11,7 +11,7 @@ namespace ILikeClinic.Model
 
         public DateTime AvailableTime { get; set; }
 
-        public int DoctorId { get; set; }
+        public int? DoctorId { get; set; }
 
         [ForeignKey("DoctorId")]
         [ValidateNever]

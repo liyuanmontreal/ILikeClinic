@@ -42,5 +42,7 @@ namespace ILikeClinic.Model
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
 
+        public virtual ICollection<Appointment>? Appointments { get; set; }
+
     }
 }

@@ -12,6 +12,11 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         : base(options)
     {
     }
+    public DbSet<Patient> Patient { get; set; }
+    public DbSet<Appointment> Appointment { get; set; }
+
+    public DbSet<Doctor> Doctor { get; set; }
+    public DbSet<Availability> Availability { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -22,8 +27,5 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 
     }
 
-    public DbSet<Patient> Patient { get; set; }
-    public DbSet<Appointment> Appointment { get; set; }
-
-    public DbSet<Doctor> Doctor { get; set; }
+    
 }
