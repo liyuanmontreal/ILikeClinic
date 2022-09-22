@@ -1,0 +1,137 @@
+﻿@page
+@using ILikeClinic.Model
+@using Microsoft.AspNetCore.Identity
+@model ILikeClinic.Pages.Admin.Patient_CreateProfileModel
+@{
+}
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+<br />
+
+<h1 class="text-info">Create a Profile</h1>
+<br />
+
+<div class="border container p-4">
+
+    <form method="post" enctype="multipart/form-data">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input asp-for="Patient.Id" hidden/>
+
+       
+        <div class="form-group row fs-4">
+            <div class="col-3 ">
+                <label asp-for="Patient.FirstName"></label>
+
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Patient.FirstName" />
+            </div>
+            <span asp-validation-for="Patient.FirstName" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+
+        <div class="form-group row fs-4">
+            <div class="col-3 ">
+                <label asp-for="Patient.LastName"></label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Patient.LastName" />
+            </div>
+            <span asp-validation-for="Patient.LastName" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+
+        <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="Patient.Gender"></label>
+            </div>
+            <div class="col-6">
+                <select class="custom-select col-12" asp-for="Patient.Gender" asp-items="Html.GetEnumSelectList<Gender>()">
+                    <option value="">--Select Gender--</option>
+                </select>
+            </div>            
+            <span asp-validation-for="Patient.Gender" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+        <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="Patient.DateOfBirth"></label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Patient.DateOfBirth" />
+            </div>
+            <span asp-validation-for="Patient.DateOfBirth" class="text-danger fs-5"></span>
+        </div>
+        <br />
+        <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="Patient.PhoneNumber"></label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Patient.PhoneNumber" />
+            </div>
+            <span asp-validation-for="Patient.PhoneNumber" class="text-danger fs-5"></span>
+        </div>
+        <br />
+        <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="Patient.Address">Address</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Patient.Address" />
+            </div>
+            <span asp-validation-for="Patient.Address" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+        <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="Patient.MedicalCardNo"></label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Patient.MedicalCardNo" />
+            </div>
+            <span asp-validation-for="Patient.MedicalCardNo" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+        <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="Patient.DoctorId"></label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Patient.DoctorId" />
+            </div>
+            <span asp-validation-for="Patient.DoctorId" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+
+        <br />
+        <div class="form-group row fs-3">
+            <div class="col-3 offset-3">
+                <button type="submit" class="btn btn-primary form-control text-bg-primary ">Save</button>
+            </div>
+            <div class="col-3">
+                <a asp-page="Patient_List"
+                class="btn btn-secondary form-control text-bg-info">Back to patient list</a>
+            </div>
+
+
+        </div>
+
+    </form>
+
+</div>
+
+
+

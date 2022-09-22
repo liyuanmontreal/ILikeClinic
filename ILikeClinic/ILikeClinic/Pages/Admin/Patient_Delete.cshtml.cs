@@ -15,10 +15,13 @@ namespace ILikeClinic.Pages.Admin
         public ILikeClinic.Model.Patient Patient { get; set; } = default!;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public Patient_DeleteModel(ILikeClinic.Data.ApplicationDbContext context)
+        public Patient_DeleteModel(ILikeClinic.Data.ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _db = context;
+            _userManager = userManager;
         }
+
+        
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null || _db.Patient == null)
@@ -46,7 +49,7 @@ namespace ILikeClinic.Pages.Admin
                 return NotFound();
             }
             var patient = await _db.Patient.FindAsync(id);
-            var user = await _userManager.FindByIdAsync(Patient.UserId);
+            var user = await _userManager.FindByIdAsync(patient.UserId);
 
             if (patient != null)
             {

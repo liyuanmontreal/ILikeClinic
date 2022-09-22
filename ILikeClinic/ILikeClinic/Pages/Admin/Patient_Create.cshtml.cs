@@ -111,13 +111,13 @@ namespace ILikeClinic.Pages.Admin
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            ReturnUrl = "~/Admin/Patient_List";
+            ReturnUrl = "~/Admin/Patient_CreateProfile";
             //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/Admin/Patient_CreateProfile");
             //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
@@ -161,6 +161,14 @@ namespace ILikeClinic.Pages.Admin
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
 
+                    TempData["success"] = "New Patient Account created successfully";
+
+                    //add cookie
+
+                    HttpContext.Response.Cookies.Append("userid", userId);
+                    //CookieOptions option = new CookieOptions();                  
+                    //option.Expires = DateTime.Now.AddMilliseconds(10);
+                    //Response.Cookies.Append("userid", userId, option);
 
                     return LocalRedirect(returnUrl);
 
