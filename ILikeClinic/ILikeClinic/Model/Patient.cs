@@ -35,12 +35,18 @@ namespace ILikeClinic.Model
         public string MedicalCardNo { get; set; }
 
         [Display(Name ="Family Doctor")]
-        public int? DoctorId { get; set; }
+        public int DoctorId { get; set; }
 
+        /*[ForeignKey("DoctorId")]
+        public virtual Doctor Doctor { get; set; }
+        */
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]
-        public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationPatient User { get; set; }
+
+        
+
 
     }
 }

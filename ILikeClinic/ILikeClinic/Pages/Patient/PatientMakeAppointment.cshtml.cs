@@ -16,6 +16,9 @@ namespace ILikeClinic.Pages.Patient
         public ILikeClinic.Model.Patient Patient { get; set; }
 
         [BindProperty]
+        public ILikeClinic.Model.Doctor Doctor { get; set; }
+
+        [BindProperty]
         public ILikeClinic.Model.Appointment Appointment { get; set; }
 
         public SelectList DoctorList { get; set; }
@@ -47,10 +50,11 @@ namespace ILikeClinic.Pages.Patient
             }
         }
 
-        public async void OnGet()
+        public async Task OnGet(int? id)
         {
             var items = await _db.Doctor.ToListAsync();
-            DoctorList = new SelectList(items, "Id", "DoctorId");
+            DoctorList = new SelectList(items, "Id", "FullName");
+            Doctor = _db.Doctor.Find(id);
         }
 
         public async Task<IActionResult> OnPostAsync(IFormFile file)

@@ -1,18 +1,15 @@
 ﻿@page
-@using ILikeClinic.Model
-@using Microsoft.AspNetCore.Identity
-@model ILikeClinic.Pages.Patient.PatientMakeAppointmentModel
+@model ILikeClinic.Pages.Patient.PatientEditAppointmentModel
 @{
 }
-
 <br />
-<h1 class="text-info">Make An Appointment</h1>
+<h1 class="text-info">Review / Edit Your Appointment</h1>
 <br />
 
 <div class="border container p-4">
     <form method="post" enctype="multipart/form-data">
 
-        <input hidden asp-for="Doctor.Id" />
+        <input hidden asp-for="Appointment.Id" />
 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -38,12 +35,12 @@
             <span>*Choose your family doctor, or you can choose another doctor, or call us by 456-456-4566.</span>
 
         </div>
-            <br />
+        <br />
         <div class="form-group row fs-4">
             <div class="col-3 offset-1">
                 <label asp-for="Appointment.Doctor">Choose a doctor: </label>
             </div>
-            <div class="col-6">                
+            <div class="col-6">
                 @* <div>@Model.Doctor.Id</div>*@
                 <select class="custom-select w-100" asp-for="Appointment.DoctorId" asp-items="Model.DoctorList">
                     <option value="">--Select a doctor--</option>
@@ -53,7 +50,7 @@
         </div>
         <br />
         <br />
-        
+
 
         <div class="form-group-lg row fs-5">
             <h3>Step 3:</h3>
@@ -62,12 +59,12 @@
             </div>
             <div class="col-6">
                 <input class="form-control" id="dateSelect" asp-for="Appointment.AppStartAt" asp-format="{0:yyyy-MM-dd}" />
-            </div> 
+            </div>
         </div>
         <br />
         <br />
         <div class="form-group row fs-4">
-          <div id="datepicker" class="col-3 "></div>            
+            <div id="datepicker" class="col-3 "></div>
         </div>
         <br />
         <br />
@@ -108,11 +105,11 @@
 
         <br />
         <div class="form-group row fs-3">
-            <div class="col-3">
-                <a asp-page="PatientAppointment" class="text-info form-control fs-5">Back to the list</a>                
+            <div class="col-3 ">
+                <a asp-page="PatientAppointment" class="text-info form-control fs-5">Back to the list</a>
             </div>
             <div class="col-3">
-                <button type="submit" class="btn btn-info form-control  ">Create</button>
+                <button type="submit" class="btn btn-info form-control">Save your changement</button>
             </div>
 
 
@@ -130,8 +127,8 @@
             $("#datepicker").datepicker({
                 dateFormat: "yy-mm-dd",
                 onSelect: function (dateText) {
-                    console.log("date = " +  dateText + " with value of " + this.value)
-                    $("#dateSelect").val(this.value+"T00:00")
+                    console.log("date = " + dateText + " with value of " + this.value)
+                    $("#dateSelect").val(this.value + "T00:00")
                 }
             });
         });
