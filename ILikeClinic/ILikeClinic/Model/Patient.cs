@@ -40,6 +40,8 @@ namespace ILikeClinic.Model
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]
+
+        // [ValidateNever]
         public virtual ApplicationUser User { get; set; }
 
     }

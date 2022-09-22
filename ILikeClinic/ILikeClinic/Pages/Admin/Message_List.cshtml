@@ -1,0 +1,76 @@
+﻿@page
+@model ILikeClinic.Pages.Admin.Message_ListModel
+@{
+}
+<p>message page</p>
+
+
+    <!-- message-->
+   <div class="tab-pane fade " id="messagebox" role="tabpanel">              
+        <div class="container p-3">
+            <div class="row pt-4">
+                <div class="col-6">
+                    <h2 class="text-primary">
+                        Message List
+                    </h2>
+                </div>
+
+   
+
+                <div class="col-6 text-end">
+                    <a asp-page="create" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> &nbsp Write a new Message
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        From
+                    </th>
+                    
+                    <th>
+                        Text
+                    </th>
+                    <th>
+                        Time
+                    </th>
+                              
+                     <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @*
+                @foreach (var item in Model.Messages)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FromId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Text)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DOB)
+                        </td>                                       
+                        <td>
+                            <a asp-page="./Reply" asp-route-id="@item.Id">Reply</a> |
+                            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }*@
+            </tbody>
+        </table>
+   </div>
+  
+</div>
+
