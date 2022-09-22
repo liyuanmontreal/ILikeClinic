@@ -18,8 +18,10 @@ namespace ILikeClinic.Model
 
         public Status Status { get; set; }
 
+        [ForeignKey("PatientId")]
         public int PatientId { get; set; }
 
+        [ForeignKey("DoctorId")]
         public int DoctorId { get; set; }
 
         public string Reason { get; set; }
@@ -27,11 +29,11 @@ namespace ILikeClinic.Model
         public string? FileUrl { get; set; }
 
 
-        [ForeignKey("PatientId")]
+        
         [ValidateNever]
         public virtual Patient Patient { get; set; }
 
-        [ForeignKey("DoctorId")]
+        
         [ValidateNever]
         public virtual Doctor Doctor { get; set; }
     }
