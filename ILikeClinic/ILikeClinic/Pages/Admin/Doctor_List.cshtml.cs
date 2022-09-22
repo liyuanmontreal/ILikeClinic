@@ -7,26 +7,23 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace ILikeClinic.Pages.Admin
 {
     [Authorize(Roles = "Admin")]
-    public class IndexModel : PageModel
+    public class Doctor_ListModel : PageModel
     {
         private readonly ApplicationDbContext _DB;
-        public IEnumerable<Doctor> Doctors { get; set; } = default!;
-      
-        //public IEnumerable<Message> Messages { get; set; } = default!;
+
+        public IEnumerable<Doctor> Doctors { get; set; }
 
         //Constructor
-        public IndexModel(ApplicationDbContext db)
+        public Doctor_ListModel(ApplicationDbContext db)
         {
             _DB = db;
+            //if want to show every property of other table
+            //_DB.Doctor.Include(u => u.Availabilities);
         }
+
         public void OnGet()
         {
             Doctors = _DB.Doctor;
-          //  Messages = _DB.Message;
         }
     }
 }
-//    @Html.DisplayFor(modelItem => item.dateofBirth)
-//@Html.DisplayFor(modelItem => item.MedicalCardNo)
-
-

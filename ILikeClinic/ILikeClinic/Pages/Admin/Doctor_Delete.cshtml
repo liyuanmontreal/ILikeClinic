@@ -1,0 +1,84 @@
+﻿@page
+@model ILikeClinic.Pages.Admin.Doctor_DeleteModel
+
+@{
+    ViewData["Title"] = "Delete Doctor Profile";
+}
+
+<partial name="_ToastrNotification" />
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="border container p-4">
+    <h4>Doctor Profile</h4>
+    <hr />
+   <img src="@Url.Content(@Model.Doctor.ProfilePhoto)" />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.FullName)
+        </dt>
+         <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.FullName)
+        </dd>
+         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.DOB)
+        </dt>
+         <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.DOB)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.Gender)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.Gender)
+        </dd>
+      
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.PhoneNumber)
+        </dt>
+         <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.PhoneNumber)
+        </dd>
+           <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.LicenseNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.LicenseNumber)
+        </dd>
+          <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.Speciality)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.Speciality)
+        </dd>
+          <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.Description)
+        </dd>
+      
+     
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Doctor.Id" />
+        
+
+
+
+             <div class="form-group row fs-3">
+            <div class="col-3 offset-3">
+                <button type="submit" class="btn btn-primary form-control text-bg-primary ">Delete</button>
+            </div>
+            <div class="col-3">
+                <a asp-page="Doctor_List"
+                class="btn btn-secondary form-control text-bg-info">Back to list</a>
+            </div>
+
+
+        </div>
+    </form>
+
+      
+</div>
+
