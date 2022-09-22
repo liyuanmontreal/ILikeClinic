@@ -15,7 +15,7 @@
    
 
         <div class="col-6 text-end">
-            <a asp-page="create" class="btn btn-primary">
+            <a asp-page="./Appointment_Create" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> &nbsp Add an Appointment
             </a>
         </div>
@@ -28,6 +28,8 @@
 <table class="table">
     <thead>
         <tr>
+            
+            
             <th>
                 Date
             </th>
@@ -35,10 +37,10 @@
                 Time
             </th>
             <th>
-                Doctor
+                Doctor Name
             </th>
             <th>
-                Patient
+                Patient Name
             </th>
             <th>
                 Status
@@ -52,29 +54,21 @@
     </thead>
     <tbody>
  
-        @foreach (var item in Model.Appointments)
+        @foreach (var item in Model.Appointment)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AppStartAt)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AppStartAt)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Doctor.FullName)
-                </td>
-                <td>
-                   @Html.DisplayFor(modelItem => item.Patient.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>              
+                 
+                <td >@item.AppStartAt.ToString("yyyy-MM-dd")</td>
+                 <td >@item.AppStartAt.ToString("HH:MM")</td> 
+                 <td >@item.Doctor.FullName</td>
+                 <td >@item.Patient.FullName</td>
+                <td >@item.Status</td>
+                         
                
                 <td>
-                    <a asp-page="./Patient_Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Patient_Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Patient_Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-page="./Appointment_Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Appointment_Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Appointment_Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }
