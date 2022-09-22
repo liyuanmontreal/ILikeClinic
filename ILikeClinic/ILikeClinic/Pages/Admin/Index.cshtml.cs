@@ -9,7 +9,7 @@ namespace ILikeClinic.Pages.Admin
     {
         private readonly ApplicationDbContext _DB;
         public IEnumerable<Doctor> Doctors { get; set; } = default!;
-        //public IEnumerable<Doctor> Doctors { get; set; } = default!;
+      
         //public IEnumerable<Message> Messages { get; set; } = default!;
 
         //Constructor

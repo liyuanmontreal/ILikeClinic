@@ -106,26 +106,29 @@
     @if (User.IsInRole("Admin"))
 
     {
-        <div class="nav-tabs p-4">
+       <div class="nav-tabs p-4">
             <ul class="nav nav-tabs nav-justified" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Overview</a>
+                    <a class="nav-link" asp-page="/Admin/Index" >Overview</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Doctors</a>
+                    <a class="nav-link" asp-page="/Admin/Account_List" >Account</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Patients</a>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link" asp-page="/Admin/Doctor_List" >Doctor</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link" asp-page="/Admin/Patient_List" >Patient</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" asp-page="#">Appointment</a>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link" asp-page="/Admin/Appointment_List" >Appointment</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Message Box</a>
+                 <li class="nav-item" role="presentation">
+                    <a class="nav-link" asp-page="/Admin/Index" >FAQ</a>
                 </li>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link" asp-page="/Admin/Message_List" >MessageBox</a>
+                </li>              
 
             </ul>
         </div>

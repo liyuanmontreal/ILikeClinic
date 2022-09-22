@@ -1,0 +1,82 @@
+﻿@page
+@model ILikeClinic.Pages.Admin.Doctor_ListModel
+@{
+}
+<p>doctor list page</p>
+ <!--doctors-->
+    <div class="tab-pane fade " id="doctors" role="tabpanel">
+         <div class="container p-3">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 class="text-primary">
+                    Doctor List
+                </h2>
+            </div>
+
+   
+
+            <div class="col-6 text-end">
+                <a asp-page="Doctor_Create_Account" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> &nbsp Add a Doctor
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Full Name
+                </th>
+                <th>
+                    PhoneNumber
+                </th>
+                <th>
+                    Speciality
+                </th>
+                <th>
+                    Gender
+                </th>
+                <th>
+                    HiredDate
+                </th>
+                
+                <th>
+                    Actions
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Doctors)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Speciality)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HiredDate)
+                    </td>
+                    
+                   
+                    <td>
+                        <a asp-page="./Doctor_Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Doctor_Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Doctor_Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </div>

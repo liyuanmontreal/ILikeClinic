@@ -1,0 +1,64 @@
+﻿@page
+@model ILikeClinic.Pages.Admin.Account_ListModel
+@{
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Account List
+            </h2>
+        </div>
+
+   
+
+        <div class="col-6 text-end">
+            <a asp-page="./Account_Create"  class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp Add a Account
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                User Email
+            </th>
+            <th>
+                Password
+            </th>
+            
+            <th>
+                Actions
+            </th>
+            
+          
+        </tr>
+    </thead>
+    <tbody>
+ 
+        @foreach (var item in Model.Users)
+        {
+            <tr>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>               
+                <td>
+                    @Html.DisplayFor(modelItem => item.PasswordHash)
+                </td>                    
+               
+                <td>               
+                
+                    <a asp-page="./Account_Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
