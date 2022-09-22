@@ -20,6 +20,7 @@ namespace ILikeClinic.Pages.Admin
             _db = context;
         }
         public async Task<IActionResult> OnGetAsync(int? id)
+        
         {
             if (id == null || _db.Doctor == null)
             {
