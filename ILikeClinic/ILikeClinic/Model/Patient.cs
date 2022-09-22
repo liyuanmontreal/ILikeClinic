@@ -44,5 +44,7 @@ namespace ILikeClinic.Model
         // [ValidateNever]
         public virtual ApplicationUser User { get; set; }
 
+        public virtual ICollection<Appointment>? Appointments { get; set; }
+
     }
 }
