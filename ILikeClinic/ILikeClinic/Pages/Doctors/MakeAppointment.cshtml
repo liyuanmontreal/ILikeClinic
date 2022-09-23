@@ -1,4 +1,142 @@
 ﻿@page
+@using ILikeClinic.Model
+@using Microsoft.AspNetCore.Identity
 @model ILikeClinic.Pages.Doctors.MakeAppointmentModel
 @{
+}
+<br />
+<h1 class="text-info">Make An Appointment</h1>
+<br />
+
+<div class="border container p-4">
+    <form method="post" enctype="multipart/form-data">
+
+       
+        <input hidden asp-for="Patient.Id" />
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+
+
+        <div class="form-group-lg row fs-5 ">
+            <h3>Step 1:</h3>
+
+        </div>
+        <br />
+        <div class="form-group row fs-4">
+            <div class="col-3 offset-1">
+                <label asp-for="Doctor.FullName"></label>      
+            </div>
+           
+            <span asp-validation-for="Appointment.DoctorId" class="text-danger fs-5"></span>
+        </div>
+        <br />
+        <br />
+
+
+        <div class="form-group-lg row fs-5 ">
+            <h3>Step 2:</h3>
+
+        </div>
+        <br />
+        <div class="form-group row fs-4">
+            <div class="col-3 offset-1">
+                <label asp-for="Appointment.Patient">Choose a patient: </label>
+            </div>
+            <div class="col-6">
+                @* <div>@Model.Patient.Id</div>*@
+                <select class="custom-select w-100" asp-for="Appointment.PatientId" asp-items="Model.PatientList">
+                    <option value="">--Select a patient--</option>
+                </select>
+            </div>
+            <span asp-validation-for="Appointment.PatientId" class="text-danger fs-5"></span>
+        </div>
+        <br />
+        <br />
+
+
+        <div class="form-group-lg row fs-5">
+            <h3>Step 3:</h3>
+            <div class="col-4">
+                *Check the schedule and choose a time slot.
+            </div>
+            <div class="col-6">
+                <input class="form-control" id="dateSelect" asp-for="Appointment.AppStartAt" asp-format="{0:yyyy-MM-dd}" />
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="form-group row fs-4">
+            <div id="datepicker" class="col-3 "></div>
+        </div>
+        <br />
+        <br />
+
+
+        <div class="form-group-lg row fs-4">
+            <h3>Step 4:</h3>
+        </div>
+
+        <div class="form-group row fs-5">
+            <div class="col-4">
+                <label asp-for="Appointment.Reason">*Reason for appointment:</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Appointment.Reason" />
+            </div>
+            <span asp-validation-for="Appointment.Reason" class="text-danger fs-5"></span>
+        </div>
+        <br />
+        
+        <br />
+        <div class="fs-5">*If you have medical document needed to declare, please upload it (Optional)</div>
+        <br />
+
+        <div class="form-group row fs-5">
+
+            <div class="col-3">
+                <label asp-for="Appointment.FileUrl">Upload Medical Document:</label>
+            </div>
+            <div class="col-6">
+                <input type="file" id="uploadbox" class="form-control" name="file" />
+            </div>
+            <span asp-validation-for="Appointment.FileUrl" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+
+
+        <br />
+        <div class="form-group row fs-3">
+
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary form-control  ">Create</button>
+            </div>
+            <div class="col-3">
+                <a asp-page="Appointment_List"
+                   class="btn btn-secondary form-control text-bg-info">Back to appointment list</a>
+            </div>
+
+
+        </div>
+
+    </form>
+
+</div>
+
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: "yy-mm-dd",
+                onSelect: function (dateText) {
+                    console.log("date = " + dateText + " with value of " + this.value)
+                    $("#dateSelect").val(this.value + "T00:00")
+                }
+            });
+        });
+    </script>
 }
