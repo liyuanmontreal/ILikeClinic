@@ -1,17 +1,19 @@
+
 using ILikeClinic.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace ILikeClinic.Pages.Admin
-{
-    [Authorize(Roles = "Admin")]
-    public class Patient_ListModel : PageModel
-    {
-        private readonly ApplicationDbContext _db;
 
-       
+namespace ILikeClinic.Pages.Doctors
+{
+    [Authorize(Roles = "Doctor")]
+    public class PatientListModel : PageModel
+    {
+        private readonly ApplicationDbContext _DB;
+
+
 
         public IList<ILikeClinic.Model.Patient> Patients { get; set; } = default!;
 
@@ -21,24 +23,24 @@ namespace ILikeClinic.Pages.Admin
         [BindProperty(SupportsGet = true)]
         public string? SearchPhoneString { get; set; }
 
-        public Patient_ListModel(ILikeClinic.Data.ApplicationDbContext context)
+        public PatientListModel(ApplicationDbContext db)
         {
-            _db = context;
+            _DB = db;
         }
 
         public async Task OnGetAsync()
         {
-            if (_db.Patient != null)
+            if (_DB.Patient != null)
             {
                 // using system.linq
-                var patients = from a in _db.Patient
-                             select a;
+                var patients = from a in _DB.Patient
+                               select a;
 
                 //lambda 
                 if (!string.IsNullOrEmpty(SearchNameString))
                 {
-                   patients = patients.Where(s => s.FirstName.Contains(SearchNameString) || s.LastName.Contains(SearchNameString));
-              
+                    patients = patients.Where(s => s.FirstName.Contains(SearchNameString) || s.LastName.Contains(SearchNameString));
+
 
                 }
                 if (!string.IsNullOrEmpty(SearchPhoneString))
@@ -51,7 +53,6 @@ namespace ILikeClinic.Pages.Admin
 
                 Patients = await patients.ToListAsync();
             }
-
 
         }
     }
