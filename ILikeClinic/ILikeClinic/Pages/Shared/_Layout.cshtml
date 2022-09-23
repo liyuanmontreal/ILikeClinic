@@ -10,11 +10,10 @@
     <link rel="stylesheet" href="~/ILikeClinic.styles.css" asp-append-version="true" />
     <!--Toastr-->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <link rel="stylesheet" href="//cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
     <!--DataTable-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/date-1.1.2/r-2.3.0/sc-2.0.7/sb-1.3.4/datatables.min.css"/>
-    <!-- Bootstrap DatePicker -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="~/lib/jquery/jquery.min.js"></script>
     <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
     <link href="~/lib/jqueryui/themes/base/jquery-ui.min.css" rel="stylesheet" />
@@ -91,7 +90,7 @@
                     <a class="nav-link text-white" asp-page="/Doctors/Upsert">Doctor Profile</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Patient</a>
+                    <a class="nav-link text-white" asp-page="/Doctors/PatientList">Patient List</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
@@ -103,7 +102,7 @@
                     <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Message Box</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Schedule</a>
+                    <a class="nav-link text-white" asp-page="/Doctors/Schedule">Schedule</a>
                 </li>
             </ul>
         </div>
@@ -176,10 +175,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/date-1.1.2/r-2.3.0/sc-2.0.7/sb-1.3.4/datatables.min.js"></script>
 
-    <!-- Bootstrap -->
-    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
