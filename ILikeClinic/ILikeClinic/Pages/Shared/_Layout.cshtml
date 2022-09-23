@@ -14,14 +14,16 @@
     <!--DataTable-->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/date-1.1.2/r-2.3.0/sc-2.0.7/sb-1.3.4/datatables.min.css"/>
   
-
-
 </head>
 <body>
     <header>
+        <div class="nav-item bg-primary text-white">
+            <i class="bi bi-info-circle"></i><a href="https://www.canada.ca/en/public-health/services/diseases/coronavirus-disease-covid-19.html" target="_blank"> Find out about COVID-19</a><br />
+        </div>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">ILikeClinic</a>
+@*                <a class="navbar-brand" asp-area="" asp-page="/Index">ILikeClinic</a>*@
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><img src="~/images/logo.png" width="250px" height="100px" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -29,7 +31,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                        
-                       @* <li class="nav-item">
+@*                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
@@ -41,10 +43,10 @@
 
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Doctor">Doctor</a>
-                        </li>*@
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Patient/PatientHome">Patient</a>
-                        </li>
+                        </li>*@
                     </ul>
                      <partial name="_LoginPartial" />
                 </div>
@@ -58,19 +60,19 @@
         <div class="nav-tabs p-4">
             <ul class="nav nav-tabs nav-justified" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Home</a>
+                    <a class="nav-link" asp-page="/Index">Home</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Doctors</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
+                    <a class="nav-link" asp-page="/FAQ">FAQ</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" asp-page="/Identity/Account/Login">Appointment</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">About Us</a>
+                    <a class="nav-link" asp-page="/AboutUs">About Us</a>
                 </li>
 
             </ul>
@@ -162,9 +164,10 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - ILikeClinic - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    <footer class="border-top footer text-muted bg-primary">
+  
+        <div class="container text-white text-center">
+            &copy; 2022 - ILikeClinic - @*<a asp-area="" asp-page="/Privacy">Privacy</a>*@
         </div>
     </footer>
 
