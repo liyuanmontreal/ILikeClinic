@@ -1,7 +1,3 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-#nullable disable
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +6,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using ILikeClinic.Areas.Identity.Pages.Account;
 using ILikeClinic.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -20,9 +17,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
-namespace ILikeClinic.Areas.Identity.Pages.Account
+namespace ILikeClinic.Pages.Admin
 {
-    public class RegisterModel : PageModel
+    [Authorize(Roles = "Admin")]
+    public class Patient_CreateModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
@@ -35,7 +33,10 @@ namespace ILikeClinic.Areas.Identity.Pages.Account
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationDbContext _db;
 
-        public RegisterModel(
+       
+        public ILikeClinic.Model.Patient Patient { get; set; }
+
+        public Patient_CreateModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
@@ -111,14 +112,14 @@ namespace ILikeClinic.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            ReturnUrl = returnUrl;
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ReturnUrl = "~/Admin/Patient_CreateProfile";
+            //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            returnUrl ??= Url.Content("~/Admin/Patient_CreateProfile");
+            //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
@@ -129,24 +130,24 @@ namespace ILikeClinic.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    
-                        if (!await _roleManager.RoleExistsAsync(ILikeClinic.Utility.ClinicRoles.AdminUser))
-                        {
-                            await _roleManager.CreateAsync(new IdentityRole(ILikeClinic.Utility.ClinicRoles.AdminUser));
-                        }
 
-                        if (!await _roleManager.RoleExistsAsync(ILikeClinic.Utility.ClinicRoles.PatientUser))
-                        {
-                            await _roleManager.CreateAsync(new IdentityRole(ILikeClinic.Utility.ClinicRoles.PatientUser));
-                        }
-                        if (!await _roleManager.RoleExistsAsync(ILikeClinic.Utility.ClinicRoles.DoctorUser))
-                        {
-                            await _roleManager.CreateAsync(new IdentityRole(ILikeClinic.Utility.ClinicRoles.DoctorUser));
-                        }
-                   // await _userManager.AddToRoleAsync(user, ILikeClinic.Utility.ClinicRoles.PatientUser);
-                    await _userManager.AddToRoleAsync(user, ILikeClinic.Utility.ClinicRoles.DoctorUser);
+                    if (!await _roleManager.RoleExistsAsync(ILikeClinic.Utility.ClinicRoles.AdminUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(ILikeClinic.Utility.ClinicRoles.AdminUser));
+                    }
 
-                    _logger.LogInformation("User created a new account with password.");
+                    if (!await _roleManager.RoleExistsAsync(ILikeClinic.Utility.ClinicRoles.PatientUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(ILikeClinic.Utility.ClinicRoles.PatientUser));
+                    }
+                    if (!await _roleManager.RoleExistsAsync(ILikeClinic.Utility.ClinicRoles.DoctorUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(ILikeClinic.Utility.ClinicRoles.DoctorUser));
+                    }
+                    await _userManager.AddToRoleAsync(user, ILikeClinic.Utility.ClinicRoles.PatientUser);
+
+
+                    _logger.LogInformation("Admin created a new user account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -160,15 +161,18 @@ namespace ILikeClinic.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
+
+                    TempData["success"] = "New Patient Account created successfully";
+
+                    //add cookie
+
+                    HttpContext.Response.Cookies.Append("userid", userId);
+                    //CookieOptions option = new CookieOptions();                  
+                    //option.Expires = DateTime.Now.AddMilliseconds(10);
+                    //Response.Cookies.Append("userid", userId, option);
+
+                    return LocalRedirect(returnUrl);
+
                 }
                 foreach (var error in result.Errors)
                 {
@@ -204,3 +208,4 @@ namespace ILikeClinic.Areas.Identity.Pages.Account
         }
     }
 }
+

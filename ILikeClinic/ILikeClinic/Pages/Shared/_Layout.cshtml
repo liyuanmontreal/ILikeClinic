@@ -22,10 +22,13 @@
 </head>
 <body>
     <header>
+        <div class="nav-item bg-primary text-white">
+            <i class="bi bi-info-circle"></i><a href="https://www.canada.ca/en/public-health/services/diseases/coronavirus-disease-covid-19.html" target="_blank"> Find out about COVID-19</a><br />
+        </div>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <img src="https://cdn2.vectorstock.com/i/1000x1000/08/56/clinic-care-logo-icon-design-vector-22560856.jpg" alt="logo" asp-page="/Index" style="width:100px; height:100px; position:absolute;clip: rect(20px, 85px, 85px, 20px);" />
                 <a class="navbar-brand fw-bold" style="padding-left:80px" asp-area="" asp-page="/Index">ILikeClinic</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><img src="~/images/logo.png" width="250px" height="100px" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -33,7 +36,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                        
-                       @* <li class="nav-item">
+@*                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
@@ -42,13 +45,13 @@
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Admin">Admin</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Patient/PatientHome">Patient</a>
-                        </li>
+
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Doctor">Doctor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Patient/PatientHome">Patient</a>
                         </li>*@
-
                     </ul>
                      <partial name="_LoginPartial" />
                 </div>
@@ -62,19 +65,19 @@
         <div class="nav-tabs p-1">
             <ul class="nav nav-tabs nav-justified bg-primary" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Home</a>
+                    <a class="nav-link text-white" asp-page="/Index">Home</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Doctors</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
+                    <a class="nav-link text-white" asp-page="/FAQ">FAQ</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link text-white" asp-page="/Identity/Account/Login">Appointment</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">About Us</a>
+                    <a class="nav-link text-white" asp-page="/AboutUs">About Us</a>
                 </li>
 
             </ul>
@@ -85,7 +88,7 @@
         <div class="nav-tabs p-1">
             <ul class="nav nav-tabs nav-justified bg-primary" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" asp-page="/Doctors/Index">My Profile</a>
+                    <a class="nav-link text-white" asp-page="/Doctors/Upsert">Doctor Profile</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Patient</a>
@@ -112,22 +115,22 @@
         <div class="nav-tabs p-1">
             <ul class="nav nav-tabs nav-justified bg-primary" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link  text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Overview</a>
+                    <a class="nav-link text-white" asp-page="/Admin/Index" >Overview</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Doctors</a>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="/Admin/Doctor_List" >Doctor</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Patients</a>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="/Admin/Patient_List" >Patient</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="/Admin/Appointment_List" >Appointment</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" asp-page="#">Appointment</a>
+                 <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="#" >FAQ</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Message Box</a>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="/Admin/Message_List" >MessageBox</a>
                 </li>
 
             </ul>
@@ -158,14 +161,14 @@
         </div>
     }
 
-    <div class="container ms">
-        <main role="main"  class="pb-1">
+    <div class="container">
+        <main role="main"  class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer  bg-primary text-muted">
-        <div class="container  text-center text-white">
+    <footer class="border-top footer text-muted bg-primary">
+        <div class="container text-white text-center">
             &copy; 2022 - ILikeClinic Copyright - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>

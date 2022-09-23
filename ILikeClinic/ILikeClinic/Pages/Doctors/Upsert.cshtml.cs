@@ -1,13 +1,16 @@
 using ILikeClinic.Data;
 using ILikeClinic.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Packaging.Signing;
+using System.Data;
 using System.Security.Claims;
 
 namespace ILikeClinic.Pages.Doctors
 {
+    [Authorize(Roles = "Doctor")]
     [BindProperties]
     public class UpsertModel : PageModel
     {
@@ -15,7 +18,7 @@ namespace ILikeClinic.Pages.Doctors
         private readonly ApplicationDbContext _DB;
         private readonly IWebHostEnvironment _HostEnvironment;
         private readonly IHttpContextAccessor _HttpContextAccessor;
-        [BindProperty]
+
         public Doctor Doctor { get; set; }
 
         public Gender Gender { get; set; }
@@ -23,7 +26,6 @@ namespace ILikeClinic.Pages.Doctors
         public UpsertModel(ApplicationDbContext db, IWebHostEnvironment hostEnvironment, IHttpContextAccessor httpContextAccessor)
         {
             _DB = db;
-            Doctor = new Doctor();
             _HostEnvironment = hostEnvironment;
             _HttpContextAccessor = httpContextAccessor;
             getDoctor();
@@ -61,8 +63,8 @@ namespace ILikeClinic.Pages.Doctors
                 _DB.Doctor.Update(Doctor);
             }
             _DB.SaveChanges();
-            TempData["success"] = "Your profile has been updated successfully";
-            return Page();
+            //TempData["success"] = "Your profile has been updated successfully";
+            return RedirectToPage("ProfileDetail");
         }
 
         private void updateProfilePhoto(Doctor doctor)

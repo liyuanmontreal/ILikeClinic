@@ -34,8 +34,8 @@ namespace ILikeClinic.Model
         public Gender Gender { get; set; }
 
         [Display(Name ="Phone Number")]
-        [DataType(DataType.PhoneNumber)]
-        public int PhoneNumber { get; set; }
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        public string PhoneNumber { get; set; }
 
         public string ProfilePhoto { get; set; }
 
@@ -52,8 +52,11 @@ namespace ILikeClinic.Model
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]
+        // [ValidateNever]
         public virtual ApplicationUser User { get; set; }
 
-        public virtual ICollection<Availability> Availabilities { get; set; }
+        public virtual ICollection<Availability>? Availabilities { get; set; }
+
+        public virtual ICollection<Appointment>? Appointments { get; set; }
     }
 }

@@ -1,0 +1,78 @@
+﻿@page
+@model ILikeClinic.Pages.Admin.Appointment_ListModel
+@{
+}
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Appointment List
+            </h2>
+        </div>
+
+   
+
+        <div class="col-6 text-end">
+            <a asp-page="./Appointment_Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp Add an Appointment
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            
+            
+            <th>
+                Date
+            </th>
+             <th>
+                Time
+            </th>
+            <th>
+                Doctor Name
+            </th>
+            <th>
+                Patient Name
+            </th>
+            <th>
+                Status
+            </th>         
+            <th>
+                Actions
+            </th>
+            
+          
+        </tr>
+    </thead>
+    <tbody>
+ 
+        @foreach (var item in Model.Appointment)
+        {
+            <tr>
+                 
+                <td >@item.AppStartAt.ToString("yyyy-MM-dd")</td>
+                 <td >@item.AppStartAt.ToString("HH:MM")</td> 
+                 <td >@item.Doctor.FullName</td>
+                 <td >@item.Patient.FullName</td>
+                <td >@item.Status</td>
+                         
+               
+                <td>
+                    <a asp-page="./Appointment_Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Appointment_Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Appointment_Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
