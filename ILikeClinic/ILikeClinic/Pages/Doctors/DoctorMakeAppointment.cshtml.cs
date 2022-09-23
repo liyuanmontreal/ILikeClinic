@@ -4,22 +4,21 @@ using ILikeClinic.Data;
 using ILikeClinic.Model;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace ILikeClinic.Pages.Doctors
 {
-    public class MakeAppointmentModel : PageModel
+    public class DoctorMakeAppointmentModel : PageModel
     {
 
         [BindProperty]
         public Appointment Appointment { get; set; }
 
-
-
         [BindProperty]
         public Status Status { get; set; }
 
         public readonly ApplicationDbContext _DB;
-        
+        private readonly IHttpContextAccessor _HttpContextAccessor;
         private readonly IWebHostEnvironment _hostEnvironment;
 
 
@@ -32,18 +31,29 @@ namespace ILikeClinic.Pages.Doctors
         public SelectList DoctorList { get; set; }
 
         public SelectList PatientList { get; set; }
-        public MakeAppointmentModel(ApplicationDbContext db, IWebHostEnvironment hostEnvironment)
+        public DoctorMakeAppointmentModel(ApplicationDbContext db, IWebHostEnvironment hostEnvironment, IHttpContextAccessor httpContextAccessor)
         {
             _DB = db;
+            _HttpContextAccessor = httpContextAccessor;
+            getDoctor();
+        }
 
+        private void getDoctor()
+        {
+            var userId = _HttpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var query = _DB.Doctor.AsNoTracking();
+
+            var result = query.Where(s => s.UserId.Equals(userId));
+            if (result.Count() > 0)
+            {
+                Doctor = result.First();
+            }
         }
 
 
         public async Task OnGet(int? id)
         {
-            var items1 = await _DB.Doctor.ToListAsync();
-            DoctorList = new SelectList(items1, "Id", "FullName");
-            Doctor = _DB.Doctor.Find(id);
+            
 
             var items2 = await _DB.Patient.ToListAsync();
             PatientList = new SelectList(items2, "Id", "FullName");
@@ -52,6 +62,7 @@ namespace ILikeClinic.Pages.Doctors
 
         public async Task<IActionResult> OnPostAsync(IFormFile file)
         {
+            Appointment.DoctorId = Doctor.Id;
 
             if (file != null)
             {
@@ -72,7 +83,7 @@ namespace ILikeClinic.Pages.Doctors
             await _DB.SaveChangesAsync();
 
             TempData["success"] = "Appointment created successfully";
-            return RedirectToPage("Appointment_List");
+            return Page();
 
 
         }
