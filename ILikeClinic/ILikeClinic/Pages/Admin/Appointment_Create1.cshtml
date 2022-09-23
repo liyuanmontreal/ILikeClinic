@@ -1,0 +1,130 @@
+﻿
+@page
+@using ILikeClinic.Model
+@using Microsoft.AspNetCore.Identity
+@model ILikeClinic.Pages.Admin.Appointment_CreateModel1
+@{
+}
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+<partial name="_ToastrNotification" />
+
+<br />
+
+<h1 class="text-info">Create a doctor Profile</h1>
+<br />
+
+<div class="border container p-4">
+
+    <form method="post" enctype="multipart/form-data">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      
+        
+
+        <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="Appointment.AppStartAt">Start Time</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Appointment.AppStartAt" />
+            </div>
+            <span asp-validation-for="Appointment.AppStartAt" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+           <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="Appointment.AppTime">Duration</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Appointment.AppTime" />
+            </div>
+            <span asp-validation-for="Appointment.AppTime" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+           <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="Appointment.DoctorId">DoctorId</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Appointment.DoctorId" />
+            </div>
+            <span asp-validation-for="Appointment.DoctorId" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+           <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="Appointment.PatientId">PatientId</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Appointment.PatientId" />
+            </div>
+            <span asp-validation-for="Appointment.PatientId" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+    
+            <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="Appointment.Status">Status</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Appointment.Status" />
+            </div>
+            <span asp-validation-for="Appointment.Status" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+          
+
+          <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="Appointment.Reason">Reason</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Appointment.Reason" />
+            </div>
+            <span asp-validation-for="Appointment.Reason" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+         <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="Appointment.FileUrl">File</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Appointment.FileUrl" />
+            </div>
+            <span asp-validation-for="Appointment.FileUrl" class="text-danger fs-5"></span>
+        </div>
+        <br />
+    
+
+
+
+        <br />
+        <div class="form-group row fs-3">
+            <div class="col-3 offset-3">
+                <button type="submit" class="btn btn-primary form-control text-bg-primary ">Save</button>
+            </div>
+            <div class="col-3">
+                <a asp-page="Appointment_List"
+                class="btn btn-secondary form-control text-bg-info">Back to doctor list</a>
+            </div>
+
+
+        </div>
+
+    </form>
+
+</div>
+
+
+
+

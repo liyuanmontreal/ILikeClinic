@@ -1,0 +1,72 @@
+﻿@page
+@using ILikeClinic.Model
+@using Microsoft.AspNetCore.Identity
+@model ILikeClinic.Pages.Doctors.ProfileDetailModel
+@{
+    ViewData["Title"] = "Doctor profile Details";
+}
+
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+<h1>Doctor Profile Details</h1>
+
+<div class="border p-3 mt-4">
+  <div class="row pb-2">
+      <div class="col-3">
+          @if(Model.Doctor.Id !=0){
+              <img src="@Model.Doctor.ProfilePhoto" width="100%" style="border-radius: 5px; border:1px solid #bbb9b9"/>
+          }
+      </div>
+    <div class=col-8>
+      <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.FullName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.DOB)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.DOB)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.HiredDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.HiredDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.Speciality)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.Speciality)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.Description)
+        </dd>
+     </dl>
+   </div>
+   
+        <div class="row">            
+            <div class="col-3">
+                <a asp-page="Upsert"
+                class="btn btn-secondary form-control text-bg-info">Need to Edit</a>
+            </div>
+        </div>
+    </div>  
+</div>
+
