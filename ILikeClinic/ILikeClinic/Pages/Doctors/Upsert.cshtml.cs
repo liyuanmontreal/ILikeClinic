@@ -33,7 +33,7 @@ namespace ILikeClinic.Pages.Doctors
 
         public void OnGet()
         {
-         
+
         }
 
         private void getDoctor()
@@ -99,4 +99,3 @@ namespace ILikeClinic.Pages.Doctors
         }
     }
 }
-

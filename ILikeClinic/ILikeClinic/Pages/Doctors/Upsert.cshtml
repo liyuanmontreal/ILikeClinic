@@ -38,7 +38,7 @@
                         <input asp-for="Doctor.LastName" class="form-control" />
                         <span asp-validation-for="Doctor.LastName" class="text-danger"></span>
                     </div>
-                </div>
+                    </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -80,7 +80,7 @@
                         <label asp-for="Doctor.Gender" class="form-label mt-4"></label>
                         <select asp-for="Doctor.Gender"  asp-items="Html.GetEnumSelectList<Gender>()" class="form-select">
                             <option value="">---Select Gender ---</option>
-                     
+
                         </select>
                         <span asp-validation-for="Doctor.Gender" class="text-danger"></span>
                     </div>
@@ -125,10 +125,9 @@
             <div class="row mt-2">
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-secondary text-bg-info" />
-                
+
                 </div>
             </div>
-            
         </form>
     </div>
 </div>
