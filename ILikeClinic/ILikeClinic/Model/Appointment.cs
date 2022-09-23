@@ -24,12 +24,12 @@ namespace ILikeClinic.Model
         public string? FileUrl { get; set; }
 
 
-        
+        [ForeignKey("PatientId")]
         [ValidateNever]
         public virtual Patient? Patient { get; set; }
         public int? PatientId { get; set; }
 
-        
+        [ForeignKey("DoctorId")]
         [ValidateNever]
         public virtual Doctor? Doctor { get; set; }
         public int? DoctorId { get; set; }

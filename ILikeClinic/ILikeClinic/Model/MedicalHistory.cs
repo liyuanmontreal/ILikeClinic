@@ -9,9 +9,9 @@ namespace ILikeClinic.Model
         [Key]
         public int Id { get; set; }
 
-        public int PatientId { get; set; }
+        public int? PatientId { get; set; }
 
-        public int DoctorId { get; set; }
+        public int? DoctorId { get; set; }
 
         public DateTime DateOfApp { get; set; }
 
