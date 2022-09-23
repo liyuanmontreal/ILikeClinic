@@ -11,8 +11,7 @@
     <!--Toastr-->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css" />
-    <!--DataTable-->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/date-1.1.2/r-2.3.0/sc-2.0.7/sb-1.3.4/datatables.min.css"/>
+   
   
 </head>
 <body>
@@ -86,7 +85,7 @@
                     <a class="nav-link" asp-page="/Doctors/Upsert">Doctor Profile</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Patient</a>
+                    <a class="nav-link" asp-page="/Doctors/PatientList">Patient List</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
@@ -98,7 +97,7 @@
                     <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Message Box</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Schedule</a>
+                    <a class="nav-link" asp-page="/Doctors/Schedule">Schedule</a>
                 </li>
             </ul>
         </div>
@@ -175,10 +174,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    <!--DataTable-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

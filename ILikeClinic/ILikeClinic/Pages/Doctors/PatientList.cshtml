@@ -1,0 +1,83 @@
+﻿@page
+@model ILikeClinic.Pages.Doctors.PatientListModel
+@{
+}
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Patient List
+            </h2>
+        </div>
+    </div>
+</div>
+
+<form>
+    <p>
+        Name: <input type="text" asp-for="SearchNameString" />
+        Phone Number: <input type="text" asp-for="SearchPhoneString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+
+
+            <th>
+                Full Name
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Date Of Birth
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Medical Card No
+            </th>
+            <th>
+                Actions
+            </th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.Patients)
+        {
+            <tr>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedicalCardNo)
+                </td>
+
+                <td>
+                    <a asp-page="#" asp-route-id="@item.Id">Patient Info</a> ||
+                    <a asp-page="#" asp-route-id="@item.Id">Medical Doc</a> ||
+                    <a asp-page="#" asp-route-id="@item.Id">Message</a>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
