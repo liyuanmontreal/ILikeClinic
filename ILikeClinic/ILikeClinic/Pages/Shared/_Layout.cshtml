@@ -15,14 +15,17 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/date-1.1.2/r-2.3.0/sc-2.0.7/sb-1.3.4/datatables.min.css"/>
     <!-- Bootstrap DatePicker -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
-
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+    <link href="~/lib/jqueryui/themes/base/jquery-ui.min.css" rel="stylesheet" />
 
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">ILikeClinic</a>
+                <img src="https://cdn2.vectorstock.com/i/1000x1000/08/56/clinic-care-logo-icon-design-vector-22560856.jpg" alt="logo" asp-page="/Index" style="width:100px; height:100px; position:absolute;clip: rect(20px, 85px, 85px, 20px);" />
+                <a class="navbar-brand fw-bold" style="padding-left:80px" asp-area="" asp-page="/Index">ILikeClinic</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -39,13 +42,13 @@
                          <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Admin">Admin</a>
                         </li>
-
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Doctor">Doctor</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Patient/PatientHome">Patient</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Doctor">Doctor</a>
                         </li>*@
+
                     </ul>
                      <partial name="_LoginPartial" />
                 </div>
@@ -56,22 +59,22 @@
     </header>
     @if (!User.Identity.IsAuthenticated)
     {
-        <div class="nav-tabs p-4">
-            <ul class="nav nav-tabs nav-justified" role="tablist">
+        <div class="nav-tabs p-1">
+            <ul class="nav nav-tabs nav-justified bg-primary" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Home</a>
+                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Home</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Doctors</a>
+                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Doctors</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
+                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" asp-page="/Identity/Account/Login">Appointment</a>
+                    <a class="nav-link text-white" asp-page="/Identity/Account/Login">Appointment</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">About Us</a>
+                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">About Us</a>
                 </li>
 
             </ul>
@@ -79,25 +82,25 @@
     }
     @if (User.IsInRole("Doctor"))
     {
-        <div class="nav-tabs p-4">
-            <ul class="nav nav-tabs nav-justified" role="tablist">
+        <div class="nav-tabs p-1">
+            <ul class="nav nav-tabs nav-justified bg-primary" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">My Profile</a>
+                    <a class="nav-link text-white" asp-page="/Doctors/Index">My Profile</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Patient</a>
+                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Patient</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
+                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" asp-page="#">Appointment</a>
+                    <a class="nav-link text-white" asp-page="#">Appointment</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Message Box</a>
+                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Message Box</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Schedule</a>
+                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Schedule</a>
                 </li>
             </ul>
         </div>
@@ -106,26 +109,26 @@
     @if (User.IsInRole("Admin"))
 
     {
-       <div class="nav-tabs p-4">
-            <ul class="nav nav-tabs nav-justified" role="tablist">
+        <div class="nav-tabs p-1">
+            <ul class="nav nav-tabs nav-justified bg-primary" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" asp-page="/Admin/Index" >Overview</a>
-                </li>                
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link" asp-page="/Admin/Doctor_List" >Doctor</a>
+                    <a class="nav-link  text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Overview</a>
                 </li>
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link" asp-page="/Admin/Patient_List" >Patient</a>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Doctors</a>
                 </li>
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link" asp-page="/Admin/Appointment_List" >Appointment</a>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Patients</a>
                 </li>
-                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" asp-page="#" >FAQ</a>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
                 </li>
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link" asp-page="/Admin/Message_List" >MessageBox</a>
-                </li>              
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="#">Appointment</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Message Box</a>
+                </li>
 
             </ul>
         </div>
@@ -133,49 +136,46 @@
     @if (User.IsInRole("Patient"))
 
     {
-        <div class="nav-tabs p-4">
-            <ul class="nav nav-tabs nav-justified" role="tablist">
+        <div class="nav-tabs p-1">
+            <ul class="nav nav-tabs nav-justified bg-primary" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" asp-page="/Patient/PatientHome" >My Profile</a>
+                    <a class="nav-link text-white" asp-page="/Patient/PatientHome">My Profile</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Doctor</a>
+                    <a class="nav-link  text-white" asp-page="/Patient/PatientFindDoctor"> Doctor</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
+                    <a class="nav-link  text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">FAQ</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" asp-page="/Patient/PatientAppointment">Appointment</a>
+                    <a class="nav-link  text-white" asp-page="/Patient/PatientAppointment">Appointment</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Message Box</a>
+                    <a class="nav-link  text-white" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Message Box</a>
                 </li>
 
             </ul>
         </div>
     }
 
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container ms">
+        <main role="main"  class="pb-1">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - ILikeClinic - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    <footer class="border-top footer  bg-primary text-muted">
+        <div class="container  text-center text-white">
+            &copy; 2022 - ILikeClinic Copyright - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/date-1.1.2/r-2.3.0/sc-2.0.7/sb-1.3.4/datatables.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     <!-- Bootstrap -->
-    <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
     <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
 
     @await RenderSectionAsync("Scripts", required: false)

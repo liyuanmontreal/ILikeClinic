@@ -1,0 +1,125 @@
+﻿@page
+@model ILikeClinic.Pages.Patient.PatientFindDoctorModel
+@{
+}
+<div class="container p-3">
+
+
+    @*    family doctor part    *@
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-info bottom-left">
+                Your Family Doctor
+            </h1>
+        </div>
+    </div>
+
+    <form method="post">
+        <table class="table table-bordered table-striped fs-5 text-center" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Doctor Name</th>
+                    <th>Speciality</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="30%">@Model.doctor.FullName
+                        <a asp-page="#home" asp-route-id="" class="btn btn-info mx-2 text-bg-primary">
+                            Info
+                        </a>
+                    </td>
+                    <td width="25%">@Model.doctor.Speciality</td>
+                    <td width="25%">
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-page="PatientMakeAppointment" asp-route-id="@Model.doctor.Id" class="text-primary fs-5 mx-2">
+                                Appointment
+                            </a>
+                            <span style="width:100px" class="fs-4">   &nbsp         ||  &nbsp       </span>
+                            <a asp-page="#home" asp-route-id="@Model.doctor.Id" class="btn btn-primary mx-2 text-bg-success">
+                                Message
+                            </a>
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+            
+        </table>
+        <br />
+        <br />
+    </form>
+
+
+    @*    find a doctor part    *@
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-info bottom-left">
+                Find A Doctor
+            </h1>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+
+        <div class="col-6 ">
+            <p class="">If you don't have a family doctor, you can choose one below:'</p>
+        </div>
+        <div class="col-6">
+            <form method="get">
+                <div class="input-group">
+                    <input class="form-control" asp-for="Search" placeholder=" Searching by name or speciality..." />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary text-bg-info">Search</button>
+                    </div>
+                    <div class="input-group-append">
+                        <a asp-page="PatientFindDoctor" class="btn btn-secondary form-control text-bg-secondary">Clear</a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<form method="post">
+    <table class="table table-bordered table-striped fs-5 text-center " style="width:100%">
+        <thead>
+            <tr>
+                <th>Doctor Name</th>
+                <th>Speciality</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Doctor)
+            {
+                <tr>
+                    <td width="30%">@item.FullName
+                        <a asp-page="#home" asp-route-id="@item.Id" class="btn btn-info mx-2 text-bg-primary">
+                             Info
+                        </a>
+                    </td>
+                    <td width="25%">@item.Speciality</td>
+                    <td width="25%">
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-page="PatientMakeAppointment" asp-route-id="@item.Id" class="text-primary fs-5 mx-2">
+                                Appointment
+                            </a>
+                            <span style="width:100px" class="fs-4">   &nbsp         ||  &nbsp       </span>
+                            <a asp-page="#home" asp-route-id="@item.Id" class="btn btn-primary mx-2 text-bg-success">
+                                Message
+                            </a>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <br />
+</form>
