@@ -43,9 +43,26 @@ namespace ILikeClinic.Pages.Patient
 
         public void OnGet()
         {
-            Appointment = _db.Appointment.Include(c => c.Patient);
+            var query = _db.Appointment.AsNoTracking();
+            if (!string.IsNullOrEmpty(Search))
+            {
+                query = query.Where(s => s.Doctor.FirstName.Contains(Search) || s.Doctor.LastName.Contains(Search) );
+            }
+            Appointment = query.Include(c => c.Doctor);
 
         }
+        public async Task<IActionResult> OnPostDelete(int id)
+        {
+            var Appointment = await _db.Appointment.FindAsync(id);
+            if (Appointment == null)
+            {
+                return NotFound();
+            }
+            _db.Appointment.Remove(Appointment);
+            _db.SaveChanges();
 
+            TempData["delete"] = "Appointment deleted successfully!";
+            return RedirectToPage();
+        }
     }
 }
