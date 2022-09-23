@@ -1,0 +1,38 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@model ILikeClinic.Pages.FAQ.CreateModel
+@{
+}
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Ask a question</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="mb-3">
+            <label asp-for="fAQ.Question" class="form-control"></label>
+            <input asp-for="fAQ.Question" class="form-control" />
+            <span asp-validation-for="fAQ.Question" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.fAQ.Answer" class="form-control"></label>
+            <input asp-for="@Model.fAQ.Answer" class="form-control" />
+            <span asp-validation-for="@Model.fAQ.Answer" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px">Ask</button>
+        <a asp-page="Index" class="btn btn-secondary" style="width:150px">Back</a>
+    </div>
+
+
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    }
