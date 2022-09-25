@@ -28,5 +28,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Availability> Availability { get; set; }
     public DbSet<MedicalHistory> MedicalHistory { get; set; }
     public DbSet<Message> Message { get; set; }
+    public DbSet<Survey> Survey { get; set; }
+
     public int ADMIN_ID;
 }
