@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Packaging.Signing;
 using System.Data;
+using System.Numerics;
 using System.Security.Claims;
 
 namespace ILikeClinic.Pages.Doctors

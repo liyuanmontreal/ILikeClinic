@@ -6,6 +6,7 @@ namespace ILikeClinic.Model
 {
     public class Doctor
     {
+        
         [Key]
         public int Id { get; set; }
 
@@ -58,5 +59,6 @@ namespace ILikeClinic.Model
         public virtual ICollection<Availability>? Availabilities { get; set; }
 
         public virtual ICollection<Appointment>? Appointments { get; set; }
+
     }
 }
