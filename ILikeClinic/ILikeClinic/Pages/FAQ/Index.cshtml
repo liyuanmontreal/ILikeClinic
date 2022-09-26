@@ -14,11 +14,14 @@
                 Frequently Asked Questions
             </h2>
         </div>
-        <div class="col-6 text-end">
-            <a asp-page="Create" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i> &nbsp Ask a question
-            </a>
-        </div>
+         @if (User.Identity.IsAuthenticated)
+        {
+            <div class="col-6 text-end">
+                <a asp-page="Create" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> &nbsp Ask a question
+                </a>
+            </div>
+         }
     </div>
 
 </div>
