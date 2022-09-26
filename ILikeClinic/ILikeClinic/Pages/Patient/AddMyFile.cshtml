@@ -109,6 +109,9 @@
             <div class="col-6">
                 <input class="form-control" asp-for="Patient.DoctorId" />
             </div>
+              @*<select class="custom-select w-100" asp-for="Patient.DoctorId" asp-items="Model.DoctorList">
+                    <option value="">--Select a doctor--</option>
+                </select>*@
             <span asp-validation-for="Patient.DoctorId" class="text-danger fs-5"></span>
         </div>
         <br />

@@ -19,6 +19,8 @@ namespace ILikeClinic.Pages.Patient
         [BindProperty]
         public ILikeClinic.Model.Patient Patient { get; set; }
 
+        public ILikeClinic.Model.Doctor doctor { get; set; }
+
         [BindProperty]
         public IdentityUser IdentityUser { get; set; }
 
@@ -42,6 +44,8 @@ namespace ILikeClinic.Pages.Patient
             if (result.Count() > 0)
             {
                 Patient = result.First();
+                doctor = _db.Doctor.Find(Patient.DoctorId);
+
             }
         }
 
