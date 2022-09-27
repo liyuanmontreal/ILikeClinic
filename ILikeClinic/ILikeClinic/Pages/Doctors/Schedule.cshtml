@@ -11,8 +11,23 @@
     document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth'
-        });
+            timeZone:'America/NewYork', 
+            contentHeight: 410, //height of the calendar
+            aspectRatio: 2, //width-to-height ratio
+            Boolean: true,  //resize when window get small
+            slotDuration: '01:00', //1 hour
+            slotMinTime: '07:00',  //start at 7 am
+            slotMaxTime: '20:00',  //end at 8 pm 
+
+            selecttable: true,
+            initialView: 'resourceTimelineWeek',
+
+            dateClick: function (arg, info) {
+                console.log(arg.date.toUTCString());
+                alert('Clicked on:' + info.timeStr);
+                info.dayE1.style.backgroundColor='red';
+            }
+            });
         calendar.render();
     });
 

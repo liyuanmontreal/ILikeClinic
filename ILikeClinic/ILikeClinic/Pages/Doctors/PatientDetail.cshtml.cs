@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ILikeClinic.Pages.Doctors
 {
-    public class MakeAppointmentModel : PageModel
+    public class PatientDetailModel : PageModel
     {
         public void OnGet()
         {

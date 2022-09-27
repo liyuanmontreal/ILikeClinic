@@ -4,7 +4,7 @@
 @model ILikeClinic.Pages.Doctors.UpsertModel
 
 @{
-    ViewData["Title"] = "Doctor Profile";
+    ViewData["Title"] = "Doctor Create/Edit Profile";
 }
 
 @inject SignInManager<IdentityUser> SignInManager
@@ -15,6 +15,7 @@
     <div class="col">
         <form method="post" enctype="multipart/form-data">
             <input hidden asp-for="Doctor.Id" />
+            <input hidden asp-for="Doctor.ProfilePhoto"/>
             <div class="p-3 mt-4">
                 <div class="row pb-2">
                     <h2 class="pl-3">
@@ -38,13 +39,13 @@
                         <input asp-for="Doctor.LastName" class="form-control" />
                         <span asp-validation-for="Doctor.LastName" class="text-danger"></span>
                     </div>
-                </div>
+                    </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Doctor.DOB" class="control-label">Date of Birth</label>
-                        <input class="form-control" asp-for="@Model.Doctor.DOB" autocomplete="on" asp-format="{0:yyyy-MM-dd}" />
+                        <input class="form-control" asp-for="Doctor.DOB" autocomplete="on" asp-format="{0:yyyy-MM-dd}" />
                         <span asp-validation-for="Doctor.DOB" class="text-danger"></span>
                     </div>
                 </div>
@@ -69,7 +70,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Doctor.HiredDate" class="control-label"></label>
-                        <input class="form-control" asp-for="@Model.Doctor.HiredDate" autocomplete="on" asp-format="{0:yyyy-MM-dd}" />
+                        <input class="form-control" asp-for="Doctor.HiredDate" autocomplete="on" asp-format="{0:yyyy-MM-dd}" />
                         <span asp-validation-for="Doctor.HiredDate" class="text-danger"></span>
                     </div>
                 </div>
@@ -80,7 +81,7 @@
                         <label asp-for="Doctor.Gender" class="form-label mt-4"></label>
                         <select asp-for="Doctor.Gender"  asp-items="Html.GetEnumSelectList<Gender>()" class="form-select">
                             <option value="">---Select Gender ---</option>
-                     
+
                         </select>
                         <span asp-validation-for="Doctor.Gender" class="text-danger"></span>
                     </div>
@@ -107,7 +108,7 @@
                         <img src="@Model.Doctor.ProfilePhoto" width="50%" style="border-radius:5px; border:1px solid #bbb9b9"/>
                     }*@
 
-                    <img src="@(Model.Doctor == null ? Href("~/images/doctorPhotos/default.jpg") : Model.Doctor.ProfilePhoto)" width="50%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                    <img src="@(Model.Doctor == null ? Href("~/images/doctorPhotos/default.png") : Model.Doctor.ProfilePhoto)" width="50%" style="border-radius:5px; border:1px solid #bbb9b9" />
                 </div>
             </div>
             <div class="row mt-2">
@@ -125,10 +126,9 @@
             <div class="row mt-2">
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-secondary text-bg-info" />
-                
+
                 </div>
             </div>
-            
         </form>
     </div>
 </div>

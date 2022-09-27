@@ -6,34 +6,11 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-
-<ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> @UserManager.GetUserId(User)</a>
-        </li>
-
-    }
-    else
-    {
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        </li>
-
-    }
-</ul>
-
-
+<partial name="_ToastrNotification" />
 <br />
 <h1 class="text-info">My Profile</h1>
 <br />
 <div class="border container p-4">
-
-    
 
     <div class="container fs-5">
 
@@ -96,7 +73,7 @@
                     <div class="text-primary">Family Doctor : </div>
                 </div>
                 <div class="col-6">
-                    <div class="">@Model.Patient.DoctorId</div>
+                    <div class="">@Model.doctor.FullName</div>
                 </div>
             </div>
 
@@ -104,16 +81,23 @@
             <br />
             <br />
             <div class="btn-group w-100" role="group">
-                <a asp-page="" class="btn btn-secondary form-control text-bg-info">Check My Medical Document</a>
-                <span style="width:100px" class="fs-4">   &nbsp           &nbsp       </span>
 
-                @if (Model.Patient.Id != 0) {
-                    <a asp-route-id="@Model.Patient.Id" asp-page="AddMyFile" class="btn btn-secondary form-control text-bg-info">Edit My File</a>
-                }
-                else
-                {
-                    <a asp-page="AddMyFile" class="btn btn-secondary form-control text-bg-info">Create My File</a>
-                }
+                <div class="col-3 offset-1">
+                    <a asp-page="PatientMedicalDoc" asp-route-id="@Model.Patient.Id" class="btn btn-info form-control">Check My Medical Document</a>
+                </div>
+
+                <div class="col-3 offset-3">
+                    @if (Model.Patient.Id != 0)
+                    {
+                        <a asp-route-id="@Model.Patient.Id" asp-page="AddMyFile" class="btn btn-info form-control">Edit My File</a>
+                    }
+                    else
+                    {
+                        <a asp-page="AddMyFile" class="btn btn-info form-control ">Create My File</a>
+                    }
+                </div>
+
+
                
             </div>
 

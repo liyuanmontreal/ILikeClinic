@@ -12,6 +12,7 @@ namespace ILikeClinic.Model
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Appointment start at")]
         public DateTime AppStartAt { get; set; }
 
         public DateTime AppTime { get; set; }
@@ -19,17 +20,18 @@ namespace ILikeClinic.Model
         public Status Status { get; set; }
 
 
-         public string Reason { get; set; }
+        public string Reason { get; set; }
 
+        [Display(Name = "File")]
         public string? FileUrl { get; set; }
 
 
-        
+        [ForeignKey("PatientId")]
         [ValidateNever]
         public virtual Patient? Patient { get; set; }
         public int? PatientId { get; set; }
 
-        
+        [ForeignKey("DoctorId")]
         [ValidateNever]
         public virtual Doctor? Doctor { get; set; }
         public int? DoctorId { get; set; }

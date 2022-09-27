@@ -13,6 +13,8 @@ namespace ILikeClinic.Pages.Patient
         [BindProperty]
         public ILikeClinic.Model.Patient Patient { get; set; }
 
+        public ILikeClinic.Model.Doctor doctor { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public string Search { get; set; }
 

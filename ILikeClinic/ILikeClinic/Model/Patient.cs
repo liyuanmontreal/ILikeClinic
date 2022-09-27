@@ -28,7 +28,10 @@ namespace ILikeClinic.Model
         public string Address { get; set; }
 
         [Display(Name ="Date Of Birth")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
+
 
         public Gender Gender { get; set; }
 
@@ -37,12 +40,13 @@ namespace ILikeClinic.Model
         [Display(Name ="Family Doctor")]
         public int? DoctorId { get; set; }
 
+        /*[ForeignKey("DoctorId")]
+        public virtual Doctor Doctor { get; set; }
+        */
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]
-
-        // [ValidateNever]
-        public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationPatient User { get; set; }
 
         public virtual ICollection<Appointment>? Appointments { get; set; }
 
