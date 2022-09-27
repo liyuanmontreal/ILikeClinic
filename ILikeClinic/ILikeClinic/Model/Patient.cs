@@ -32,8 +32,6 @@ namespace ILikeClinic.Model
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
-      
-      
 
         public Gender Gender { get; set; }
 

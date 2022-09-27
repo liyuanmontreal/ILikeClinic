@@ -17,8 +17,9 @@ namespace ILikeClinic.Pages.Doctors
 
         public IEnumerable<Appointment> Appointments { get; set; }
 
+        
         [BindProperty]
-        public Doctor Doctor { get; set; }
+        public ILikeClinic.Model.Doctor Doctor { get; set; }
 
         [BindProperty]
         public Appointment Appointment { get; set; }
@@ -65,11 +66,26 @@ namespace ILikeClinic.Pages.Doctors
                 }
 
                 Appointments = appointmentsToD.Include(c => c.Patient);
-                
-
-
-            
         }
 
+
+        public async Task<IActionResult> OnPostDelete(int id)
+        {
+            if (id == null || _DB.Appointment == null)
+            {
+                return NotFound();
+            }
+            var Appointment = await _DB.Appointment.FindAsync(id);
+            if (Appointment != null)
+            {
+                _DB.Appointment.Remove(Appointment);
+                _DB.SaveChanges();
+
+                TempData["delete"] = "Appointment deleted successfully!";
+               
+            }
+
+            return Page();
+        }
     }
 }
