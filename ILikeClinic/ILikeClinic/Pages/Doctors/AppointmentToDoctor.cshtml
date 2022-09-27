@@ -1,13 +1,20 @@
 ﻿@page
+@using Microsoft.AspNetCore.Identity
+@using ILikeClinic.Model
 @model ILikeClinic.Pages.Doctors.AppointmentToDoctorModel
 @{
     ViewData["Title"] = "Appointments By the doctor";
 }
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">
-                Appointments
+                Appointments for Dr. @Model.Doctor.FullName
             </h2>
         </div>
     </div>
@@ -15,7 +22,7 @@
 
 <form>
     <p>
-        Name: <input type="text" asp-for="SearchNameString" />
+        Search Patient by Name: <input type="text" asp-for="SearchNameString" />
         
         <input type="submit" value="Filter" />
     </p>
