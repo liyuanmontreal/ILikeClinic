@@ -31,6 +31,7 @@ namespace ILikeClinic.Pages.Doctors
         public SelectList DoctorList { get; set; }
 
         public SelectList PatientList { get; set; }
+
         public DoctorMakeAppointmentModel(ApplicationDbContext db, IWebHostEnvironment hostEnvironment, IHttpContextAccessor httpContextAccessor)
         {
             _DB = db;

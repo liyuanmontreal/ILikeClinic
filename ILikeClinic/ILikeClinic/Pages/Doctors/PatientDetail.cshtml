@@ -1,5 +1,95 @@
 ﻿@page
+@using ILikeClinic.Model
+@using Microsoft.AspNetCore.Identity
 @model ILikeClinic.Pages.Doctors.PatientDetailModel
 @{
-    ViewData["Title"] = "doctor see patient details";
+    ViewData["Title"] = "doctor view patient detail";
 }
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<partial name="_ToastrNotification" />
+
+<br />
+
+<h1 class="text-info">Patient Profile Detail</h1>
+<br />
+
+<div class="border container p-4">
+
+    <form method="post" enctype="multipart/form-data">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input asp-for="Patient.Id" hidden />
+
+
+
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Patient.FullName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Patient.FullName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Patient.DateOfBirth)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Patient.DateOfBirth)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Patient.Gender)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Patient.Gender)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Patient.Address)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Patient.Address)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Patient.PhoneNumber)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Patient.PhoneNumber)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Patient.MedicalCardNo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Patient.MedicalCardNo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Patient.DoctorId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Doctor.FullName)
+            </dd>
+
+        </dl>
+
+
+        <br />
+        <div class="form-group row fs-6">
+            <div class="col-2">
+                <a asp-page="PatientList"
+                   class="btn btn-secondary form-control text-bg-info">Back to list</a>
+            </div>
+
+            <div class="col-4">
+                <a asp-page="#" asp-route-id="Patient.Id"
+                   class="btn btn-primary form-control text-bg-info">Medical History of the patient</a>
+            </div>
+
+
+        </div>
+
+    </form>
+
+</div>
+
+

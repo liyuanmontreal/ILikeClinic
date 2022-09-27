@@ -22,9 +22,6 @@ namespace ILikeClinic.Pages.Doctors
         public ILikeClinic.Model.Doctor Doctor { get; set; }
 
         [BindProperty]
-        public Appointment Appointment { get; set; }
-
-        [BindProperty]
         public IList<ILikeClinic.Model.Patient> Patients { get; set; } = default!;
 
         [BindProperty(SupportsGet = true)]
@@ -69,23 +66,23 @@ namespace ILikeClinic.Pages.Doctors
         }
 
 
-        public async Task<IActionResult> OnPostDelete(int id)
-        {
-            if (id == null || _DB.Appointment == null)
-            {
-                return NotFound();
-            }
-            var Appointment = await _DB.Appointment.FindAsync(id);
-            if (Appointment != null)
-            {
-                _DB.Appointment.Remove(Appointment);
-                _DB.SaveChanges();
+        //public async Task<IActionResult> OnPostDelete(int id)
+        //{
+        //    if (id == null || _DB.Appointment == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var Appointment = await _DB.Appointment.FindAsync(id);
+        //    if (Appointment != null)
+        //    {
+        //        _DB.Appointment.Remove(Appointment);
+        //        _DB.SaveChanges();
 
-                TempData["delete"] = "Appointment deleted successfully!";
+        //        TempData["delete"] = "Appointment deleted successfully!";
                
-            }
+        //    }
 
-            return Page();
-        }
+        //    return Page();
+        //}
     }
 }
