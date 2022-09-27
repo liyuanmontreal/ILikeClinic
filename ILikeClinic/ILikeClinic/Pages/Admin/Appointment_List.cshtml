@@ -23,6 +23,14 @@
 
 </div>
 
+<form>
+    <p>       
+        Doctor Name: <input type="text" asp-for="SearchDoctorString" />
+        Patient Name: <input type="text" asp-for="SearchPatientString" />
+        <input type="submit" value="Filter" /> 
+    </p>    
+</form>
+
 
 
 <table class="table">
@@ -54,7 +62,7 @@
     </thead>
     <tbody>
  
-        @foreach (var item in Model.Appointment)
+        @foreach (var item in Model.Appointments)
         {
             <tr>
                  
