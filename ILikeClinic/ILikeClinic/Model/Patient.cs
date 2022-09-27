@@ -28,6 +28,7 @@ namespace ILikeClinic.Model
         public string Address { get; set; }
 
         [Display(Name ="Date Of Birth")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
         public Gender Gender { get; set; }
