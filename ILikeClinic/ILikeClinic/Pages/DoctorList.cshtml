@@ -1,0 +1,59 @@
+﻿@page
+@model ILikeClinic.Pages.DoctorListModel
+@{
+}
+@{
+    ViewData["Title"] = "Doctor List";
+}
+<partial name="_ToastrNotification" />
+
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Doctor List
+            </h2>
+        </div>
+      
+    </div>
+
+</div>
+
+
+        @foreach (var item in Model.Doctors)
+        {            
+       
+            <img src="@Url.Content(@item.ProfilePhoto)" />
+            <dl class="row">
+                <dt class="col-sm-2">          
+                    @Html.DisplayNameFor(modelItem => item.FullName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.FullName)            
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.LicenseNumber)
+                </dt>
+                    <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem=> item.LicenseNumber)
+                    </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem=> item.Speciality)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.Speciality)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(modelItem => item.Description)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </dd>
+                </dl>
+               <br/>
+        }
+   
+
+
