@@ -10,15 +10,20 @@ namespace ILikeClinic.Pages.Admin
     public class Appointment_ListModel : PageModel
     {
             [BindProperty]
-            public IEnumerable<ILikeClinic.Model.Appointment> Appointment { get; set; }
+            public IEnumerable<ILikeClinic.Model.Appointment> Appointments { get; set; }
 
             [BindProperty]
             public ILikeClinic.Model.Patient Patient { get; set; }
 
-            [BindProperty(SupportsGet = true)]
-            public string Search { get; set; }
+          
 
-            public readonly ApplicationDbContext _db;
+            [BindProperty(SupportsGet = true)]
+            public string? SearchDoctorString { get; set; }
+
+            [BindProperty(SupportsGet = true)]
+            public string? SearchPatientString { get; set; }
+
+        public readonly ApplicationDbContext _db;
 
             private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -44,14 +49,35 @@ namespace ILikeClinic.Pages.Admin
             public void OnGet()
             {
                 var query = _db.Appointment.AsNoTracking();
-                if (!string.IsNullOrEmpty(Search))
+                /*if (!string.IsNullOrEmpty(Search))
                 {
                     query = query.Where(s => s.Doctor.FirstName.Contains(Search) || s.Doctor.LastName.Contains(Search));
+                }*/
+
+                // using system.linq
+                var appointments = from a in _db.Appointment
+                               select a;
+
+                 appointments = appointments.Include(c => c.Patient);
+                 appointments = appointments.Include(c => c.Doctor);
+            //lambda 
+            if (!string.IsNullOrEmpty(SearchDoctorString))
+                {
+                    appointments = appointments.Where(s => s.Doctor.FirstName.Contains(SearchDoctorString) || s.Doctor.LastName.Contains(SearchDoctorString));
+
+
                 }
-             query = query.Include(c => c.Patient);
-             Appointment = query.Include(c => c.Doctor);
-              
-            }
+                if (!string.IsNullOrEmpty(SearchPatientString))
+                {
+                    appointments = appointments.Where(s => s.Patient.FirstName.Contains(SearchPatientString) || s.Patient.LastName.Contains(SearchPatientString));
+
+                }
+
+            Appointments = appointments;
+         
+
+
+        }
           
         }
     }
