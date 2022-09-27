@@ -15,6 +15,7 @@
     <div class="col">
         <form method="post" enctype="multipart/form-data">
             <input hidden asp-for="Doctor.Id" />
+            <input hidden asp-for="Doctor.ProfilePhoto"/>
             <div class="p-3 mt-4">
                 <div class="row pb-2">
                     <h2 class="pl-3">
@@ -107,7 +108,7 @@
                         <img src="@Model.Doctor.ProfilePhoto" width="50%" style="border-radius:5px; border:1px solid #bbb9b9"/>
                     }*@
 
-                    <img src="@(Model.Doctor == null ? Href("~/images/doctorPhotos/default.jpg") : Model.Doctor.ProfilePhoto)" width="50%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                    <img src="@(Model.Doctor == null ? Href("~/images/doctorPhotos/default.png") : Model.Doctor.ProfilePhoto)" width="50%" style="border-radius:5px; border:1px solid #bbb9b9" />
                 </div>
             </div>
             <div class="row mt-2">

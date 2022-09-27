@@ -15,7 +15,7 @@ namespace ILikeClinic.Pages.Doctors
     [BindProperties]
     public class UpsertModel : PageModel
     {
-        private static readonly string DEFAULT_PHOTO = "default.jpg";
+        //private static readonly string DEFAULT_PHOTO = "default.png";
         private readonly ApplicationDbContext _DB;
         private readonly IWebHostEnvironment _HostEnvironment;
         private readonly IHttpContextAccessor _HttpContextAccessor;
@@ -73,7 +73,9 @@ namespace ILikeClinic.Pages.Doctors
             var files = HttpContext.Request.Form.Files;
             if (files.Count == 0)
             {
-                doctor.ProfilePhoto = @"\images\doctorPhotos\" + DEFAULT_PHOTO;
+                //doctor.ProfilePhoto = @"\images\doctorPhotos\" + DEFAULT_PHOTO;
+                //return;
+                doctor.ProfilePhoto = doctor.ProfilePhoto;
                 return;
             }
 

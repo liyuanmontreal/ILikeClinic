@@ -6,13 +6,13 @@ namespace ILikeClinic.Model
 {
     public class Doctor
     {
-        
+
         [Key]
         public int Id { get; set; }
 
         [Required]
-        [Display(Name ="First Name")]
-        [StringLength(50, ErrorMessage="First name cannot be longer than 50 characters")]
+        [Display(Name = "First Name")]
+        [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters")]
         public string FirstName { get; set; }
 
         [Required]
@@ -21,7 +21,7 @@ namespace ILikeClinic.Model
         public string LastName { get; set; }
 
 
-        [Display(Name ="Full Name")]
+        [Display(Name = "Full Name")]
         public string FullName
         {
             get { return LastName + ", " + FirstName; }
@@ -34,7 +34,7 @@ namespace ILikeClinic.Model
 
         public Gender Gender { get; set; }
 
-        [Display(Name ="Phone Number")]
+        [Display(Name = "Phone Number")]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public string PhoneNumber { get; set; }
 
@@ -42,7 +42,7 @@ namespace ILikeClinic.Model
 
         public string Speciality { get; set; }
 
-        [StringLength(400, MinimumLength =10)]
+        [StringLength(400, MinimumLength = 10)]
         public string Description { get; set; }
 
         public int LicenseNumber { get; set; }
