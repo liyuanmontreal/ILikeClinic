@@ -25,7 +25,7 @@ namespace ILikeClinic.Model
         public string FromEmail { get; set; }
 
         [Required]
-        [Display(Name = "Answer By")]
+        [Display(Name = "Answer By")] 
         [ForeignKey("AspNetUsersId")]
         public int AspNetUsersId { get; set; }
 

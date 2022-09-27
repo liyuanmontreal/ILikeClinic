@@ -1,0 +1,77 @@
+﻿@page
+@using ILikeClinic.Model
+@using Microsoft.AspNetCore.Identity
+@model ILikeClinic.Pages.Patient.AnswerSurveyModel
+@{
+}
+<div class="border container p-4">
+
+    <form method="post" enctype="multipart/form-data">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @*
+        <input asp-for=" Patient.Id" hidden/>
+        *@
+
+        <div class="form-group row fs-4">
+            <div class="col-6 ">
+                <label>Do you think the doctor was enough expert?</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Survey.Answer1" />
+            </div>
+            <span asp-validation-for="Survey.Answer1" class="text-danger fs-5"></span>
+        </div>
+
+        <div class="form-group row fs-4">
+            <div class="col-6 ">
+                <label>Did you get good advice and drug?</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Survey.Answer2" />
+            </div>
+            <span asp-validation-for="Survey.Answer1" class="text-danger fs-5"></span>
+        </div>
+
+        <div class="form-group row fs-4">
+            <div class="col-6 ">
+                <label>Do you satisfy with short waiting time?</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Survey.Answer3" />
+            </div>
+            <span asp-validation-for="Survey.Answer1" class="text-danger fs-5"></span>
+        </div>
+
+        <div class="form-group row fs-4">
+            <div class="col-6 ">
+                <label>Does your doctor spend enough time for visiting</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Survey.Answer4" />
+            </div>
+            <span asp-validation-for="Survey.Answer1" class="text-danger fs-5"></span>
+        </div>
+
+        <div class="form-group row fs-4">
+            <div class="col-6 ">
+                <label>Do you have any other suggestion or comment?</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="Survey.Answer5" />
+            </div>
+            <span asp-validation-for="Survey.Answer1" class="text-danger fs-5"></span>
+        </div>
+
+        <div class="form-group row fs-3">
+            <div class="col-3 ">
+                <a asp-page="PatientHome" class="text-info form-control fs-5">Back</a>
+
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-info form-control  ">Save</button>
+            </div>
+        </div>
+    </form>
+
+</div>

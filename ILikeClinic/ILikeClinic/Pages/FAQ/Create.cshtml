@@ -24,6 +24,11 @@
             <input asp-for="@Model.fAQ.Answer" class="form-control" />
             <span asp-validation-for="@Model.fAQ.Answer" class="text-danger"></span>
         </div>
+        <div class="mb-3">
+            <label asp-for="@Model.fAQ.FromEmail" class="form-control"></label>
+            <input asp-for="@Model.fAQ.FromEmail" class="form-control" />
+            <span asp-validation-for="@Model.fAQ.FromEmail" class="text-danger"></span>
+        </div>
         <button type="submit" class="btn btn-primary" style="width:150px">Ask</button>
         <a asp-page="Index" class="btn btn-secondary" style="width:150px">Back</a>
     </div>

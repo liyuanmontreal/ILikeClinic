@@ -11,6 +11,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
+        ADMIN_ID = 1;
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -22,8 +23,12 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     }
     public DbSet<Patient> Patient { get; set; }
     public DbSet<Appointment> Appointment { get; set; }
-    public DbSet<FAQ> FAQ { get; set; }
+    public DbSet<FAQ> FAQ  { get; set; }
     public DbSet<Doctor> Doctor { get; set; }
     public DbSet<Availability> Availability { get; set; }
     public DbSet<MedicalHistory> MedicalHistory { get; set; }
+    public DbSet<Message> Message { get; set; }
+    public DbSet<Survey> Survey { get; set; }
+
+    public int ADMIN_ID;
 }
