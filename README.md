@@ -1,2 +1,2 @@
 # IntegrationProject
-team project for Integration Project course
+team project for Integration Project course.
