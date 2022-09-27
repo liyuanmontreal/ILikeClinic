@@ -4,6 +4,9 @@
 @model ILikeClinic.Pages.Doctors.DoctorMakeAppointmentModel
 @{
 }
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<partial name="_ToastrNotification" />
 <br />
 <h1 class="text-info">Make An Appointment</h1>
 <br />
@@ -115,13 +118,14 @@
         <div class="form-group row fs-3">
 
             <div class="col-3">
-                <button type="submit" class="btn btn-primary form-control  ">Create</button>
-            </div>
-            <div class="col-6">
-                <a asp-page="Appointment_List"
-                   class="btn btn-secondary form-control text-bg-info">See Appointment list</a>
+                <button type="submit" class="btn btn-primary form-control">Create</button>
             </div>
 
+            <div class="col-6">
+                <a asp-page="AppointmentToDoctor"
+                   class="btn btn-secondary form-control text-bg-info">See Appointment list</a>
+
+            </div>
 
         </div>
 
