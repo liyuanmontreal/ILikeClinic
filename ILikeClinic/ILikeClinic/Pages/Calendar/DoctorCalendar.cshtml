@@ -48,7 +48,7 @@
             app.doctors.forEach(item => {
                 const option = document.createElement("option");
                 option.value = item.id;
-                option.innerText = item.name;
+                option.innerText = item.fullname;
                 app.elements.doctor.appendChild(option);
             });
 

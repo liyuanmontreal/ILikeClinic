@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ILikeClinic.Model;
 using ILikeClinic.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ILikeClinic.Controller
 {
@@ -10,8 +11,7 @@ namespace ILikeClinic.Controller
     public class DoctorController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-
-        public Doctor Doctor { get; set; }
+        public SelectList DoctorList { get; set; }
 
         public DoctorController(ApplicationDbContext context)
         {
