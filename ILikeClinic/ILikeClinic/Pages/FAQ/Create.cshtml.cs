@@ -53,13 +53,15 @@ namespace ILikeClinic.Pages.FAQ
 
         public IActionResult OnPost()
         {
-            if (ModelState.IsValid)
-            {
+            fAQ.FromEmail = "a@b.com";
+            fAQ.AspNetUsersId = 0;
+ //           if (ModelState.IsValid)
+ //           {
                 _db.FAQ.Add(fAQ);
                 _db.SaveChanges();
                 return RedirectToPage("Index");
-            }
-            return Page();
+ //           }
+ //           return Page();
         }
     }
 }
