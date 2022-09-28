@@ -1,0 +1,64 @@
+﻿@page
+@model ILikeClinic.Pages.Patient.Message_ListModel  
+@{
+    ViewData["Title"] = "Message page";
+}
+
+<div class="col-6 text-end">
+    <a asp-page="PatientSendMessage" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> &nbsp Send Message 
+    </a>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                From
+            </th>
+            <th>
+                Text
+            </th>
+            <th>
+                Time
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.Messages)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SendTime)
+                </td>
+                <td>
+                    <a asp-page="PatientDetail" asp-route-id="@item.Id">Reply</a> ||
+                    <a asp-page="#" asp-route-id="@item.Id">Details</a> ||
+                    <a asp-page="#" asp-route-id="@item.Id">Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@*
+<td>
+    <a asp-page="./Reply" asp-route-id="@item.Id">Reply</a> |
+    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+</td>*@
+
+

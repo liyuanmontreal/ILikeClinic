@@ -10,6 +10,13 @@
 
 
 <br />
+@if (Model.Patient != null && Model.Patient.Id != 0){
+    
+}else {
+    <i class="bi bi-pencil-square fs-4">You have no profile yet!</i>
+    
+}
+<br />
 <h1 class="text-info">@((Model.Patient != null && Model.Patient?.Id !=0) ? "Update" : "Please Complete") My Profile</h1>
 <br />
 
@@ -107,11 +114,11 @@
                 <label asp-for="Patient.DoctorId"></label>
             </div>
             <div class="col-6">
-                <input class="form-control" asp-for="Patient.DoctorId" />
-            </div>
-              @*<select class="custom-select w-100" asp-for="Patient.DoctorId" asp-items="Model.DoctorList">
+                <select class="custom-select w-100" asp-for="Patient.DoctorId" asp-items="Model.DoctorList">
                     <option value="">--Select a doctor--</option>
-                </select>*@
+                </select>
+            </div>
+
             <span asp-validation-for="Patient.DoctorId" class="text-danger fs-5"></span>
         </div>
         <br />
@@ -133,4 +140,6 @@
     </form>
 
 </div>
+
+
 

@@ -1,4 +1,3 @@
-
 using ILikeClinic.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

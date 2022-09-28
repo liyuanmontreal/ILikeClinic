@@ -1,0 +1,81 @@
+﻿@page
+@model ILikeClinic.Pages.Doctors.DoctorMedicalDocModel
+@{
+}
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-info bottom-left">
+                Patient Medical Documents
+            </h2>
+        </div>
+        <form method="get">
+            <input asp-for="Patient.Id" />
+            <div>
+                <a asp-route-id="@Model.Patient.Id" asp-page="DoctorCreateEditMedicalDoc" class="btn btn-primary text-bg-light">
+                    <i class="bi bi-plus-circle fs-4 "></i> &nbsp New Medical Document
+                </a>
+            </div>
+        </form>
+        
+    </div>
+
+    <br />
+</div>
+<form method="post">
+    @if (Model.MedicalHistory != null)
+    {
+        foreach (var item in Model.MedicalHistory)
+        {
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="@item.Id">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@item.Allergy" aria-expanded="true" aria-controls="@item.Allergy">
+                            Date Of Appointment:@item.DateOfApp.ToString("yyyy-MM-dd")
+                        </button>
+                    </h2>
+                    <div id="@item.Allergy" class="accordion-collapse collapse show" aria-labelledby="@item.Id" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>Doctor: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp @item.Doctor.FullName</li>
+                                <li>Weight: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp @item.Weight cm</li>
+                                <li>Height: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp @item.Height kg</li>
+                                <li>Blood Pressure: @item.BloodPressure</li>
+                                <li>Temperature: &nbsp &nbsp &nbsp @item.Temperature &deg; C</li>
+                                <li>Allergy: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp @item.Allergy</li>
+                                <li>Health Situation: &nbsp @item.HealthSituation</li>
+                                <li>Document Uploaded:&nbsp @item.MedicalDocUrl</li>
+                            </ul>
+                            
+                            <div class="btn-group col-9" role="group">
+                                <button type="submit" class=" btn btn-dark" asp-page-handler="DownloadFile" asp-route-id="@item.Id" asp-route-weight="@item.Weight" asp-route-Height="@item.Height" asp-route-doctorFullName="@item.Doctor.FullName" asp-route-bloodPressure="@item.BloodPressure" asp-route-Temp="@item.Temperature" asp-route-healthSituation="@item.HealthSituation" asp-route-allergy="@item.Allergy" asp-route-patientFullName="@item.Patient.FullName" asp-route-dateOfApp="@item.DateOfApp" >
+                                    Download This Record
+                                </button>
+                                <span style="width:100px" class="fs-4">   &nbsp           &nbsp       </span>
+
+                                <a asp-route-id="@item.Id" asp-route-patientId="@item.PatientId" asp-page="/Patient/PrintPage" class="btn btn-primary">Print</a>
+                                <span style="width:100px" class="fs-4">   &nbsp           &nbsp       </span>
+
+                                <input type="submit" asp-route-id="@item.Id" asp-route-patientID="@Model.Patient.Id" asp-page-handler="Delete" onclick="return confirm('Are you sure to delete it @item.Id?')" class="btn btn-warning " value="Delete">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+    }
+    else
+    {
+        <div>You have no record, please add a new record!</div>
+    }
+</form>
+
+
+
+<div class="col-3">
+    <a asp-page="PatientList" class="text-info form-control fs-5">Go back to Patient List</a>
+</div>
