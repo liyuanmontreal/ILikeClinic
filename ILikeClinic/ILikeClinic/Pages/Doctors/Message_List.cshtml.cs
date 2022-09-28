@@ -4,33 +4,26 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using System.Data;
 using System.Security.Claims;
 
 namespace ILikeClinic.Pages.Doctors
 {
-    [Authorize(Roles = "Doctor")]
-    [BindProperties]
-    public class ScheduleModel : PageModel
+    [Authorize(Roles = "Doctor")] 
+    public class Message_ListModel : PageModel
     {
         private readonly ApplicationDbContext _DB;
-     
         private readonly IHttpContextAccessor _HttpContextAccessor;
 
-        public Doctor Doctor { get; set; }
-        public Availability Availability { get; set; }
+        public IList<Message> Messages { get; set; } = default!;
 
-        public ScheduleModel(ApplicationDbContext db, IHttpContextAccessor httpContextAccessor)
+        [BindProperty]
+        public Doctor Doctor { get; set; }
+
+        public Message_ListModel(ApplicationDbContext db, IHttpContextAccessor httpContextAccessor)
         {
             _DB = db;
             _HttpContextAccessor = httpContextAccessor;
             getDoctor();
-        }
-
-        public void OnGet()
-        {
-
         }
 
         private void getDoctor()
@@ -45,14 +38,20 @@ namespace ILikeClinic.Pages.Doctors
             }
         }
 
-
-        public IActionResult OnGetFindAllEvent()
+        public async Task OnGetAsync()
         {
-            var events = _DB.Availability.Select(a => new
+            var userId = _HttpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (_DB.Message != null)
             {
+                // using system.linq
+                var messages = from a in _DB.Message
+                               select a;
 
-            }).ToList();
-            return new JsonResult(events);
+                //lambda 
+                messages = messages.Where(s => s.ToId == Doctor.Id);// || s.ToId == Doctor.Id);
+
+                Messages = await messages.ToListAsync();
+            }
         }
     }
 }

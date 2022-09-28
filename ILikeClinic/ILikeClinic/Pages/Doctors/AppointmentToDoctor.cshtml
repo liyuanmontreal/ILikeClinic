@@ -1,0 +1,103 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using ILikeClinic.Model
+@model ILikeClinic.Pages.Doctors.AppointmentToDoctorModel
+@{
+    ViewData["Title"] = "Appointments By the doctor";
+}
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Appointments for Dr. @Model.Doctor.FullName
+            </h2>
+        </div>
+    </div>
+</div>
+
+<form>
+    <p>
+        Search Patient by Name: <input type="text" asp-for="SearchNameString" />
+        
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+
+
+            <th>
+                Full Name
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Date Of Birth
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Medical Card No
+            </th>
+            <th>
+                Appointment Time
+            </th>
+            <th>
+                Reason for appointment
+            </th>
+            <th>
+                Actions
+            </th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.Appointments)
+        {
+            <tr>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patient.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patient.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patient.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patient.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patient.MedicalCardNo)
+                </td>
+                <td>
+                    @item.AppStartAt.ToString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reason)
+                </td>
+
+                <td>
+                    <a asp-page="./Appointment_Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Appointment_Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Appointment_Delete" asp-route-id="@item.Id">Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

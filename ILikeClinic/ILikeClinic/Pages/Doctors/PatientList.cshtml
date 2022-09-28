@@ -1,6 +1,7 @@
 ﻿@page
 @model ILikeClinic.Pages.Doctors.PatientListModel
 @{
+    ViewData["Title"] = "All Patients List";
 }
 
 <partial name="_ToastrNotification" />
@@ -75,7 +76,7 @@
                 </td>
 
                 <td>
-                    <a asp-page="#" asp-route-id="@item.Id">Patient Info</a> ||
+                    <a asp-page="PatientDetail" asp-route-id="@item.Id">Patient Info</a> ||
                     <a asp-page="DoctorMedicalDoc" asp-route-id="@item.Id">Medical Doc</a> ||
                     <a asp-page="#" asp-route-id="@item.Id">Message</a>
                     

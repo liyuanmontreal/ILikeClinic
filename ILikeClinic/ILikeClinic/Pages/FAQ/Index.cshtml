@@ -14,11 +14,11 @@
                 Frequently Asked Questions
             </h2>
         </div>
-         @if (User.Identity.IsAuthenticated)
+        @if (!User.IsInRole("Patient"))
         {
             <div class="col-6 text-end">
                 <a asp-page="Create" class="btn btn-primary">
-                    <i class="bi bi-plus-circle"></i> &nbsp Ask a question
+                    <i class="bi bi-plus-circle"></i> &nbsp New FAQ
                 </a>
             </div>
          }
@@ -27,8 +27,6 @@
 </div>
 <br />
 <div class="border container p-4">
-
-
 
     <div class="container fs-5">
         @foreach (var obj in Model.fAQs)
