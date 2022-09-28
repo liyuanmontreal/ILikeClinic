@@ -1,0 +1,61 @@
+﻿@page
+@model ILikeClinic.Pages.Patient.PrintPageModel
+@{
+}
+
+
+<div class="container p-3">
+    <div class="col-6">
+        <h2 class="text-info bottom-left">
+            Patient Medical Documents
+        </h2>
+
+        <input asp-for="MedicalHistory.Id" />
+        <<input asp-for="MedicalHistory.PatientId" />
+    </div>
+    <br />
+    <hr />
+    <br />
+    <div>
+        @Model.MedicalHistory.Weight
+    </div>
+        
+        <ul>
+            <li>Doctor: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp @Model.MedicalHistory.Id</li>
+            <li>Weight: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp @Model.MedicalHistory.Weight cm</li>
+            <li>Height: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp @Model.MedicalHistory.Height kg</li>
+            <li>Blood Pressure: @Model.MedicalHistory.BloodPressure</li>
+            <li>Temperature: &nbsp &nbsp &nbsp @Model.MedicalHistory.Temperature &deg; C</li>
+            <li>Allergy: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp @Model.MedicalHistory.Allergy</li>
+            <li>Health Situation: &nbsp @Model.MedicalHistory.HealthSituation</li>
+            <li>Document Uploaded:&nbsp @Model.MedicalHistory.MedicalDocUrl</li>
+        </ul>
+
+    <br />
+
+    <form method="post">
+        <div class="btn-group col-3" role="group">
+            <div class="col-6">
+                @if (User.IsInRole("Doctor")){
+                    <a asp-page="/Doctors/DoctorMedicalDoc" asp-route-id="@Model.MedicalHistory.PatientId" class="text-info form-control fs-5">Back to the list</a>
+                }
+                @if (User.IsInRole("Patient")){
+                    <a asp-page="PatientMedicalDoc" asp-route-id = "@Model.MedicalHistory.Id" class="text-info form-control fs-5">Back to the list</a> 
+                }
+                               
+            </div>
+            <input type="button" asp-route-id="@Model.MedicalHistory.Id" value="Print Document" class="btn btn-secondary" onclick="window.print()" />
+            
+
+        </div>
+
+
+    </form>
+
+
+
+
+
+
+
+</div>

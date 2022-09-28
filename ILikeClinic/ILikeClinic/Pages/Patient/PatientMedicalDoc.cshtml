@@ -14,6 +14,11 @@
 
     <br />
 </div>
+
+@if (Model.MedicalHistory != null)
+{
+
+<form method="post">
 @foreach (var item in Model.MedicalHistory)
 {
     <div class="accordion" id="accordionExample">
@@ -36,10 +41,12 @@
                         <li>Document Uploaded:&nbsp @item.MedicalDocUrl</li>
                     </ul>
                     <div class="btn-group col-4" role="group">
-                        <a asp-route-id="@item.Id" class="btn btn-secondary disabled">Download This File</a>
+                            <button type="submit" class=" btn btn-dark" asp-page-handler="DownloadFile" asp-route-id="@item.Id" asp-route-weight="@item.Weight" asp-route-Height="@item.Height" asp-route-doctorFullName="@item.Doctor.FullName" asp-route-bloodPressure="@item.BloodPressure" asp-route-Temp="@item.Temperature" asp-route-healthSituation="@item.HealthSituation" asp-route-allergy="@item.Allergy" asp-route-patientFullName="@item.Patient.FullName" asp-route-dateOfApp="@item.DateOfApp">
+                                Download This Record
+                            </button>
                         <span style="width:100px" class="fs-4">   &nbsp           &nbsp       </span>
 
-                        <a asp-route-id="@item.Id" class="btn btn-secondary disabled">Print</a>
+                        <button type="submit" class="btn" asp-route-id="@item.Id" asp-page="PrintPage">Print</button>                       
 
                     </div>
                 </div>
@@ -47,6 +54,13 @@
         </div>
 
     </div>
+}
+</form>
+}
+else
+{
+    <i class="bi bi-pencil-square fs-4">You have no profile yet!</i>
+
 }
 
 <div class="col-3">

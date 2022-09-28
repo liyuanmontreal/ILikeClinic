@@ -42,10 +42,8 @@ namespace ILikeClinic.Pages.Patient
             if (result.Count() > 0)
             {
                 Patient = result.First();
-            }
-
-            doctor = _db.Doctor.Find(Patient.DoctorId);
-            
+                doctor = _db.Doctor.Find(Patient.DoctorId);
+            }  
         }
         public void OnGet()
         {
