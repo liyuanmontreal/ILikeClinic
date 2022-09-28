@@ -1,4 +1,5 @@
 using ILikeClinic.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ILikeClinic.Pages.Doctors
 {
+    [Authorize(Roles = "Doctor")]
     public class RejectAppointmentModel : PageModel
     {
         private readonly ApplicationDbContext _db;
