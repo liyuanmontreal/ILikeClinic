@@ -2,53 +2,54 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ILikeClinic.Data;
+using ILikeClinic.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ILikeClinic.Model;
 using ILikeClinic.Service;
-using ILikeClinic.Data;
 
-namespace ILikeClinic.Controllers
+namespace ILikeClinic.Controller
 {
-    [Route("api/[controller]")]
+    [Route("api/Appointments")]
     [ApiController]
-    public class AppointmentsController : ControllerBase
+    public class AppointmentSlotController : ControllerBase
     {
+
         private readonly ApplicationDbContext _context;
 
-        public AppointmentsController(ApplicationDbContext context)
+        public AppointmentSlotController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         // GET: api/Appointments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AppointmentSlot>>> GetAppointments([FromQuery] DateTime start, [FromQuery] DateTime end, [FromQuery] int? doctor)
+        public async Task<ActionResult<IEnumerable<AppointmentSlot>>> GetAppointmentSlot([FromQuery] DateTime start, [FromQuery] DateTime end, [FromQuery] int? doctor)
         {
             if (doctor == null)
             {
-                return await _context.Appointments.Where(e => !((e.End <= start) || (e.Start >= end))).Include(e => e.Doctor).ToListAsync();
+                return await _context.AppointmentSlot.Where(e => !((e.End <= start) || (e.Start >= end))).Include(e => e.Doctor).ToListAsync();
             }
             else
             {
-                return await _context.Appointments.Where(e => e.Doctor.Id == doctor && !((e.End <= start) || (e.Start >= end))).Include(e => e.Doctor).ToListAsync();
+                return await _context.AppointmentSlot.Where(e => e.Doctor.Id == doctor && !((e.End <= start) || (e.Start >= end))).Include(e => e.Doctor).ToListAsync();
             }
 
             //return await _context.Appointments.ToListAsync();
         }
 
         [HttpGet("free")]
-        public async Task<ActionResult<IEnumerable<AppointmentSlot>>> GetAppointments([FromQuery] DateTime start, [FromQuery] DateTime end, [FromQuery] string patient)
+        public async Task<ActionResult<IEnumerable<AppointmentSlot>>> GetAppointmentSlot([FromQuery] DateTime start, [FromQuery] DateTime end, [FromQuery] string patient)
         {
-            return await _context.Appointments.Where(e => (e.Status == "free" || (e.Status != "free" && e.PatientId == patient)) && !((e.End <= start) || (e.Start >= end))).Include(e => e.Doctor).ToListAsync();
+            return await _context.AppointmentSlot.Where(e => (e.Status == "free" || (e.Status != "free" && e.PatientId == patient)) && !((e.End <= start) || (e.Start >= end))).Include(e => e.Doctor).ToListAsync();
         }
 
         // GET: api/Appointments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AppointmentSlot>> GetAppointmentSlot(int id)
         {
-            var appointmentSlot = await _context.Appointments.FindAsync(id);
+            var appointmentSlot = await _context.AppointmentSlot.FindAsync(id);
 
             if (appointmentSlot == null)
             {
@@ -63,7 +64,7 @@ namespace ILikeClinic.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAppointmentSlot(int id, AppointmentSlotUpdate update)
         {
-            var appointmentSlot = await _context.Appointments.FindAsync(id);
+            var appointmentSlot = await _context.AppointmentSlot.FindAsync(id);
             if (appointmentSlot == null)
             {
                 return NotFound();
@@ -81,7 +82,7 @@ namespace ILikeClinic.Controllers
                 appointmentSlot.Status = update.Status;
             }
 
-            _context.Appointments.Update(appointmentSlot);
+            _context.AppointmentSlot.Update(appointmentSlot);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -102,7 +103,7 @@ namespace ILikeClinic.Controllers
         [HttpPut("{id}/request")]
         public async Task<IActionResult> PutAppointmentSlotRequest(int id, AppointmentSlotRequest slotRequest)
         {
-            var appointmentSlot = await _context.Appointments.FindAsync(id);
+            var appointmentSlot = await _context.AppointmentSlot.FindAsync(id);
             if (appointmentSlot == null)
             {
                 return NotFound();
@@ -112,7 +113,7 @@ namespace ILikeClinic.Controllers
             appointmentSlot.PatientId = slotRequest.Patient;
             appointmentSlot.Status = "waiting";
 
-            _context.Appointments.Update(appointmentSlot);
+            _context.AppointmentSlot.Update(appointmentSlot);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -130,7 +131,7 @@ namespace ILikeClinic.Controllers
         [HttpPost]
         public async Task<ActionResult<AppointmentSlot>> PostAppointmentSlot(AppointmentSlot appointmentSlot)
         {
-            _context.Appointments.Add(appointmentSlot);
+            _context.AppointmentSlot.Add(appointmentSlot);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAppointmentSlot", new { id = appointmentSlot.Id }, appointmentSlot);
@@ -150,7 +151,7 @@ namespace ILikeClinic.Controllers
             var slots = Timeline.GenerateSlots(range.Start, range.End, range.Scale);
             slots.ForEach(slot => {
                 slot.Doctor = doctor;
-                _context.Appointments.Add(slot);
+                _context.AppointmentSlot.Add(slot);
             });
 
             await _context.SaveChangesAsync();
@@ -164,7 +165,7 @@ namespace ILikeClinic.Controllers
             var start = range.Start;
             var end = range.End;
 
-            _context.Appointments.RemoveRange(_context.Appointments.Where(e => e.Status == "free" && !((e.End <= start) || (e.Start >= end))));
+            _context.AppointmentSlot.RemoveRange(_context.AppointmentSlot.Where(e => e.Status == "free" && !((e.End <= start) || (e.Start >= end))));
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -190,13 +191,13 @@ namespace ILikeClinic.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAppointmentSlot(int id)
         {
-            var appointmentSlot = await _context.Appointments.FindAsync(id);
+            var appointmentSlot = await _context.AppointmentSlot.FindAsync(id);
             if (appointmentSlot == null)
             {
                 return NotFound();
             }
 
-            _context.Appointments.Remove(appointmentSlot);
+            _context.AppointmentSlot.Remove(appointmentSlot);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -204,7 +205,20 @@ namespace ILikeClinic.Controllers
 
         private bool AppointmentSlotExists(int id)
         {
-            return _context.Appointments.Any(e => e.Id == id);
+            return _context.AppointmentSlot.Any(e => e.Id == id);
         }
+    }
+}
+
+
+
+
+namespace Project.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AppointmentsController : ControllerBase
+    {
+        
     }
 }
