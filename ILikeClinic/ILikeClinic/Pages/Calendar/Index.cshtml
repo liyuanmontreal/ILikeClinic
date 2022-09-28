@@ -1,0 +1,38 @@
+﻿@page
+@model ILikeClinic.Pages.Calendar.IndexModel
+@{
+    ViewData["Title"] = "Calendar Index";
+}
+<script src="~/lib/daypilot/daypilot-all.min.js" asp-append-version="true"></script>
+
+
+<div id="dpcalendar"></div>
+
+<script>
+    var dp = new DayPilot.Scheduler("dpcalendar");
+    dp.startDate = DayPilot.Date.today().firstDayOfMonth();
+    dp.days = DayPilot.Date.today().daysInMonth();
+    dp.scale = "Day";
+    dp.timeHeaders = [
+        { groupBy: "Month" },
+        { groupBy: "Day", format: "d" }
+    ];
+    dp.resources = [
+        { name: "Doctor A", id: "A" },
+        { name: "Doctor B", id: "B" },
+        { name: "Doctor C", id: "C" },
+    ];
+
+    dp.events.list = [
+        {
+            id: "1",
+            text: "Event 1",
+            start: "2022-09-13T00:00:00",
+            end: "2022-09-18T00:00:00",
+            resource: "A"
+        }
+    ];
+
+
+    dp.init();
+</script>
