@@ -29,9 +29,6 @@ namespace ILikeClinic.Pages.FAQ
             
         }
 
-       
-
-
         public void OnGet()
         {
             fAQs = _db.FAQ;

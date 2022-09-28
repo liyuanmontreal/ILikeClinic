@@ -14,17 +14,14 @@ namespace ILikeClinic.Model
         [StringLength(100, ErrorMessage = "Question cannot be longer than 100 characters")]
         public string Question { get; set; }
 
-        [Required]
         [Display(Name = "Answer")]
         [StringLength(200, ErrorMessage = "Answer cannot be longer than 200 characters")]
         public string Answer { get; set; }
 
-        [Required]
         [Display(Name = "From Email")]
         [StringLength(50, ErrorMessage = "Email cannot be longer than 50 characters")]
         public string FromEmail { get; set; }
 
-        [Required]
         [Display(Name = "Answer By")] 
         [ForeignKey("AspNetUsersId")]
         public int AspNetUsersId { get; set; }
