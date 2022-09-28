@@ -3,6 +3,7 @@ using ILikeClinic.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
@@ -21,6 +22,8 @@ namespace ILikeClinic.Pages.Patient
         [BindProperty]
         public Gender Gender { get; set; }
 
+        public SelectList DoctorList { get; set; }
+
         private readonly ApplicationDbContext _db;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -33,6 +36,8 @@ namespace ILikeClinic.Pages.Patient
         }
         public async Task OnGet()
         {
+            var items = await _db.Doctor.ToListAsync();
+            DoctorList = new SelectList(items, "Id", "FullName");
 
         }
 

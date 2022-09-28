@@ -13,6 +13,7 @@
     <form method="post" enctype="multipart/form-data">
 
         <input hidden asp-for="Doctor.Id" />
+        <input  asp-for="Patient.Id" />
 
 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -64,10 +65,10 @@
         <div class="form-group-lg row fs-5">
             <h3>Step 3:</h3>
             <div class="col-4">
-                *Check the schedule and choose a time slot.
+                <label asp-for="Appointment.AppStartAt">*Check the schedule and choose a time slot.</label>
             </div>
             <div class="col-6">
-                <input class="form-control" id="dateSelect" asp-for="Appointment.AppStartAt" asp-format="{0:yyyy-MM-dd}" />
+                <input class="form-control" id="dateSelect" asp-for="Appointment.AppStartAt" asp-format="{0:yyyy-MM-dd}"  />
             </div> 
         </div>
         <br />

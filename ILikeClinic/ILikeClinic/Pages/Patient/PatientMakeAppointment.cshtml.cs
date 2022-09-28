@@ -85,7 +85,7 @@ namespace ILikeClinic.Pages.Patient
             }
 
             Appointment.Status = 0;
-            if(Doctor != null)
+            if(Doctor.Id != 0)
             {
                 Appointment.DoctorId = Doctor.Id;
             }

@@ -19,26 +19,32 @@
    
 
      <div class="row">
+         @if(Model.Patient != null){
+            <div class="col-6 ">
+                <a asp-route-id="@Model.Patient.Id" asp-page="PatientMakeAppointment" class="btn btn-primary text-bg-light">
+                    <i class="bi bi-plus-circle fs-4 "></i> &nbsp Make An Appointment
+                </a>
+            </div>
+            <div class="col-6">
+                <form method="get">
+                    <div class="input-group">
+                        <input class="form-control" asp-for="Search" placeholder=" Searching by name..." />
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary text-bg-info">Search</button>
+                        </div>
+                        <div class="input-group-append">
+                            <a asp-page="PatientAppointment" class="btn btn-secondary form-control text-bg-secondary">Clear</a>
+                        </div>
 
-        <div class="col-6 ">
-            <a asp-route-id="@Model.Patient.Id" asp-page="PatientMakeAppointment" class="btn btn-primary text-bg-light">
-                <i class="bi bi-plus-circle fs-4 "></i> &nbsp Make An Appointment
-            </a>
-        </div>
-        <div class="col-6">
-            <form method="get">
-                <div class="input-group">
-                    <input class="form-control" asp-for="Search" placeholder=" Searching by name..." />
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary text-bg-info">Search</button>
                     </div>
-                    <div class="input-group-append">
-                        <a asp-page="PatientAppointment" class="btn btn-secondary form-control text-bg-secondary">Clear</a>
-                    </div>
+                </form>
+            </div>
+        }
+        else {
+            <h3> You have no profile, please complete your file firstly!</h3>
+        }
 
-                </div>
-            </form>
-        </div>   
+          
     </div>
  
 </div>
