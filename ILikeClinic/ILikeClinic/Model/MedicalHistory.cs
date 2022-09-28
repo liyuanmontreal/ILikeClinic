@@ -27,7 +27,7 @@ namespace ILikeClinic.Model
 
         public string HealthSituation { get; set; }
 
-        public string MedicalDocUrl { get; set; }
+        public string? MedicalDocUrl { get; set; }
 
         [ForeignKey("PatientId")]
         [ValidateNever]
