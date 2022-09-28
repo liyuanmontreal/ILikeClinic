@@ -53,6 +53,7 @@ namespace ILikeClinic.Pages.Patient
 
         public async Task<IActionResult> OnPostAsync()
         {
+           // Appointment.PatientId = Patient.Id;
             _db.Appointment.Update(Appointment);
             _db.SaveChangesAsync();
 

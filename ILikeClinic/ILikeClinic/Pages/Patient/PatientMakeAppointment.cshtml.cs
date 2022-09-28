@@ -50,11 +50,19 @@ namespace ILikeClinic.Pages.Patient
             }
         }
 
-        public async Task OnGet(int? id)
+        public async Task<IActionResult> OnGet(int? id)
         {
             var items = await _db.Doctor.ToListAsync();
             DoctorList = new SelectList(items, "Id", "FullName");
-            Doctor = _db.Doctor.Find(id);
+            if (id == null || id == 0)
+            {
+
+            }
+            else
+            {
+                Doctor = _db.Doctor.Find(id);
+            }
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(IFormFile file)
@@ -75,7 +83,12 @@ namespace ILikeClinic.Pages.Patient
                 }
                 Appointment.FileUrl = @"\file\" + fileName + extension;
             }
+
             Appointment.Status = 0;
+            if(Doctor.Id != 0)
+            {
+                Appointment.DoctorId = Doctor.Id;
+            }
             _db.Appointment.Add(Appointment);
             await _db.SaveChangesAsync();
 

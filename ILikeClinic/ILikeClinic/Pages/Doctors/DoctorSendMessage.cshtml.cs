@@ -59,7 +59,7 @@ namespace ILikeClinic.Pages.Doctors
         public async Task<IActionResult> OnPostAsync(IFormFile file)
         {
             Message.FromId = Doctor.Id;
-            Message.ToId = Patient.Id;
+
             Message.SendTime=DateTime.Now;
 
             Message.Status = "SENT";
