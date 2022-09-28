@@ -10,10 +10,8 @@ using System.Data;
 
 namespace ILikeClinic.Pages.Doctors
 {
-    [Authorize(Roles = "Doctor")]
-    public class DoctorMakeAppointmentModel : PageModel
+    public class DoctorModifyAppointmentModel : PageModel
     {
-
         [BindProperty]
         public Appointment Appointment { get; set; }
 
@@ -31,11 +29,13 @@ namespace ILikeClinic.Pages.Doctors
         [BindProperty]
         public ILikeClinic.Model.Doctor Doctor { get; set; }
 
+      
+
         public SelectList DoctorList { get; set; }
 
         public SelectList PatientList { get; set; }
 
-        public DoctorMakeAppointmentModel(ApplicationDbContext db, IWebHostEnvironment hostEnvironment, IHttpContextAccessor httpContextAccessor)
+        public DoctorModifyAppointmentModel(ApplicationDbContext db, IWebHostEnvironment hostEnvironment, IHttpContextAccessor httpContextAccessor)
         {
             _DB = db;
             _HttpContextAccessor = httpContextAccessor;
@@ -57,39 +57,24 @@ namespace ILikeClinic.Pages.Doctors
 
         public async Task OnGet(int? id)
         {
-            
+
 
             var items2 = await _DB.Patient.ToListAsync();
             PatientList = new SelectList(items2, "Id", "FullName");
-            Patient = _DB.Patient.Find(id);
+            Appointment = _DB.Appointment.Find(id);
+
+            Patient = _DB.Patient.FirstOrDefault(p => p.Id == Appointment.PatientId);
+           
         }
 
-        public async Task<IActionResult> OnPostAsync(IFormFile file)
+        public async Task<IActionResult> OnPostAsync()
         {
-            Appointment.DoctorId = Doctor.Id;
+            _DB.Appointment.Update(Appointment);
+            _DB.SaveChangesAsync();
 
-            if (file != null)
-            {
-                string wwwRootPath = _hostEnvironment.WebRootPath;
-                var uploads = Path.Combine(wwwRootPath, @"file");
-                var extension = Path.GetExtension(file.FileName);
-                string fileName = Guid.NewGuid().ToString();
-
-
-                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
-                {
-                    file.CopyTo(fileStreams);
-                }
-                Appointment.FileUrl = @"\file\" + fileName + extension;
-            }
-            Appointment.Status = 0;
-            _DB.Appointment.Add(Appointment);
-            await _DB.SaveChangesAsync();
-
-            TempData["success"] = "Appointment created successfully";
-            return Page();
-
-
+            TempData["success"] = "Appointment updated successfully";
+            return RedirectToPage("AppointmentToDoctor");
         }
+
     }
 }

@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ILikeClinic.Model;
 using ILikeClinic.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace ILikeClinic.Controllers
+namespace ILikeClinic.Controller
 {
-    [Route("api/[controller]")]
+    [Route("api/doctors")]
     [ApiController]
-    public class DoctorsController : ControllerBase
+    public class DoctorController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        public SelectList DoctorList { get; set; }
 
-        public DoctorsController(ApplicationDbContext context)
+        public DoctorController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -106,4 +103,3 @@ namespace ILikeClinic.Controllers
         }
     }
 }
-
