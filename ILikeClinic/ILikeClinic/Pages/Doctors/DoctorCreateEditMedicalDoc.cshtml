@@ -1,0 +1,140 @@
+﻿@page
+@model ILikeClinic.Pages.Doctors.DoctorCreateEditMedicalDocModel
+@{
+}
+
+<br />
+<h1 class="text-info">Add New Medical Document</h1>
+<br />
+
+<div class="border container p-4 ">
+
+    <form method="post" enctype="multipart/form-data">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input hidden asp-for="Patient.Id"  />
+        <input hidden asp-for="Doctor.Id"  />
+
+
+        <div class="form-group row fs-4">
+            <div class="col-3 ">
+                <label asp-for="MedicalHistory.Weight">Weight /kg</label>
+
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="MedicalHistory.Weight" />
+            </div>
+            <span asp-validation-for="MedicalHistory.Weight" class="text-danger fs-5"></span>
+
+
+        </div>
+        <br />
+
+        <div class="form-group row fs-4">
+            <div class="col-3 ">
+                <label asp-for="MedicalHistory.Height">Height /cm</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="MedicalHistory.Height" />
+            </div>
+            <span asp-validation-for="MedicalHistory.Height" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+        <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="MedicalHistory.Temperature">Temperature / &deg; C</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="MedicalHistory.Temperature" />
+            </div>
+            <span asp-validation-for="MedicalHistory.Temperature" class="text-danger fs-5"></span>
+        </div>
+        <br />
+        <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="MedicalHistory.BloodPressure">Blood Pressure</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="MedicalHistory.BloodPressure" />
+            </div>
+            <span asp-validation-for="MedicalHistory.BloodPressure" class="text-danger fs-5"></span>
+        </div>
+        <br />
+        <div class="form-group row fs-4">
+            <div class="col-3">
+                <label asp-for="MedicalHistory.Allergy"></label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="MedicalHistory.Allergy" />
+            </div>
+            <span asp-validation-for="MedicalHistory.Allergy" class="text-danger fs-5"></span>
+        </div>
+        <br />
+        <hr />
+        <br />
+
+
+
+        <div class="form-group row fs-5">
+            <div class="col-3">
+                <label asp-for="MedicalHistory.DoctorId">Doctor Name:</label>
+            </div>
+            <div class="col-6">@Model.Doctor.FullName</div>
+
+
+            <span asp-validation-for="MedicalHistory.DoctorId" class="text-danger fs-5"></span>
+        </div>
+        <br />
+        <div class="form-group row fs-5">
+            <div class="col-3">
+                <label asp-for="MedicalHistory.DateOfApp">Date</label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="@DateTime.Today" />
+            </div>
+            <span asp-validation-for="MedicalHistory.DateOfApp" class="text-danger fs-5"></span>
+        </div>
+        <br />
+        <div class="form-group row fs-5">
+            <div class="col-3">
+                <label asp-for="MedicalHistory.HealthSituation"></label>
+            </div>
+            <div class="col-6">
+                <input class="form-control" asp-for="MedicalHistory.HealthSituation" />
+            </div>
+            <span asp-validation-for="MedicalHistory.HealthSituation" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+        <div class="form-group row fs-5">
+
+            <div class="col-3">
+                <label asp-for="MedicalHistory.MedicalDocUrl">Upload Documents needed:</label>
+            </div>
+            <div class="col-6">
+                <input type="file" id="uploadbox" class="form-control" name="file" />
+            </div>
+            <span asp-validation-for="MedicalHistory.MedicalDocUrl" class="text-danger fs-5"></span>
+        </div>
+        <br />
+
+
+        <br />
+        <div class="form-group row fs-3">
+            <div class="col-3 ">
+                <a asp-route-id="@Model.Patient.Id" asp-page="DoctorMedicalDoc" class="text-info form-control fs-5">Back to Medical Doc List</a>
+
+            </div>
+            <div class="col-3">
+                <button asp-route-id="@Model.Patient.Id" asp-route-patientID="@Model.Patient.Id" type="submit" class="btn btn-info form-control  ">Save</button>
+            </div>
+            
+
+
+        </div>
+
+    </form>
+
+</div>

@@ -28,7 +28,7 @@ namespace ILikeClinic.Pages.Patient
             _httpContextAccessor = httpContextAccessor;
             getPatient();
         }
-
+        
         private void getPatient()
         {
             var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);

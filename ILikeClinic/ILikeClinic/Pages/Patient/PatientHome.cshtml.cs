@@ -45,6 +45,7 @@ namespace ILikeClinic.Pages.Patient
             {
                 Patient = result.First();
                 doctor = _db.Doctor.Find(Patient.DoctorId);
+              
 
             }
         }

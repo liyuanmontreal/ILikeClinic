@@ -2,6 +2,9 @@
 @model ILikeClinic.Pages.Doctors.PatientListModel
 @{
 }
+
+<partial name="_ToastrNotification" />
+
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
@@ -73,7 +76,7 @@
 
                 <td>
                     <a asp-page="#" asp-route-id="@item.Id">Patient Info</a> ||
-                    <a asp-page="#" asp-route-id="@item.Id">Medical Doc</a> ||
+                    <a asp-page="DoctorMedicalDoc" asp-route-id="@item.Id">Medical Doc</a> ||
                     <a asp-page="#" asp-route-id="@item.Id">Message</a>
                     
                 </td>

@@ -12,7 +12,7 @@ namespace ILikeClinic.Pages.Patient
     {
         [BindProperty]
         public ILikeClinic.Model.Patient Patient { get; set; }
-
+        [BindProperty]
         public ILikeClinic.Model.Doctor doctor { get; set; }
 
         [BindProperty(SupportsGet = true)]

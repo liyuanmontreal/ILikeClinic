@@ -39,7 +39,7 @@
                         <a asp-route-id="@item.Id" class="btn btn-secondary disabled">Download This File</a>
                         <span style="width:100px" class="fs-4">   &nbsp           &nbsp       </span>
 
-                        <a asp-route-id="@item.Id" class="btn btn-secondary disabled">Print</a>
+                        <input type="button" asp-route-id="@item.Id" value="Print Form" class="btn btn-secondary" onclick="window.print()" />
 
                     </div>
                 </div>
