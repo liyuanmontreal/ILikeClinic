@@ -13,6 +13,8 @@
             </h1>
         </div>
     </div>
+   
+
 
     <form method="post">
         <table class="table table-bordered table-striped fs-5 text-center" style="width:100%">
@@ -23,22 +25,24 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
+                @if (Model.doctor != null)
+                {
+                    <tbody>
+                        <tr>
                     <td width="30%">
-                        @((Model.doctor != null) ? Model.doctor.FullName : "No Family Doctor ")
-                        <a asp-page="#home" asp-route-id="" class="btn btn-info mx-2 text-bg-primary @((Model.doctor != null) ? "" : "disabled")">
+                         @Model.doctor.FullName 
+                            <a asp-page="PatientDoctorInfo" asp-route-id="@Model.doctor.Id" class="btn btn-info mx-2 text-bg-primary ">
                             Info
                         </a>
                     </td>
-                    <td width="25%">@((Model.doctor != null) ? Model.doctor.Speciality : "- ")</td>
+                    <td width="25%"> Model.doctor.Speciality</td>
                     <td width="25%">
                         <div class="w-75 btn-group" role="group">
-                            <a asp-page="PatientMakeAppointment" asp-route-id="@((Model.doctor != null) ? Model.doctor.Id : "")" class="text-primary fs-5 mx-2">
-                                @((Model.doctor != null) ? "Appointment" : "-")
+                            <a asp-page="PatientMakeAppointment" asp-route-id="@Model.doctor.Id" class="text-primary fs-5 mx-2">
+                                Appointment
                             </a>
                             <span style="width:100px" class="fs-4">   &nbsp         ||  &nbsp       </span>
-                            <a asp-page="#home" asp-route-id="@((Model.doctor != null) ? Model.doctor.Id : "")" class="btn btn-primary mx-2 text-bg-success @((Model.doctor != null) ? "" : "disabled")">
+                            <a asp-page="#home" asp-route-id="@Model.doctor.Id" class="btn btn-primary mx-2 text-bg-success ">
                                 Message
                             </a>
                         </div>
@@ -46,7 +50,13 @@
                     </td>
                 </tr>
             </tbody>
-            
+            }    
+            else {
+                <br />
+                <div> You have no family doctor </div>
+                <br />
+            }
+
         </table>
         <br />
         <br />
@@ -100,7 +110,7 @@
             {
                 <tr>
                     <td width="30%">@item.FullName
-                        <a asp-page="./Doctors/ProfileDetail" asp-route-id="@item.Id" class="btn btn-info mx-2 text-bg-primary">
+                        <a asp-page="PatientDoctorInfo" asp-route-id="@item.Id" class="btn btn-info mx-2 text-bg-primary">
                              Info
                         </a>
                     </td>

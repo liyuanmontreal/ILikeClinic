@@ -44,11 +44,16 @@ namespace ILikeClinic.Pages.Patient
         public void OnGet()
         {
             var query = _db.Appointment.AsNoTracking();
+            var result = query.Where(s => s.PatientId.Equals(Patient.Id));
+
             if (!string.IsNullOrEmpty(Search))
             {
-                query = query.Where(s => s.Doctor.FirstName.Contains(Search) || s.Doctor.LastName.Contains(Search) );
+                result = result.Where(s => s.Doctor.FirstName.Contains(Search) || s.Doctor.LastName.Contains(Search) );
             }
-            Appointment = query.Include(c => c.Doctor);
+            if (result.Count() > 0)
+            {
+                Appointment = result.Include(c => c.Doctor).Include(c => c.Patient);
+            }
 
         }
         public async Task<IActionResult> OnPostDelete(int id)

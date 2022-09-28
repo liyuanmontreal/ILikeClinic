@@ -55,7 +55,7 @@
                                 </button>
                                 <span style="width:100px" class="fs-4">   &nbsp           &nbsp       </span>
 
-                                <a asp-route-id="@item.Id" asp-page="PrintPage" class="btn btn-primary">Print</a>
+                                <a asp-route-id="@item.Id" asp-route-patientId="@item.PatientId" asp-page="/Patient/PrintPage" class="btn btn-primary">Print</a>
                                 <span style="width:100px" class="fs-4">   &nbsp           &nbsp       </span>
 
                                 <input type="submit" asp-route-id="@item.Id" asp-route-patientID="@Model.Patient.Id" asp-page-handler="Delete" onclick="return confirm('Are you sure to delete it @item.Id?')" class="btn btn-warning " value="Delete">
