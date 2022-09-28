@@ -38,7 +38,6 @@ namespace ILikeClinic.Pages.Admin
         {
             var items2 = await _DB.Patient.ToListAsync();
             PatientList = new SelectList(items2, "Id", "FullName");
-            //Patient = _DB.Patient.Find(id);
             var items3 = await _DB.Doctor.ToListAsync();
             DoctorList = new SelectList(items3, "Id", "FullName");
         }
