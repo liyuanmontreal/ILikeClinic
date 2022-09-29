@@ -11,8 +11,7 @@ namespace ILikeClinic.Controller
     public class DoctorController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public SelectList DoctorList { get; set; }
-
+        
         public DoctorController(ApplicationDbContext context)
         {
             _context = context;

@@ -5,6 +5,14 @@
 }
 <script src="~/lib/daypilot/daypilot-all.min.js"></script>
 
+<nav>
+    <a href="./">Patient</a>
+    |
+    <a href="./Doctor">Doctor</a>
+    |
+    <a href="./Manager">Manager</a>
+</nav>
+
 <div class="row">
 <div class="col-3">
     <div id="nav"></div>
@@ -43,9 +51,9 @@
         async init() {
             const {data} = await DayPilot.Http.get("/api/doctors");
 
-            app.doctors = data;
-
-            app.doctors.forEach(item => {
+            app.doctor = data;
+            console.log(data);
+            app.doctor.forEach(item => {
                 const option = document.createElement("option");
                 option.value = item.id;
                 option.innerText = item.fullname;

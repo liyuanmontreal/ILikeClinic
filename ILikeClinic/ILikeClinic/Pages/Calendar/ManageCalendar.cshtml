@@ -4,6 +4,13 @@
     ViewData["Title"] = "Manager";
 }
 
+<nav>
+    <a href="./">Patient</a>
+    |
+    <a href="./Doctor">Doctor</a>
+    |
+    <a href="./Manager">Manager</a>
+</nav>
 <div class="row">
 <div class="col-3">
     <div id="nav"></div>
@@ -58,8 +65,9 @@ const app = {
     },
     async loadResources() {
         const {data} = await DayPilot.Http.get("/api/doctors");
+        console.log(data); 
         scheduler.update({
-          resources: data,
+          resources=[data];
           visible: true
         });
     },
