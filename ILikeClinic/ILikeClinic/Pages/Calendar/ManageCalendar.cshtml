@@ -5,11 +5,11 @@
 }
 
 <nav>
-    <a href="./">Patient</a>
+    <a href="./PatientCalendar">Patient</a>
     |
-    <a href="./Doctor">Doctor</a>
+    <a href="./DoctorCalendar">Doctor</a>
     |
-    <a href="./Manager">Manager</a>
+    <a href="./ManageCalendar">Manager</a>
 </nav>
 <div class="row">
 <div class="col-3">
@@ -65,9 +65,16 @@ const app = {
     },
     async loadResources() {
         const {data} = await DayPilot.Http.get("/api/doctors");
-        console.log(data); 
+
+            let fullNames =[];
+            for(var i = 0; i < data.length; i++){
+               fullName = data[i].fullName;
+               fullNames.push(fullName);
+            }
+        console.log(data);
+
         scheduler.update({
-          resources=[data];
+          resources:data,
           visible: true
         });
     },
@@ -78,16 +85,16 @@ const app = {
         const scale = app.elements.scaleChecked.value;
         const businessOnly = app.elements.businessOnly.checked;
 
-        let morningShiftStarts = 9;
-        let morningShiftEnds = 13;
-        let afternoonShiftStarts = 14;
-        let afternoonShiftEnds = 18;
+        let morningShiftStarts = 8;
+        let morningShiftEnds = 12;
+        let afternoonShiftStarts = 13;
+        let afternoonShiftEnds = 20;
 
         if (!businessOnly) {
-            morningShiftStarts = 0;
+            morningShiftStarts = 6;
             morningShiftEnds = 12;
             afternoonShiftStarts = 12;
-            afternoonShiftEnds = 24;
+            afternoonShiftEnds = 21;
         }
 
         const timeline = [];

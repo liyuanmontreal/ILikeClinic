@@ -6,11 +6,11 @@
 <script src="~/lib/daypilot/daypilot-all.min.js"></script>
 
 <nav>
-    <a href="./">Patient</a>
+    <a href="./PatientCalendar">Patient</a>
     |
-    <a href="./Doctor">Doctor</a>
+    <a href="./DoctorCalendar">Doctor</a>
     |
-    <a href="./Manager">Manager</a>
+    <a href="./ManageCalendar">Manager</a>
 </nav>
 
 <div class="row">
@@ -56,7 +56,7 @@
             app.doctor.forEach(item => {
                 const option = document.createElement("option");
                 option.value = item.id;
-                option.innerText = item.fullname;
+                option.innerText = item.name;
                 app.elements.doctor.appendChild(option);
             });
 
@@ -88,7 +88,7 @@
                 start: args.newStart,
                 end: args.newEnd
             };
-            const {data} = await DayPilot.Http.put(`/api/appointments/${appointment.id}`, appointment);
+            const {data} = await DayPilot.Http.put(`/api/appointments/${appointmentSlot.id}`, appointmentSlot);
         },
         onEventResized: async (args) => {
             const appointment = {
@@ -96,7 +96,7 @@
                 start: args.newStart,
                 end: args.newEnd
             };
-            const {data} = await DayPilot.Http.put(`/api/appointments/${appointment.id}`, appointment);
+            const {data} = await DayPilot.Http.put(`/api/appointments/${appointmentSlot.id}`, appointmentSlot);
         },
         onEventDeleted: async (args) => {
             const id = args.e.data.id;

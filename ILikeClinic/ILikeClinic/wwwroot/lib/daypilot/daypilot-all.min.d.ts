@@ -1,15 +1,195 @@
-/** @license
- * DayPilot Pro for JavaScript 2022.3.5439
- * Copyright 2005 - 2022 Annpoint, s.r.o.
- * Use of this software is subject to license terms.
- * https://www.daypilot.org/
+/* Copyright 2005 - 2021 Annpoint, s.r.o.
+ Use of this software is subject to license terms.
+ https://www.daypilot.org/
  */
 
 type GlobalDate = Date;
 
 export module DayPilot {
 
-    export class SchedulerPropsAndEvents {
+    class Scheduler extends SchedulerPropsAndEvents {
+        v: string;
+        events: {
+            list: EventData[];
+
+            add(e: DayPilot.Event): void;
+            add(data: EventData): void;
+            all(): DayPilot.Event[];
+            edit(e: DayPilot.Event): void;
+            filter(param: any): void;
+            find(id: EventId): DayPilot.Event;
+            find(filter: (data: DayPilot.Event) => boolean): DayPilot.Event;
+            findAll(filter: (e: DayPilot.Event) => boolean): DayPilot.Event[];
+            findAll(example: any): DayPilot.Event[];
+            findRecurrent(masterId: string, time: DayPilot.Date | string): DayPilot.Event;
+            focus(e: DayPilot.Event): void;
+            forRange(start?: DayPilot.Date | string, end?: DayPilot.Date | string): DayPilot.Event[];
+            load(url: string,
+                success: (args: { data: any; preventDefault(): void; }) => void,
+                error: (args: { request: XMLHttpRequest, exception: any; }) => void
+            ): void;
+            remove(e: DayPilot.Event): void;
+            remove(data: EventData): void;
+            remove(id: EventId): void;
+            scrollIntoView(e: DayPilot.Event): void;
+            update(e: DayPilot.Event): void;
+            update(data: EventData): void;
+        };
+        cells: {
+            all(): CellArray;
+            findXy(x: number, y: number, grid?: string): CellArray;
+            find(start: DayPilot.Date, resource: string): CellArray;
+            findByPixels(x: number, y: number): CellArray;
+        };
+        infinite: {
+            scrollTo(date: DayPilot.Date): void;
+            shiftStart(days: number): void;
+        };
+        keyboard: {
+            focusCell(date: DayPilot.Date, resource: ResourceId): void;
+            focusEvent(e: DayPilot.Event): void;
+            focusEvent(id: EventId): void;
+            getFocus(): { e?: DayPilot.Event, cell?: { start: DayPilot.Date, end: DayPilot.Date, resource: ResourceId } };
+            move(direction: "left" | "right" | "up" | "down", options?: { dontFireEvent?: boolean }): void;
+            resetFocus(): void;
+        };
+        links: {
+            add(link: DayPilot.Link): void;
+            add(data: LinkData): void;
+            find(id: LinkId): DayPilot.Link;
+            findByFromTo(from: DayPilot.Date | string, to: DayPilot.Date | string): DayPilot.Link;
+            remove(link: DayPilot.Link): void;
+            remove(data: LinkData): void;
+            remove(id: LinkId): void;
+            load(url: string,
+                success: (args: { data: any; preventDefault(): void; }) => void,
+                error: (args: { request: XMLHttpRequest, exception: any; }) => void
+            ): void;
+            list: LinkData[];
+        };
+        multiselect: {
+            add(e: DayPilot.Event, dontRedraw?: boolean): void;
+            clear(dontRedraw?: boolean): void;
+            events(): DayPilot.Event[];
+            get(): DayPilot.Event[];
+            isSelected(e: DayPilot.Event): boolean;
+            redraw(): void;
+            remove(e: DayPilot.Event, dontRedraw?: boolean): void;
+            startRectangle(): void;
+        };
+        // legacy
+        range: {
+            all(): DayPilot.Selection[];
+        };
+        multirange: {
+            add(sel: DayPilot.Selection): void;
+            clear(): void;
+            get(): DayPilot.Selection[];
+        };
+        rows: {
+            add(data: ResourceData): void;
+            addChild(parent: DayPilot.Row, data: ResourceData): void;
+            addChild(parent: string, data: ResourceData): void;
+            addChild(parent: number, data: ResourceData): void;
+            addChild(parent: ResourceData, data: ResourceData): void;
+            all(): DayPilot.Row[];
+            collapseAll(): void;
+            each(f: () => DayPilot.Row): void;
+            edit(row: DayPilot.Row): void;
+            expand(level?: number): void;
+            expandAll(): void;
+            filter(param: any): void;
+            find(filter: (row: DayPilot.Row) => boolean, startIndex?: number): DayPilot.Row;
+            find(id: ResourceId, start?: DayPilot.Date | string): DayPilot.Row;
+            headerHide(): void;
+            headerShow(): void;
+            headerToggle(): void;
+            load(url: string,
+                success: (args: { data: any; preventDefault(): void; }) => void,
+                error: (args: { request: XMLHttpRequest, exception: any; }) => void
+            ): void;
+            remove(row: DayPilot.Row): void;
+            remove(id: ResourceId): void;
+            sort(spec?: string | { field: string, order?: "asc" | "desc" }): void;
+            update(row: DayPilot.Row | ResourceData): void;
+            visible(): DayPilot.Row[];
+
+            selection: {
+                add(row: DayPilot.Row): void;
+                clear(): void;
+                get(): DayPilot.Row[];
+                isSelected(row: DayPilot.Row): boolean;
+                remove(row: Row): void;
+            };
+        };
+        zoom: {
+            setActive(index: number, position?: "left" | "middle" | "right"): void;
+            setActive(id: string, position?: "left" | "middle" | "right"): void;
+            active: number;
+        };
+
+        constructor(id: string | HTMLElement, options?: SchedulerConfig);
+
+        autoRefreshPause(): void;
+
+        autoRefreshStart(force: boolean): void;
+
+        clearSelection(): void;
+
+        dispose(): void;
+
+        exportAs(format?: "svg" | "png" | "jpeg", options?: any): Export;
+
+        getCoords(): { x: number, y: number, row: DayPilot.Row, cell: DayPilot.Cell, time: DayPilot.Date, event: DayPilot.Event, eventOffset: { x: number, y: number } };
+
+        getDate(pixels: number, precise?: boolean, isEnd?: boolean): DayPilot.Date;
+
+        getScrollX(): number;
+
+        getScrollY(): number;
+
+        getViewPort(): SchedulerViewPort;
+
+        hide(): void;
+
+        init(): void;
+
+        loadingStart(): void;
+
+        loadingStop(): void;
+
+        message(msg: string, options?: { delay?: number, cssClass?: string, rawHtml?: boolean }): void;
+
+        scrollTo(date: string | DayPilot.Date): void;
+
+        scrollTo(date: string | DayPilot.Date, animated: boolean | number | "fast" | "normal" | "slow" | "linear", position?: "left" | "middle" | "right"): void;
+
+        scrollToResource(id: ResourceId | DayPilot.Row): void;
+
+        selectTimeRange(start: DayPilot.Date | string, end: DayPilot.Date | string, resource: ResourceId, dontFireEvent?: boolean): void;
+
+        setHeight(pixels: number): void;
+
+        setScroll(scrollX: number, scrollY: number): void;
+
+        setScrollX(scrollX: number): void;
+
+        setScrollY(scrollY: number): void;
+
+        show(): void;
+
+        uiBlock(): void;
+
+        uiUnblock(): void;
+
+        update(options?: SchedulerConfig): void;
+
+        visibleStart(): DayPilot.Date;
+
+        visibleEnd(): DayPilot.Date;
+    }
+
+    class SchedulerPropsAndEvents {
         allowDefaultContextMenu?: boolean;
         allowEventOverlap?: boolean;
         allowMultiMove?: boolean;
@@ -154,14 +334,12 @@ export module DayPilot {
         rowHeaderColumnDefaultWidth?: number;
         rowHeaderColumnResizedHandling?: "Update" | "CallBack";
         rowHeaderColumns?: RowHeaderColumnData[];
-        rowHeaderColumnsMergeParents?: boolean;
         rowHeaderColumnsMode?: "Tabular" | "Legacy";
         rowHeaderColumnsResizable?: boolean;
         rowHeaderHideIconEnabled?: boolean;
         rowHeaderScrolling?: boolean;
         rowHeaderSplitterWidth?: number;
         rowHeaderWidth?: number;
-        rowHeaderWidthMin?: number;
         rowHeaderWidthAutoFit?: boolean;
         rowHeaderWidthMarginRight?: number;
         rowMarginBottom?: number;
@@ -233,8 +411,6 @@ export module DayPilot {
         onAfterRender?: EventHandler<SchedulerAfterRenderArgs>;
         onAfterUpdate?: EventHandler<SchedulerAfterUpdateArgs>;
         onAutoRefresh?: EventHandler<SchedulerAutoRefreshArgs>;
-        onBeforeCellDomAdd?: EventHandler<SchedulerBeforeCellDomAddArgs>;
-        onBeforeCellDomRemove?: EventHandler<SchedulerBeforeCellDomRemoveArgs>;
         onBeforeCellExport?: EventHandler<SchedulerBeforeCellExportArgs>;
         onBeforeCellRender?: EventHandler<SchedulerBeforeCellRenderArgs>;
         onBeforeCornerExport?: EventHandler<SchedulerBeforeCornerExportArgs>;
@@ -302,9 +478,6 @@ export module DayPilot {
         onEventSelected?: EventHandler<SchedulerEventSelectedArgs>;
         onGridMouseDown?: EventHandler<SchedulerGridMouseDownArgs>;
         onIncludeTimeCell?: EventHandler<SchedulerIncludeTimeCellArgs>;
-        onKeyboardFocusChange?: EventHandler<SchedulerKeyboardFocusChangeArgs>;
-        onKeyboardFocusChanged?: EventHandler<SchedulerKeyboardFocusChangedArgs>;
-        onKeyDown?: EventHandler<SchedulerKeyDownArgs>;
         onLinkClick?: EventHandler<SchedulerLinkClickArgs>;
         onLinkClicked?: EventHandler<SchedulerLinkClickedArgs>;
         onLinkCreate?: EventHandler<SchedulerLinkCreateArgs>;
@@ -357,208 +530,27 @@ export module DayPilot {
         onTimeRangeSelecting?: EventHandler<SchedulerTimeRangeSelectingArgs>;
     }
 
-    export class SchedulerConfig extends SchedulerPropsAndEvents {
+    class SchedulerConfig extends SchedulerPropsAndEvents {
         events?: EventData[];
         links?: LinkData[];
         zoom?: number | string;
     }
 
-    export class Scheduler extends SchedulerPropsAndEvents {
-        v: string;
-        events: {
-            list: EventData[];
-
-            add(e: DayPilot.Event): void;
-            add(data: EventData): void;
-            all(): DayPilot.Event[];
-            edit(e: DayPilot.Event): void;
-            filter(param: any): void;
-            find(id: EventId): DayPilot.Event;
-            find(filter: (e: DayPilot.Event) => boolean): DayPilot.Event;
-            findAll(filter: (e: DayPilot.Event) => boolean): DayPilot.Event[];
-            findAll(example: any): DayPilot.Event[];
-            findRecurrent(masterId: string, time: DayPilot.Date | string): DayPilot.Event;
-            focus(e: DayPilot.Event): void;
-            forRange(start?: DayPilot.Date | string, end?: DayPilot.Date | string): DayPilot.Event[];
-            load(url: string,
-                 success: (args: { data: any; preventDefault(): void; }) => void,
-                 error: (args: { request: XMLHttpRequest, exception: any; }) => void
-            ): void;
-            remove(e: DayPilot.Event): void;
-            remove(data: EventData): void;
-            remove(id: EventId): void;
-            scrollIntoView(e: DayPilot.Event): void;
-            update(e: DayPilot.Event): void;
-            update(data: EventData): void;
-        };
-        cells: {
-            all(): CellArray;
-            findXy(x: number, y: number, grid?: string): CellArray;
-            find(start: DayPilot.Date, resource: ResourceId): CellArray;
-            findByPixels(x: number, y: number): CellArray;
-        };
-        infinite: {
-            scrollTo(date: DayPilot.Date): void;
-            shiftStart(days: number): void;
-        };
-        keyboard: {
-            focusCell(date: DayPilot.Date, resource: ResourceId): void;
-            focusEvent(e: DayPilot.Event): void;
-            focusEvent(id: EventId): void;
-            getFocus(): KeyBoardFocus;
-            move(direction: "left" | "right" | "up" | "down", options?: { dontFireEvent?: boolean }): void;
-            resetFocus(): void;
-        };
-        links: {
-            add(link: DayPilot.Link): void;
-            add(data: LinkData): void;
-            find(id: LinkId): DayPilot.Link;
-            findByFromTo(from: DayPilot.Date | string, to: DayPilot.Date | string): DayPilot.Link;
-            remove(link: DayPilot.Link): void;
-            remove(data: LinkData): void;
-            remove(id: LinkId): void;
-            load(url: string,
-                 success: (args: { data: any; preventDefault(): void; }) => void,
-                 error: (args: { request: XMLHttpRequest, exception: any; }) => void
-            ): void;
-            list: LinkData[];
-        };
-        multiselect: {
-            add(e: DayPilot.Event, dontRedraw?: boolean): void;
-            clear(dontRedraw?: boolean): void;
-            events(): DayPilot.Event[];
-            get(): DayPilot.Event[];
-            isSelected(e: DayPilot.Event): boolean;
-            redraw(): void;
-            remove(e: DayPilot.Event, dontRedraw?: boolean): void;
-            startRectangle(): void;
-        };
-        // legacy
-        range: {
-            all(): DayPilot.Selection[];
-        };
-        multirange: {
-            add(sel: DayPilot.Selection): void;
-            clear(): void;
-            get(): DayPilot.Selection[];
-        };
-        rows: {
-            add(data: ResourceData): void;
-            addChild(parent: DayPilot.Row, data: ResourceData): void;
-            addChild(parent: string, data: ResourceData): void;
-            addChild(parent: number, data: ResourceData): void;
-            addChild(parent: ResourceData, data: ResourceData): void;
-            all(): DayPilot.Row[];
-            collapseAll(): void;
-            each(f: () => DayPilot.Row): void;
-            edit(row: DayPilot.Row): void;
-            expand(level?: number): void;
-            expandAll(): void;
-            filter(param: any): void;
-            find(filter: (row: DayPilot.Row) => boolean, startIndex?: number): DayPilot.Row;
-            find(id: ResourceId, start?: DayPilot.Date | string): DayPilot.Row;
-            headerHide(): void;
-            headerShow(): void;
-            headerToggle(): void;
-            load(url: string,
-                 success: (args: { data: any; preventDefault(): void; }) => void,
-                 error: (args: { request: XMLHttpRequest, exception: any; }) => void
-            ): void;
-            remove(row: DayPilot.Row): void;
-            remove(id: ResourceId): void;
-            sort(spec?: string | { field: string, order?: "asc" | "desc" }): void;
-            update(row: DayPilot.Row | ResourceData): void;
-            visible(): DayPilot.Row[];
-
-            selection: {
-                add(row: DayPilot.Row): void;
-                clear(): void;
-                get(): DayPilot.Row[];
-                isSelected(row: DayPilot.Row): boolean;
-                remove(row: Row): void;
-            };
-        };
-        zoom: {
-            setActive(index: number, position?: "left" | "middle" | "right"): void;
-            setActive(id: string, position?: "left" | "middle" | "right"): void;
-            active: number;
-        };
-
-        constructor(id: string | HTMLElement, options?: SchedulerConfig);
-
-        autoRefreshPause(): void;
-
-        autoRefreshStart(force: boolean): void;
-
-        clearSelection(): void;
-
-        dispose(): void;
-
-        exportAs(format?: "svg" | "png" | "jpeg", options?: any): Export;
-
-        getCoords(): { x: number, y: number, row: DayPilot.Row, cell: DayPilot.Cell, time: DayPilot.Date, event: DayPilot.Event, eventOffset: { x: number, y: number } };
-
-        getDate(pixels: number, precise?: boolean, isEnd?: boolean): DayPilot.Date;
-
-        getScrollX(): number;
-
-        getScrollY(): number;
-
-        getViewPort(): SchedulerViewPort;
-
-        hide(): void;
-
-        init(): void;
-
-        loadingStart(): void;
-
-        loadingStop(): void;
-
-        message(msg: string, options?: { delay?: number, cssClass?: string, rawHtml?: boolean }): void;
-
-        scrollTo(date: string | DayPilot.Date): void;
-
-        scrollTo(date: string | DayPilot.Date, animated: boolean | number | "fast" | "normal" | "slow" | "linear", position?: "left" | "middle" | "right"): void;
-
-        scrollToResource(id: ResourceId | DayPilot.Row): void;
-
-        selectTimeRange(start: DayPilot.Date | string, end: DayPilot.Date | string, resource: ResourceId, dontFireEvent?: boolean): void;
-
-        setHeight(pixels: number): void;
-
-        setScroll(scrollX: number, scrollY: number): void;
-
-        setScrollX(scrollX: number): void;
-
-        setScrollY(scrollY: number): void;
-
-        show(): void;
-
-        uiBlock(): void;
-
-        uiUnblock(): void;
-
-        update(options?: SchedulerConfig): void;
-
-        visibleStart(): DayPilot.Date;
-
-        visibleEnd(): DayPilot.Date;
-
-        static makeDraggable(options: SchedulerMakeDraggableOptions): void;
-        static registerDropTarget(options: SchedulerRegisterDropTargetOptions): void;
-        static startDragging(options: any): void;
-        static stopDragging(): void;
-
+    namespace Scheduler {
+        function makeDraggable(options: SchedulerMakeDraggableOptions): void;
+        function registerDropTarget(options: SchedulerRegisterDropTargetOptions): void;
+        function startDragging(options: any): void;
+        function stopDragging(): void;
     }
 
-    export interface SchedulerRegisterDropTargetOptions {
+    interface SchedulerRegisterDropTargetOptions {
         element: HTMLElement;
         onDrop?: EventHandler<SchedulerDropTargetDropArgs>;
         onDragOver?: EventHandler<SchedulerDropTargetDragOverArgs>;
         onDragLeave?: EventHandler<SchedulerDropTargetDragLeaveArgs>;
     }
 
-    export interface SchedulerMakeDraggableOptions {
+    interface SchedulerMakeDraggableOptions {
         element: HTMLElement;
         keepElement?: boolean;
         remove?: HTMLElement;
@@ -570,25 +562,25 @@ export module DayPilot {
         externalCssClass?: string;
     }
 
-    export interface SchedulerMakeDraggableData {
+    interface SchedulerMakeDraggableData {
         id: EventId;
         text: string;
         duration: number | DayPilot.Duration;
     }
 
-    export interface SchedulerDropTargetDropArgs {
+    interface SchedulerDropTargetDropArgs {
         readonly e: DayPilot.Event;
     }
 
-    export interface SchedulerDropTargetDragOverArgs {
+    interface SchedulerDropTargetDragOverArgs {
         readonly e: DayPilot.Event;
     }
 
-    export interface SchedulerDropTargetDragLeaveArgs {
+    interface SchedulerDropTargetDragLeaveArgs {
         readonly e: DayPilot.Event;
     }
 
-    export interface SchedulerAfterCellRenderArgs {
+    interface SchedulerAfterCellRenderArgs {
         readonly cell: {
             start: DayPilot.Date;
             end: DayPilot.Date;
@@ -601,57 +593,45 @@ export module DayPilot {
         readonly div: HTMLElement;
     }
 
-    export interface SchedulerAfterEventEditRenderArgs {
+    interface SchedulerAfterEventEditRenderArgs {
         readonly e: DayPilot.Event;
         readonly element: HTMLElement;
     }
 
-    export interface SchedulerAfterEventRenderArgs {
+    interface SchedulerAfterEventRenderArgs {
         readonly e: DayPilot.Event;
         readonly div: HTMLElement;
     }
 
-    export interface SchedulerAfterRenderArgs {
+    interface SchedulerAfterRenderArgs {
         readonly isCallBack: boolean;
         readonly isScroll: boolean;
         readonly data: any;
     }
 
-    export interface SchedulerAfterUpdateArgs {
+    interface SchedulerAfterUpdateArgs {
     }
 
-    export interface SchedulerAutoRefreshArgs {
+    interface SchedulerAutoRefreshArgs {
         readonly i: number;
         preventDefault(): void;
     }
 
-    export interface SchedulerBeforeCellDomAddArgs {
-        readonly control: Scheduler;
-        readonly cell: Cell;
-        element: any;
-    }
-
-    export interface SchedulerBeforeCellDomRemoveArgs {
-        readonly control: Scheduler;
-        readonly cell: Cell;
-        readonly element: any;
-    }
-
-    export interface SchedulerBeforeCellExportArgs {
+    interface SchedulerBeforeCellExportArgs {
         readonly cell: DayPilot.Cell;
         text: string;
         horizontalAlignment: HorizontalAlignment;
         backColor: string;
     }
 
-    export interface SchedulerBeforeCellRenderArgs {
+    interface SchedulerBeforeCellRenderArgs {
         readonly control: Scheduler;
         readonly cell: Cell;
 
         getPixels(date: DayPilot.Date | "string"): number;
     }
 
-    export interface SchedulerBeforeCornerExportArgs {
+    interface SchedulerBeforeCornerExportArgs {
         backColor: string;
         text: string;
         fontSize: string;
@@ -662,23 +642,23 @@ export module DayPilot {
         verticalAlignment: VerticalAlignment;
     }
 
-    export interface SchedulerBeforeCornerRenderArgs {
+    interface SchedulerBeforeCornerRenderArgs {
         readonly control: Scheduler;
         html: string;
         areas: AreaData[];
     }
 
-    export interface SchedulerBeforeCornerDomAddArgs {
+    interface SchedulerBeforeCornerDomAddArgs {
         readonly control: Scheduler;
         element: any;  // HTMLElement or React component
     }
 
-    export interface SchedulerBeforeCornerDomRemoveArgs {
+    interface SchedulerBeforeCornerDomRemoveArgs {
         readonly control: Scheduler;
         readonly element: any;  // HTMLElement or React component
     }
 
-    export interface SchedulerBeforeEventExportArgs {
+    interface SchedulerBeforeEventExportArgs {
         readonly e: DayPilot.Event;
         areas: AreaData[];
         fontSize: string;
@@ -694,23 +674,23 @@ export module DayPilot {
         textRight: string;
     }
 
-    export interface SchedulerBeforeEventRenderArgs {
+    interface SchedulerBeforeEventRenderArgs {
         readonly data: EventData;
     }
 
-    export interface SchedulerBeforeEventDomAddArgs {
+    interface SchedulerBeforeEventDomAddArgs {
         readonly control: Scheduler;
         readonly e: DayPilot.Event;
         element: any;
     }
 
-    export interface SchedulerBeforeEventDomRemoveArgs {
+    interface SchedulerBeforeEventDomRemoveArgs {
         readonly control: Scheduler;
         readonly e: DayPilot.Event;
         readonly element: any;
     }
 
-    export interface SchedulerBeforeGridLineRenderArgs {
+    interface SchedulerBeforeGridLineRenderArgs {
         readonly start?: DayPilot.Date;
         readonly end?: DayPilot.Date;
         readonly row?: DayPilot.Row;
@@ -719,15 +699,15 @@ export module DayPilot {
         readonly type: "HorizontalLine" | "VerticalLine" | "VerticalBreak";
     }
 
-    export interface SchedulerBeforeGroupRenderArgs {
+    interface SchedulerBeforeGroupRenderArgs {
         readonly group: RenderGroup;
     }
 
-    export interface SchedulerBeforeResHeaderRenderArgs {
+    interface SchedulerBeforeResHeaderRenderArgs {
         readonly resource: ResourceData;
     }
 
-    export interface SchedulerBeforeRowHeaderColumnRenderArgs {
+    interface SchedulerBeforeRowHeaderColumnRenderArgs {
         readonly column: {
             areas: AreaData[];
             cssClass: string;
@@ -737,25 +717,25 @@ export module DayPilot {
         };
     }
 
-    export interface SchedulerBeforeRowHeaderRenderArgs {
+    interface SchedulerBeforeRowHeaderRenderArgs {
         readonly row: RenderRow;
     }
 
-    export interface SchedulerBeforeRowHeaderDomAddArgs {
+    interface SchedulerBeforeRowHeaderDomAddArgs {
         readonly control: DayPilot.Scheduler;
         readonly row: DayPilot.Row;
         element: any;
         target: "Cell" | "Text";
     }
 
-    export interface SchedulerBeforeRowHeaderDomRemoveArgs {
+    interface SchedulerBeforeRowHeaderDomRemoveArgs {
         readonly control: DayPilot.Scheduler;
         readonly row: DayPilot.Row;
         readonly element: any;
         readonly target: "Cell" | "Text";
     }
 
-    export interface SchedulerBeforeRowHeaderExportArgs {
+    interface SchedulerBeforeRowHeaderExportArgs {
         readonly row: DayPilot.Row;
         text: string;
         backColor: string;
@@ -769,13 +749,12 @@ export module DayPilot {
         columns: RowHeaderExportColumn[];
     }
 
-    export interface SchedulerBeforeTimeHeaderRenderArgs {
+    interface SchedulerBeforeTimeHeaderRenderArgs {
         readonly control: Scheduler;
         readonly header: {
             readonly start: DayPilot.Date;
             readonly end: DayPilot.Date;
             readonly level: number;
-            areas: AreaData[];
             text: string;
             html: string;
             toolTip: string;
@@ -785,7 +764,7 @@ export module DayPilot {
         };
     }
 
-    export interface SchedulerBeforeTimeHeaderDomAddArgs {
+    interface SchedulerBeforeTimeHeaderDomAddArgs {
         readonly control: Scheduler;
         readonly header: {
             readonly start: DayPilot.Date;
@@ -795,7 +774,7 @@ export module DayPilot {
         element: any;
     }
 
-    export interface SchedulerBeforeTimeHeaderDomRemoveArgs {
+    interface SchedulerBeforeTimeHeaderDomRemoveArgs {
         readonly control: Scheduler;
         readonly header: {
             readonly start: DayPilot.Date;
@@ -805,7 +784,7 @@ export module DayPilot {
         readonly element: any;
     }
 
-    export interface SchedulerBeforeTimeHeaderExportArgs {
+    interface SchedulerBeforeTimeHeaderExportArgs {
         readonly control: Scheduler;
         readonly header: {
             readonly start: DayPilot.Date;
@@ -822,29 +801,29 @@ export module DayPilot {
         fontStyle: FontStyle;
     }
 
-    export interface SchedulerCallBackStartArgs {
+    interface SchedulerCallBackStartArgs {
     }
 
-    export interface SchedulerCallBackEndArgs {
+    interface SchedulerCallBackEndArgs {
     }
 
-    export interface SchedulerCellMouseEnterArgs {
+    interface SchedulerCellMouseEnterArgs {
         readonly cell: DayPilot.Cell;
     }
 
-    export interface SchedulerCellMouseLeaveArgs {
+    interface SchedulerCellMouseLeaveArgs {
         readonly cell: DayPilot.Cell;
     }
 
-    export interface SchedulerCellMouseOutArgs {
+    interface SchedulerCellMouseOutArgs {
         [x: string]: any;
     }
 
-    export interface SchedulerCellMouseOverArgs {
+    interface SchedulerCellMouseOverArgs {
         [x: string]: any;
     }
 
-    export interface SchedulerDimensionsChangedArgs {
+    interface SchedulerDimensionsChangedArgs {
         oldHeight: number;
         oldRowHeaderWidth: number;
         oldWidth: number;
@@ -853,7 +832,7 @@ export module DayPilot {
         newWidth: number;
     }
 
-    export interface SchedulerEventClickArgs {
+    interface SchedulerEventClickArgs {
         readonly e: DayPilot.Event;
         readonly div: HTMLElement;
         readonly ctrl: boolean;
@@ -864,7 +843,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerEventClickedArgs {
+    interface SchedulerEventClickedArgs {
         readonly e: DayPilot.Event;
         readonly div: HTMLElement;
         readonly ctrl: boolean;
@@ -874,29 +853,29 @@ export module DayPilot {
         readonly originalEvent: MouseEvent;
     }
 
-    export interface SchedulerEventDeleteArgs {
+    interface SchedulerEventDeleteArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Scheduler;
         preventDefault(): void;
     }
 
-    export interface SchedulerEventDeletedArgs {
+    interface SchedulerEventDeletedArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Scheduler;
     }
 
-    export interface SchedulerEventDoubleClickArgs {
+    interface SchedulerEventDoubleClickArgs {
         readonly e: DayPilot.Event;
         readonly originalEvent: MouseEvent;
         preventDefault(): void;
     }
 
-    export interface SchedulerEventDoubleClickedArgs {
+    interface SchedulerEventDoubleClickedArgs {
         readonly e: DayPilot.Event;
         readonly originalEvent: MouseEvent;
     }
 
-    export interface SchedulerEventEditArgs {
+    interface SchedulerEventEditArgs {
         readonly e: DayPilot.Event;
         readonly canceled: boolean;
         readonly control: DayPilot.Scheduler;
@@ -906,47 +885,46 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerEventEditedArgs {
+    interface SchedulerEventEditedArgs {
         readonly e: DayPilot.Event;
         readonly canceled: boolean;
         readonly control: DayPilot.Scheduler;
         readonly newText: string;
     }
 
-    export interface SchedulerEventEditKeyDownArgs {
+    interface SchedulerEventEditKeyDownArgs {
         readonly e: DayPilot.Event;
         readonly originalEvent: KeyboardEvent;
-        readonly element: HTMLElement;
         cancel(): void;
         submit(): void;
         preventDefault(): void;
     }
 
-    export interface SchedulerEventFilterArgs {
+    interface SchedulerEventFilterArgs {
         readonly e: DayPilot.Event;
         readonly filterParam: any;
         visible: boolean;
     }
 
-    export interface SchedulerEventMouseEnterArgs {
+    interface SchedulerEventMouseEnterArgs {
         readonly e: DayPilot.Event;
         readonly div: Element;
     }
 
-    export interface SchedulerEventMouseLeaveArgs {
+    interface SchedulerEventMouseLeaveArgs {
         readonly e: DayPilot.Event;
         readonly div: HTMLElement;
     }
 
-    export interface SchedulerEventMouseOutArgs {
+    interface SchedulerEventMouseOutArgs {
         [x: string]: any;
     }
 
-    export interface SchedulerEventMouseOverArgs {
+    interface SchedulerEventMouseOverArgs {
         [x: string]: any;
     }
 
-    export interface SchedulerEventMoveArgs {
+    interface SchedulerEventMoveArgs {
         async: boolean;
         readonly areaData: any;
         readonly control: DayPilot.Scheduler;
@@ -971,7 +949,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerEventMovedArgs {
+    interface SchedulerEventMovedArgs {
         readonly async: boolean;
         readonly areaData: any;
         readonly control: DayPilot.Scheduler;
@@ -993,7 +971,7 @@ export module DayPilot {
         readonly position: number;
     }
 
-    export interface SchedulerEventMovingArgs {
+    interface SchedulerEventMovingArgs {
         allowed: boolean;
         readonly ctrl: boolean;
         readonly shift: boolean;
@@ -1010,20 +988,13 @@ export module DayPilot {
             cssClass?: string;
             layer?: "Above" | "Below";
         };
-        readonly multimove: {
-            readonly event: DayPilot.Event;
-            start: DayPilot.Date;
-            end: DayPilot.Date;
-            resource: ResourceId;
-            readonly overlapping: boolean;
-        }[];
         start: DayPilot.Date;
         end: DayPilot.Date;
         readonly duration: DayPilot.Duration;
         readonly e: DayPilot.Event;
         readonly external: boolean;
         html: string;
-        readonly resource: ResourceId;
+        readonly resource: string;
         readonly row: DayPilot.Row;
         readonly position: number;
         left: {
@@ -1042,7 +1013,7 @@ export module DayPilot {
         };
     }
 
-    export interface SchedulerEventResizeArgs {
+    interface SchedulerEventResizeArgs {
         async: boolean;
         readonly control: DayPilot.Scheduler;
         readonly e: DayPilot.Event;
@@ -1059,7 +1030,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerEventResizedArgs {
+    interface SchedulerEventResizedArgs {
         readonly async: boolean;
         readonly control: DayPilot.Scheduler;
         readonly e: DayPilot.Event;
@@ -1073,7 +1044,7 @@ export module DayPilot {
         readonly what: "start" | "end";
     }
 
-    export interface SchedulerEventResizingArgs {
+    interface SchedulerEventResizingArgs {
         start: DayPilot.Date;
         end: DayPilot.Date;
         readonly duration: DayPilot.Duration;
@@ -1107,11 +1078,10 @@ export module DayPilot {
             event: DayPilot.Event;
             start: DayPilot.Date;
             end: DayPilot.Date;
-            invalid: boolean;
         }[];
     }
 
-    export interface SchedulerEventRightClickArgs {
+    interface SchedulerEventRightClickArgs {
         readonly e: DayPilot.Event;
         readonly div: HTMLElement;
         readonly originalEvent: MouseEvent;
@@ -1119,13 +1089,13 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerEventRightClickedArgs {
+    interface SchedulerEventRightClickedArgs {
         readonly e: DayPilot.Event;
         readonly div: HTMLElement;
         readonly originalEvent: MouseEvent;
     }
 
-    export interface SchedulerEventSelectArgs {
+    interface SchedulerEventSelectArgs {
         readonly e: DayPilot.Event;
         readonly selected: boolean;
         readonly ctrl: boolean;
@@ -1133,14 +1103,14 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerEventSelectedArgs {
+    interface SchedulerEventSelectedArgs {
         readonly e: DayPilot.Event;
         readonly selected: boolean;
         readonly ctrl: boolean;
         readonly meta: boolean;
     }
 
-    export interface SchedulerGridMouseDownArgs {
+    interface SchedulerGridMouseDownArgs {
         action: "None" | "RectangleSelect" | "TimeRangeSelect";
         readonly shift: boolean;
         readonly ctrl: boolean;
@@ -1151,7 +1121,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerIncludeTimeCellArgs {
+    interface SchedulerIncludeTimeCellArgs {
         readonly cell: {
             start: DayPilot.Date;
             end: DayPilot.Date;
@@ -1160,31 +1130,15 @@ export module DayPilot {
         };
     }
 
-    export interface SchedulerKeyboardFocusChangeArgs {
-        previous: KeyBoardFocus;
-        focus: KeyBoardFocus;
-        preventDefault(): void;
-    }
-
-    export interface SchedulerKeyboardFocusChangedArgs {
-        previous: KeyBoardFocus;
-        focus: KeyBoardFocus;
-    }
-
-    export interface SchedulerKeyDownArgs {
-        originalEvent: KeyboardEvent;
-        preventDefault(): void;
-    }
-
-    export interface SchedulerLinkClickArgs {
+    interface SchedulerLinkClickArgs {
         readonly link: LinkData;
     }
 
-    export interface SchedulerLinkClickedArgs {
+    interface SchedulerLinkClickedArgs {
         readonly link: LinkData;
     }
 
-    export interface SchedulerLinkCreateArgs {
+    interface SchedulerLinkCreateArgs {
         from: EventId;
         to: EventId;
         type: LinkType;
@@ -1192,20 +1146,20 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerLinkCreatedArgs {
+    interface SchedulerLinkCreatedArgs {
         readonly from: EventId;
         readonly to: EventId;
         readonly type: LinkType;
         readonly id: LinkId;
     }
 
-    export interface SchedulerLoadNodeArgs {
+    interface SchedulerLoadNodeArgs {
         readonly resource: ResourceData;
         async: boolean;
         loaded(): void;
     }
 
-    export interface SchedulerRectangleSelectArgs {
+    interface SchedulerRectangleSelectArgs {
         readonly events: DayPilot.Event[];
         append: boolean;
         readonly start: DayPilot.Date;
@@ -1214,11 +1168,11 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerRectangleSelectedArgs {
+    interface SchedulerRectangleSelectedArgs {
         readonly events: DayPilot.Event[];
     }
 
-    export interface SchedulerRectangleSelectingArgs {
+    interface SchedulerRectangleSelectingArgs {
         readonly events: DayPilot.Event[];
         visible: boolean;
         readonly start: DayPilot.Date;
@@ -1226,25 +1180,33 @@ export module DayPilot {
         readonly resources: ResourceId[];
     }
 
-    export interface SchedulerResourceCollapseArgs {
-        readonly resource: DayPilot.Row;
+    interface SchedulerResourceCollapseArgs {
+        readonly resource: {
+            readonly name: string;
+            readonly id: ResourceId;
+            readonly start: DayPilot.Date;
+        };
         preventDefault(): void;
     }
 
-    export interface SchedulerResourceExpandArgs {
-        readonly resource: DayPilot.Row;
+    interface SchedulerResourceExpandArgs {
+        readonly resource: {
+            readonly name: string;
+            readonly id: ResourceId;
+            readonly start: DayPilot.Date;
+        };
         preventDefault(): void;
     }
 
-    export interface SchedulerResourceHeaderClickArgs {
+    interface SchedulerResourceHeaderClickArgs {
         [x: string]: any;
     }
 
-    export interface SchedulerResourceHeaderClickedArgs {
+    interface SchedulerResourceHeaderClickedArgs {
         [x: string]: any;
     }
 
-    export interface SchedulerRowClickArgs {
+    interface SchedulerRowClickArgs {
         readonly row: DayPilot.Row;
         readonly ctrl: boolean;
         readonly shift: boolean;
@@ -1252,23 +1214,23 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerRowClickedArgs {
+    interface SchedulerRowClickedArgs {
         readonly row: DayPilot.Row;
         readonly ctrl: boolean;
         readonly shift: boolean;
         readonly meta: boolean;
     }
 
-    export interface SchedulerRowCreateArgs {
+    interface SchedulerRowCreateArgs {
         text: string;
         preventDefault(): void;
     }
 
-    export interface SchedulerRowCreatedArgs {
+    interface SchedulerRowCreatedArgs {
         readonly text: string;
     }
 
-    export interface SchedulerRowDoubleClickArgs {
+    interface SchedulerRowDoubleClickArgs {
         readonly row: DayPilot.Row;
         readonly ctrl: boolean;
         readonly shift: boolean;
@@ -1277,7 +1239,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerRowDoubleClickedArgs {
+    interface SchedulerRowDoubleClickedArgs {
         readonly row: DayPilot.Row;
         readonly ctrl: boolean;
         readonly shift: boolean;
@@ -1285,7 +1247,7 @@ export module DayPilot {
         readonly originalEvent: MouseEvent;
     }
 
-    export interface SchedulerRowEditArgs {
+    interface SchedulerRowEditArgs {
         async: boolean;
         readonly canceled: boolean;
         readonly newText: string;
@@ -1295,38 +1257,38 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerRowEditedArgs {
+    interface SchedulerRowEditedArgs {
         readonly async: boolean;
         readonly canceled: boolean;
         readonly newText: string;
         readonly row: DayPilot.Row;
     }
 
-    export interface SchedulerRowFilterArgs {
+    interface SchedulerRowFilterArgs {
         visible: boolean;
         readonly row: DayPilot.Row;
         readonly filterParam: any;
         readonly control: DayPilot.Scheduler;
     }
 
-    export interface SchedulerRowHeaderColumnResizedArgs {
+    interface SchedulerRowHeaderColumnResizedArgs {
         readonly column: RowHeaderColumnData;
     }
 
-    export interface SchedulerRowHeaderResizedArgs {
+    interface SchedulerRowHeaderResizedArgs {
     }
 
-    export interface SchedulerRowMouseOverArgs {
+    interface SchedulerRowMouseOverArgs {
         readonly div: HTMLElement;
         readonly row: DayPilot.Row;
     }
 
-    export interface SchedulerRowMouseOutArgs {
+    interface SchedulerRowMouseOutArgs {
         readonly div: HTMLElement;
         readonly row: DayPilot.Row;
     }
 
-    export interface SchedulerRowMoveArgs {
+    interface SchedulerRowMoveArgs {
         readonly source: DayPilot.Row;
         readonly target: DayPilot.Row;
         position: "child" | "before" | "after" | "forbidden";
@@ -1334,19 +1296,19 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerRowMovedArgs {
+    interface SchedulerRowMovedArgs {
         readonly source: DayPilot.Row;
         readonly target: DayPilot.Row;
         readonly position: "child" | "before" | "after" | "forbidden";
     }
 
-    export interface SchedulerRowMovingArgs {
+    interface SchedulerRowMovingArgs {
         readonly source: DayPilot.Row;
         readonly target: DayPilot.Row;
         position: "child" | "before" | "after" | "forbidden";
     }
 
-    export interface SchedulerRowSelectArgs {
+    interface SchedulerRowSelectArgs {
         readonly row: DayPilot.Row;
         readonly ctrl: boolean;
         readonly shift: boolean;
@@ -1355,7 +1317,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerRowSelectedArgs {
+    interface SchedulerRowSelectedArgs {
         readonly row: DayPilot.Row;
         readonly ctrl: boolean;
         readonly shift: boolean;
@@ -1363,7 +1325,7 @@ export module DayPilot {
         readonly selected: boolean;
     }
 
-    export interface SchedulerScrollArgs {
+    interface SchedulerScrollArgs {
         readonly viewport: SchedulerViewPort;
         async: boolean;
         events: EventData[];
@@ -1373,7 +1335,7 @@ export module DayPilot {
         loaded(): void;
     }
 
-    export interface SchedulerTimeHeaderClickArgs {
+    interface SchedulerTimeHeaderClickArgs {
         readonly control: Scheduler;
         readonly header: {
             readonly start: DayPilot.Date;
@@ -1384,7 +1346,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerTimeHeaderClickedArgs {
+    interface SchedulerTimeHeaderClickedArgs {
         readonly control: Scheduler;
         readonly header: {
             readonly start: DayPilot.Date;
@@ -1393,7 +1355,7 @@ export module DayPilot {
         };
     }
 
-    export interface SchedulerTimeHeaderRightClickArgs {
+    interface SchedulerTimeHeaderRightClickArgs {
         readonly header: {
             readonly start: DayPilot.Date;
             readonly end: DayPilot.Date;
@@ -1403,7 +1365,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerTimeHeaderRightClickedArgs {
+    interface SchedulerTimeHeaderRightClickedArgs {
         readonly header: {
             readonly start: DayPilot.Date;
             readonly end: DayPilot.Date;
@@ -1411,7 +1373,7 @@ export module DayPilot {
         };
     }
 
-    export interface SchedulerTimeRangeClickArgs {
+    interface SchedulerTimeRangeClickArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         readonly resource: ResourceId;
@@ -1419,13 +1381,13 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerTimeRangeClickedArgs {
+    interface SchedulerTimeRangeClickedArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         readonly resource: ResourceId;
     }
 
-    export interface SchedulerTimeRangeDoubleClickArgs {
+    interface SchedulerTimeRangeDoubleClickArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         readonly resource: ResourceId;
@@ -1433,13 +1395,13 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerTimeRangeDoubleClickedArgs {
+    interface SchedulerTimeRangeDoubleClickedArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         readonly resource: ResourceId;
     }
 
-    export interface SchedulerTimeRangeRightClickArgs {
+    interface SchedulerTimeRangeRightClickArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         readonly resource: ResourceId;
@@ -1451,7 +1413,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerTimeRangeRightClickedArgs {
+    interface SchedulerTimeRangeRightClickedArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         readonly resource: ResourceId;
@@ -1461,7 +1423,7 @@ export module DayPilot {
         readonly meta: boolean;
     }
 
-    export interface SchedulerTimeRangeSelectArgs {
+    interface SchedulerTimeRangeSelectArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         readonly resource: ResourceId;
@@ -1475,7 +1437,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface SchedulerTimeRangeSelectedArgs {
+    interface SchedulerTimeRangeSelectedArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         readonly resource: ResourceId;
@@ -1487,7 +1449,7 @@ export module DayPilot {
         };
     }
 
-    export interface SchedulerTimeRangeSelectingArgs {
+    interface SchedulerTimeRangeSelectingArgs {
         readonly anchor: DayPilot.Date;
         start: DayPilot.Date;
         end: DayPilot.Date;
@@ -1516,10 +1478,68 @@ export module DayPilot {
         button: MouseButton;
     }
 
-    export class CalendarPropsAndEvents {
+    class Calendar extends CalendarPropsAndEvents {
+        v: string;
+        columns: {
+            list: CalendarColumnData[];
+            load(url: string,
+                success: (args: { data: any; preventDefault(): void; }) => void,
+                error: (args: { request: XMLHttpRequest, exception: any; }) => void
+            ): void;
+            filter(param: any): void;
+        };
+        events: {
+            list: EventData[];
+            add(e: DayPilot.Event | EventData): void;
+            find(id: string): DayPilot.Event;
+            findRecurrent(masterId: string, time: DayPilot.Date | string): DayPilot.Event;
+            load(url: string,
+                success: (args: { data: any; preventDefault(): void; }) => void,
+                error: (args: { request: XMLHttpRequest, exception: any; }) => void
+            ): void;
+            remove(e: DayPilot.Event): void;
+            remove(id: EventId): void;
+            update(e: DayPilot.Event | EventData): void;
+        };
+        multiselect: {
+            add(e: DayPilot.Event, dontRedraw?: boolean): void;
+            clear(dontRedraw?: boolean): void;
+            events(): DayPilot.Event[];
+            redraw(): void;
+            remove(e: DayPilot.Event, dontRedraw?: boolean): void;
+        };
+
+        constructor(id: string | HTMLElement, options?: CalendarConfig);
+
+        clearSelection(): void;
+
+        dispose(): void;
+
+        exportAs(format?: "svg" | "png" | "jpeg", options?: any): Export;
+
+        getSelection(): DayPilot.Selection;
+
+        hide(): void;
+
+        init(): void;
+
+        message(msg: string, options?: { delay?: number, cssClass?: string, rawHtml?: boolean }): void;
+
+        scrollToHour(hour: number): void;
+
+        show(): void;
+
+        update(options?: CalendarConfig): void;
+
+        visibleStart(): DayPilot.Date;
+
+        visibleEnd(): DayPilot.Date;
+
+    }
+
+    class CalendarPropsAndEvents {
         allDayEnd?: "DateTime" | "Date";
         allDayEventHeight?: number;
-        allDayEventTextWrappingEnabled?: boolean;
         allowEventOverlap?: boolean;
         allowMultiSelect?: boolean;
         api?: number;
@@ -1532,18 +1552,13 @@ export module DayPilot {
         bubble?: DayPilot.Bubble;
         businessBeginsHour?: number;
         businessEndsHour?: number;
-        cellBubble?: DayPilot.Bubble;
         cellDuration?: number;
         cellHeight?: number;
         clientState?: any;
         columnBubble?: DayPilot.Bubble;
         columnMarginRight?: number;
-        columnMoveHandling?: "Disabled" | "Update";
-        columnMoveSameLevelOnly?: boolean;
-        columnResizeHandling?: "Disabled" | "Update";
         columnsLoadMethod?: "POST" | "GET";
         columnWidth?: number;
-        columnWidthMin?: number;
         columnWidthSpec?: "Auto" | "Fixed";
         contextMenu?: DayPilot.Menu;
         contextMenuSelection?: DayPilot.Menu;
@@ -1573,8 +1588,7 @@ export module DayPilot {
         headerClickHandling?: "Enabled" | "CallBack";
         headerDateFormat?: string;
         headerHeight?: number;
-        headerLevels?: "Auto" | number;
-        headerTextWrappingEnabled?: boolean;
+        headerLevels?: number;
         height?: number;
         heightSpec?: "BusinessHours" | "BusinessHoursNoScroll" | "Fixed" | "Full" | "Parent100Pct";
         hideFreeCells?: boolean;
@@ -1636,11 +1650,6 @@ export module DayPilot {
         onBeforeTimeHeaderDomRemove?: EventHandler<CalendarBeforeTimeHeaderDomRemoveArgs>;
         onBeforeTimeHeaderRender?: EventHandler<CalendarBeforeTimeHeaderRenderArgs>;
         onColumnFilter?: EventHandler<CalendarColumnFilterArgs>;
-        onColumnMove?: EventHandler<CalendarColumnMoveArgs>;
-        onColumnMoved?: EventHandler<CalendarColumnMovedArgs>;
-        onColumnMoving?: EventHandler<CalendarColumnMovingArgs>;
-        onColumnResize?: EventHandler<CalendarColumnResizeArgs>;
-        onColumnResized?: EventHandler<CalendarColumnResizedArgs>;
         onEventClick?: EventHandler<CalendarEventClickArgs>;
         onEventClicked?: EventHandler<CalendarEventClickedArgs>;
         onEventDoubleClick?: EventHandler<CalendarEventDoubleClickArgs>;
@@ -1670,91 +1679,34 @@ export module DayPilot {
 
     }
 
-    export class CalendarConfig extends CalendarPropsAndEvents {
+    class CalendarConfig extends CalendarPropsAndEvents {
         events?: EventData[];
         columns?: CalendarColumnData[];
     }
 
-    export class Calendar extends CalendarPropsAndEvents {
-        v: string;
-        columns: {
-            list: CalendarColumnData[];
-            load(url: string,
-                 success: (args: { data: any; preventDefault(): void; }) => void,
-                 error: (args: { request: XMLHttpRequest, exception: any; }) => void
-            ): void;
-            filter(param: any): void;
-        };
-        events: {
-            list: EventData[];
-            add(e: DayPilot.Event | EventData): void;
-            find(id: string): DayPilot.Event;
-            findRecurrent(masterId: string, time: DayPilot.Date | string): DayPilot.Event;
-            load(url: string,
-                 success: (args: { data: any; preventDefault(): void; }) => void,
-                 error: (args: { request: XMLHttpRequest, exception: any; }) => void
-            ): void;
-            remove(e: DayPilot.Event): void;
-            remove(id: EventId): void;
-            update(e: DayPilot.Event | EventData): void;
-        };
-        multiselect: {
-            add(e: DayPilot.Event, dontRedraw?: boolean): void;
-            clear(dontRedraw?: boolean): void;
-            events(): DayPilot.Event[];
-            redraw(): void;
-            remove(e: DayPilot.Event, dontRedraw?: boolean): void;
-        };
-
-        constructor(id: string | HTMLElement, options?: CalendarConfig);
-
-        clearSelection(): void;
-
-        dispose(): void;
-
-        exportAs(format?: "svg" | "png" | "jpeg", options?: any): Export;
-
-        getSelection(): DayPilot.Selection;
-
-        hide(): void;
-
-        init(): void;
-
-        message(msg: string, options?: { delay?: number, cssClass?: string, rawHtml?: boolean }): void;
-
-        scrollToHour(hour: number): void;
-
-        show(): void;
-
-        update(options?: CalendarConfig): void;
-
-        visibleStart(): DayPilot.Date;
-
-        visibleEnd(): DayPilot.Date;
-
-        static makeDraggable(options: CalendarMakeDraggableOptions): void;
-        static registerDropTarget(options: CalendarRegisterDropTargetOptions): void;
-        static stopDragging(): void;
+    namespace Calendar {
+        function makeDraggable(options: CalendarMakeDraggableOptions): void;
+        function registerDropTarget(options: CalendarRegisterDropTargetOptions): void;
     }
 
-    export interface CalendarRegisterDropTargetOptions {
+    interface CalendarRegisterDropTargetOptions {
         element: HTMLElement;
         onDrop?: EventHandler<CalendarDropTargetDropArgs>;
         onDragOver?: EventHandler<CalendarDropTargetDragOverArgs>;
         onDragLeave?: EventHandler<CalendarDropTargetDragLeaveArgs>;
     }
 
-    export interface CalendarDropTargetDropArgs {
+    interface CalendarDropTargetDropArgs {
         data: CalendarMakeDraggableData;
     }
-    export interface CalendarDropTargetDragOverArgs {
+    interface CalendarDropTargetDragOverArgs {
         data: CalendarMakeDraggableData;
     }
-    export interface CalendarDropTargetDragLeaveArgs {
+    interface CalendarDropTargetDragLeaveArgs {
         data: CalendarMakeDraggableData;
     }
 
-    export interface CalendarMakeDraggableOptions {
+    interface CalendarMakeDraggableOptions {
         element: HTMLElement;
         keepElement?: boolean;
 
@@ -1769,16 +1721,16 @@ export module DayPilot {
         externalCursor?: string;
     }
 
-    export interface CalendarMakeDraggableData {
+    interface CalendarMakeDraggableData {
         id: EventId;
         text: string;
         duration: number | DayPilot.Duration;
     }
 
-    export interface CalendarAfterRenderArgs {
+    interface CalendarAfterRenderArgs {
     }
 
-    export interface CalendarAfterCellRenderArgs {
+    interface CalendarAfterCellRenderArgs {
         readonly cell: {
             readonly start: DayPilot.Date;
             readonly end: DayPilot.Date;
@@ -1787,21 +1739,21 @@ export module DayPilot {
         readonly div: HTMLElement;
     }
 
-    export interface CalendarAfterEventRenderArgs {
+    interface CalendarAfterEventRenderArgs {
         readonly e: DayPilot.Event;
         readonly div: HTMLElement;
     }
 
-    export interface CalendarAjaxErrorArgs {
+    interface CalendarAjaxErrorArgs {
         readonly request: XMLHttpRequest;
     }
 
-    export interface CalendarAutoRefreshArgs {
+    interface CalendarAutoRefreshArgs {
         readonly i: number;
         preventDefault(): void;
     }
 
-    export interface CalendarBeforeCellRenderArgs {
+    interface CalendarBeforeCellRenderArgs {
         readonly cell: {
             start: DayPilot.Date;
             end: DayPilot.Date;
@@ -1819,7 +1771,7 @@ export module DayPilot {
         };
     }
 
-    export interface CalendarBeforeCellExportArgs {
+    interface CalendarBeforeCellExportArgs {
         readonly cell: {
             readonly start: DayPilot.Date;
             readonly end: DayPilot.Date;
@@ -1828,19 +1780,19 @@ export module DayPilot {
         backColor: string;
     }
 
-    export interface CalendarBeforeCornerDomAddArgs {
+    interface CalendarBeforeCornerDomAddArgs {
         element: any;
     }
 
-    export interface CalendarBeforeCornerDomRemoveArgs {
+    interface CalendarBeforeCornerDomRemoveArgs {
         readonly element: any;
     }
 
-    export interface CalendarBeforeCornerRenderArgs {
+    interface CalendarBeforeCornerRenderArgs {
         html: string;
     }
 
-    export interface CalendarBeforeHeaderDomAddArgs {
+    interface CalendarBeforeHeaderDomAddArgs {
         readonly header: {
             readonly id: ResourceId;
             readonly start: DayPilot.Date;
@@ -1850,7 +1802,7 @@ export module DayPilot {
         element: any;
     }
 
-    export interface CalendarBeforeHeaderDomRemoveArgs {
+    interface CalendarBeforeHeaderDomRemoveArgs {
         readonly header: {
             readonly id: ResourceId;
             readonly start: DayPilot.Date;
@@ -1860,7 +1812,7 @@ export module DayPilot {
         readonly element: any;
     }
 
-    export interface CalendarBeforeHeaderExportArgs {
+    interface CalendarBeforeHeaderExportArgs {
         text: string;
         fontSize: string;
         fontFamily: string;
@@ -1878,7 +1830,7 @@ export module DayPilot {
         };
     }
 
-    export interface CalendarBeforeHeaderRenderArgs {
+    interface CalendarBeforeHeaderRenderArgs {
         readonly header: {
             readonly id: ResourceId;
             readonly start: DayPilot.Date;
@@ -1891,7 +1843,7 @@ export module DayPilot {
         };
     }
 
-    export interface CalendarBeforeTimeHeaderDomAddArgs {
+    interface CalendarBeforeTimeHeaderDomAddArgs {
         readonly header: {
             readonly hours: number;
             readonly minutes: number;
@@ -1901,7 +1853,7 @@ export module DayPilot {
         element: any;
     }
 
-    export interface CalendarBeforeTimeHeaderDomRemoveArgs {
+    interface CalendarBeforeTimeHeaderDomRemoveArgs {
         readonly header: {
             readonly hours: number;
             readonly minutes: number;
@@ -1911,7 +1863,7 @@ export module DayPilot {
         readonly element: any;
     }
 
-    export interface CalendarBeforeTimeHeaderRenderArgs {
+    interface CalendarBeforeTimeHeaderRenderArgs {
         readonly header: {
             readonly hours: number;
             readonly minutes: number;
@@ -1922,19 +1874,19 @@ export module DayPilot {
         };
     }
 
-    export interface CalendarBeforeEventDomAddArgs {
+    interface CalendarBeforeEventDomAddArgs {
         readonly control: DayPilot.Calendar;
         readonly e: DayPilot.Event;
         element: any;
     }
 
-    export interface CalendarBeforeEventDomRemoveArgs {
+    interface CalendarBeforeEventDomRemoveArgs {
         readonly control: DayPilot.Calendar;
         readonly e: DayPilot.Event;
         readonly element: any;
     }
 
-    export interface CalendarBeforeEventExportArgs {
+    interface CalendarBeforeEventExportArgs {
         readonly e: DayPilot.Event;
         text: string;
         fontSize: string;
@@ -1949,11 +1901,11 @@ export module DayPilot {
         barBackColor: string;
     }
 
-    export interface CalendarBeforeEventRenderArgs {
+    interface CalendarBeforeEventRenderArgs {
         readonly data: EventData;
     }
 
-    export interface CalendarEventClickArgs {
+    interface CalendarEventClickArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Calendar;
         readonly ctrl: boolean;
@@ -1962,7 +1914,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface CalendarEventClickedArgs {
+    interface CalendarEventClickedArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Calendar;
         readonly ctrl: boolean;
@@ -1970,7 +1922,7 @@ export module DayPilot {
         readonly originalEvent: MouseEvent;
     }
 
-    export interface CalendarEventDoubleClickArgs {
+    interface CalendarEventDoubleClickArgs {
         readonly e: DayPilot.Event;
         preventDefault(): void;
     }
@@ -1979,51 +1931,51 @@ export module DayPilot {
         readonly e: DayPilot.Event;
     }
 
-    export interface CalendarEventEditArgs {
+    interface CalendarEventEditArgs {
         readonly control: DayPilot.Calendar;
         readonly e: DayPilot.Event;
         newText: string;
         preventDefault(): void;
     }
 
-    export interface CalendarEventEditedArgs {
+    interface CalendarEventEditedArgs {
         readonly control: DayPilot.Calendar;
         readonly e: DayPilot.Event;
         readonly newText: string;
     }
 
-    export interface CalendarEventFilterArgs {
+    interface CalendarEventFilterArgs {
         readonly e: DayPilot.Event;
         readonly filterParam: any;
         visible: boolean;
     }
 
-    export interface CalendarEventRightClickArgs {
+    interface CalendarEventRightClickArgs {
         readonly e: DayPilot.Event;
         preventDefault(): void;
     }
 
-    export interface CalendarEventRightClickedArgs {
+    interface CalendarEventRightClickedArgs {
         readonly e: DayPilot.Event;
     }
 
-    export interface CalendarEventDeleteArgs {
+    interface CalendarEventDeleteArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Calendar;
         preventDefault(): void;
     }
 
-    export interface CalendarEventDeletedArgs {
+    interface CalendarEventDeletedArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Calendar;
     }
 
-    export interface CalendarEventMoveArgs {
+    interface CalendarEventMoveArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Calendar;
         readonly newStart: DayPilot.Date;
         readonly newEnd: DayPilot.Date;
-        readonly newResource: ResourceId;
+        readonly newResource: string;
         readonly external: boolean;
         readonly areaData: any;
         readonly ctrl: boolean;
@@ -2035,12 +1987,12 @@ export module DayPilot {
         loaded(): void;
     }
 
-    export interface CalendarEventMovedArgs {
+    interface CalendarEventMovedArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Calendar;
         readonly newStart: DayPilot.Date;
         readonly newEnd: DayPilot.Date;
-        readonly newResource: ResourceId;
+        readonly newResource: string;
         readonly external: boolean;
         readonly areaData: any;
         readonly ctrl: boolean;
@@ -2048,7 +2000,7 @@ export module DayPilot {
         readonly async: boolean;
     }
 
-    export interface CalendarEventMovingArgs {
+    interface CalendarEventMovingArgs {
         readonly e: DayPilot.Event;
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
@@ -2062,7 +2014,7 @@ export module DayPilot {
         bottom: CalendarPositionIndicatorProps;
     }
 
-    export interface CalendarEventResizeArgs {
+    interface CalendarEventResizeArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Calendar;
         readonly newStart: DayPilot.Date;
@@ -2074,7 +2026,7 @@ export module DayPilot {
         loaded(): void;
     }
 
-    export interface CalendarEventResizedArgs {
+    interface CalendarEventResizedArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Calendar;
         readonly newStart: DayPilot.Date;
@@ -2082,7 +2034,7 @@ export module DayPilot {
         readonly async: boolean;
     }
 
-    export interface CalendarEventResizingArgs {
+    interface CalendarEventResizingArgs {
         readonly e: DayPilot.Event;
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
@@ -2094,7 +2046,7 @@ export module DayPilot {
         bottom: CalendarPositionIndicatorProps;
     }
 
-    export interface CalendarEventSelectArgs {
+    interface CalendarEventSelectArgs {
         readonly e: DayPilot.Event;
         readonly selected: boolean;
         readonly meta: boolean;
@@ -2102,23 +2054,19 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface CalendarEventSelectedArgs {
+    interface CalendarEventSelectedArgs {
         readonly e: DayPilot.Event;
         readonly selected: boolean;
         readonly meta: boolean;
         readonly ctrl: boolean;
     }
 
-    export interface CalendarHeaderClickArgs {
-        /**
-         * @deprecated Please use the "column" property instead.
-         */
+    interface CalendarHeaderClickArgs {
         readonly header: {
             readonly id: ResourceId;
             readonly name: string;
             readonly start: DayPilot.Date;
         };
-        readonly column: CalendarColumn;
         readonly originalEvent: MouseEvent;
         readonly shift: boolean;
         readonly meta: boolean;
@@ -2126,23 +2074,19 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface CalendarHeaderClickedArgs {
-        /**
-         * @deprecated Please use the "column" property instead.
-         */
+    interface CalendarHeaderClickedArgs {
         readonly header: {
             readonly id: ResourceId;
             readonly name: string;
             readonly start: DayPilot.Date;
         };
-        readonly column: CalendarColumn;
         readonly originalEvent: MouseEvent;
         readonly shift: boolean;
         readonly meta: boolean;
         readonly ctrl: boolean;
     }
 
-    export interface CalendarTimeRangeSelectArgs {
+    interface CalendarTimeRangeSelectArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         readonly resource: ResourceId;
@@ -2150,27 +2094,27 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface CalendarTimeRangeSelectedArgs {
+    interface CalendarTimeRangeSelectedArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         readonly resource: ResourceId;
         readonly control: DayPilot.Calendar;
     }
 
-    export interface CalendarTimeRangeDoubleClickArgs {
+    interface CalendarTimeRangeDoubleClickArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         readonly resource: ResourceId;
         preventDefault(): void;
     }
 
-    export interface CalendarTimeRangeDoubleClickedArgs {
+    interface CalendarTimeRangeDoubleClickedArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         readonly resource: ResourceId;
     }
 
-    export interface CalendarColumnFilterArgs {
+    interface CalendarColumnFilterArgs {
         readonly column: {
             readonly id: ResourceId;
             readonly name: string;
@@ -2180,146 +2124,14 @@ export module DayPilot {
         visible: boolean;
     }
 
-    export interface CalendarColumnMoveArgs {
-        readonly source: CalendarColumn;
-        readonly target: CalendarColumn;
-        readonly position: "before" | "after" | "child" | "forbidden";
-        preventDefault(): void;
-    }
-
-    export interface CalendarColumnMovedArgs {
-        readonly source: CalendarColumn;
-        readonly target: CalendarColumn;
-        readonly position: "before" | "after" | "child" | "forbidden";
-    }
-
-    export interface CalendarColumnMovingArgs {
-        readonly source: CalendarColumn;
-        readonly target: CalendarColumn;
-        position: "before" | "after" | "child" | "forbidden";
-    }
-
-    export interface CalendarColumnResizeArgs {
-        readonly column: CalendarColumn;
-        readonly newWidth: number;
-        preventDefault(): void;
-    }
-
-    export interface CalendarColumnResizedArgs {
-        readonly column: CalendarColumn;
-        readonly newWidth: number;
-    }
-
-    export interface CalendarPositionIndicatorProps {
+    interface CalendarPositionIndicatorProps {
         width: number;
         space: number;
         html: string;
         enabled: boolean;
     }
 
-    export class CalendarColumn {
-        readonly id: ResourceId;
-        readonly start: DayPilot.Date;
-        readonly name: string;
-        readonly data: CalendarColumnData;
-    }
-
-    export class MonthPropsAndEvents {
-        allowMultiSelect?: boolean;
-        autoRefreshEnabled?: boolean;
-        autoRefreshCommand?: string;
-        autoRefreshInterval?: number;
-        autoRefreshMaxCount?: number;
-        backendUrl?: string;
-        bubble?: DayPilot.Bubble;
-        cellHeaderClickHandling?: "Enabled" | "Disabled";
-        cellHeaderHeight?: number;
-        cellHeight?: number;
-        cellMarginBottom?: number;
-        cellMode?: boolean;
-        clientState?: any;
-        contextMenu?: DayPilot.Menu;
-        eventBarVisible?: boolean;
-        eventClickHandling?: "Enabled" | "Disabled" | "CallBack" | "Select" | "ContextMenu" | "Bubble";
-        eventDoubleClickHandling?: "Enabled" | "Disabled" | "CallBack" | "Select" | "Bubble";
-        eventEndTime?: boolean;
-        eventHeight?: number;
-        eventDeleteHandling?: "Update" | "CallBack" | "Disabled";
-        eventHoverHandling?: "Bubble" | "Disabled";
-        eventMoveHandling?: "Update" | "CallBack" | "Notify" | "Disabled";
-        eventMoveToPosition?: boolean;
-        eventResizeHandling?: "Update" | "CallBack" | "Notify" | "Disabled";
-        eventRightClickHandling?: "ContextMenu" | "Enabled" | "Disabled" | "CallBack" | "Bubble";
-        eventSelectHandling?: "Update" | "CallBack" | "Disabled";
-        eventStartTime?: boolean;
-        eventTextWrappingEnabled?: boolean;
-        headerClickHandling?: "Enabled" | "Disabled" | "CallBack";
-        headerHeight?: number;
-        hideUntilInit?: boolean;
-        lineSpace?: number;
-        loadingLabelText?: string;
-        loadingLabelHtml?: string;
-        loadingLabelVisible?: boolean;
-        locale?: string;
-        maxEvents?: "All" | number;
-        messageHideAfter?: number;
-        notifyCommit?: "Immediate" | "Queue";
-        showWeekend?: boolean;
-        showToolTip?: boolean;
-        startDate?: DayPilot.Date | string;
-        theme?: string;
-        timeFormat?: "Auto" | "Clock12Hours" | "Clock24Hours";
-        timeRangeDoubleClickHandling?: "Enabled" | "Disabled" | "CallBack";
-        timeRangeSelectedHandling?: "Enabled" | "Disabled" | "CallBack";
-        viewType?: "Month" | "Weeks";
-        visible?: boolean;
-        weekStarts?: "Auto" | number;
-        weeks?: number;
-        width?: string;
-        xssProtection?: "Enabled" | "Disabled";
-
-        onAjaxError?: EventHandler<MonthAjaxErrorArgs>;
-        onAfterEventRender?: EventHandler<MonthAfterEventRenderArgs>;
-        onAfterRender?: EventHandler<MonthAfterRenderArgs>;
-        onBeforeCellDomAdd?: EventHandler<MonthBeforeCellDomAddArgs>;
-        onBeforeCellDomRemove?: EventHandler<MonthBeforeCellDomRemoveArgs>;
-        onBeforeCellExport?: EventHandler<MonthBeforeCellExportArgs>;
-        onBeforeCellRender?: EventHandler<MonthBeforeCellRenderArgs>;
-        onBeforeEventDomAdd?: EventHandler<MonthBeforeEventDomAddArgs>;
-        onBeforeEventDomRemove?: EventHandler<MonthBeforeEventDomRemoveArgs>;
-        onBeforeEventExport?: EventHandler<MonthBeforeEventExportArgs>;
-        onBeforeEventRender?: EventHandler<MonthBeforeEventRenderArgs>;
-        onBeforeHeaderExport?: EventHandler<MonthBeforeHeaderExportArgs>;
-        onBeforeHeaderRender?: EventHandler<MonthBeforeHeaderRenderArgs>;
-        onCellHeaderClick?: EventHandler<MonthCellHeaderClickArgs>;
-        onCellHeaderClicked?: EventHandler<MonthCellHeaderClickedArgs>;
-        onEventClick?: EventHandler<MonthEventClickArgs>;
-        onEventClicked?: EventHandler<MonthEventClickedArgs>;
-        onEventDelete?: EventHandler<MonthEventDeleteArgs>;
-        onEventDeleted?: EventHandler<MonthEventDeletedArgs>;
-        onEventDoubleClick?: EventHandler<MonthEventDoubleClickArgs>;
-        onEventDoubleClicked?: EventHandler<MonthEventDoubleClickedArgs>;
-        onEventSelect?: EventHandler<MonthEventSelectArgs>;
-        onEventSelected?: EventHandler<MonthEventSelectedArgs>;
-        onEventRightClick?: EventHandler<MonthEventRightClickArgs>;
-        onEventRightClicked?: EventHandler<MonthEventRightClickedArgs>;
-        onEventMove?: EventHandler<MonthEventMoveArgs>;
-        onEventMoved?: EventHandler<MonthEventMovedArgs>;
-        onEventResize?: EventHandler<MonthEventResizeArgs>;
-        onEventResized?: EventHandler<MonthEventResizedArgs>;
-        onTimeRangeSelect?: EventHandler<MonthTimeRangeSelectArgs>;
-        onTimeRangeSelected?: EventHandler<MonthTimeRangeSelectedArgs>;
-        onHeaderClick?: EventHandler<MonthHeaderClickArgs>;
-        onHeaderClicked?: EventHandler<MonthHeaderClickedArgs>;
-        onTimeRangeDoubleClick?: EventHandler<MonthTimeRangeDoubleClickArgs>;
-        onTimeRangeDoubleClicked?: EventHandler<MonthTimeRangeDoubleClickedArgs>;
-    }
-
-    export class MonthConfig extends MonthPropsAndEvents {
-        events?: EventData[];
-    }
-
-    export class Month extends MonthPropsAndEvents {
+    class Month extends MonthPropsAndEvents {
         v: string;
         events: {
             list: EventData[];
@@ -2362,42 +2174,105 @@ export module DayPilot {
 
     }
 
+    class MonthPropsAndEvents {
+        allowMultiSelect?: boolean;
+        autoRefreshEnabled?: boolean;
+        autoRefreshCommand?: string;
+        autoRefreshInterval?: number;
+        autoRefreshMaxCount?: number;
+        backendUrl?: string;
+        bubble?: DayPilot.Bubble;
+        cellHeaderHeight?: number;
+        cellHeight?: number;
+        cellMarginBottom?: number;
+        cellMode?: boolean;
+        clientState?: any;
+        contextMenu?: DayPilot.Menu;
+        eventClickHandling?: "Enabled" | "Disabled" | "CallBack" | "Select" | "ContextMenu" | "Bubble";
+        eventDoubleClickHandling?: "Enabled" | "Disabled" | "CallBack" | "Select" | "Bubble";
+        eventEndTime?: boolean;
+        eventHeight?: number;
+        eventDeleteHandling?: "Update" | "CallBack" | "Disabled";
+        eventHoverHandling?: "Bubble" | "Disabled";
+        eventMoveHandling?: "Update" | "CallBack" | "Notify" | "Disabled";
+        eventMoveToPosition?: boolean;
+        eventResizeHandling?: "Update" | "CallBack" | "Notify" | "Disabled";
+        eventRightClickHandling?: "ContextMenu" | "Enabled" | "Disabled" | "CallBack" | "Bubble";
+        eventSelectHandling?: "Update" | "CallBack" | "Disabled";
+        eventStartTime?: boolean;
+        headerClickHandling?: "Enabled" | "Disabled" | "CallBack";
+        headerHeight?: number;
+        hideUntilInit?: boolean;
+        lineSpace?: number;
+        loadingLabelText?: string;
+        loadingLabelHtml?: string;
+        loadingLabelVisible?: boolean;
+        locale?: string;
+        maxEvents?: "All" | number;
+        messageHideAfter?: number;
+        notifyCommit?: "Immediate" | "Queue";
+        showWeekend?: boolean;
+        showToolTip?: boolean;
+        startDate?: DayPilot.Date | string;
+        theme?: string;
+        timeFormat?: "Auto" | "Clock12Hours" | "Clock24Hours";
+        timeRangeDoubleClickHandling?: "Enabled" | "Disabled" | "CallBack";
+        timeRangeSelectedHandling?: "Enabled" | "Disabled" | "CallBack";
+        viewType?: "Month" | "Weeks";
+        visible?: boolean;
+        weekStarts?: "Auto" | number;
+        weeks?: number;
+        width?: string;
+        xssProtection?: "Enabled" | "Disabled";
 
-    export interface MonthAjaxErrorArgs {
+        onAjaxError?: EventHandler<MonthAjaxErrorArgs>;
+        onAfterEventRender?: EventHandler<MonthAfterEventRenderArgs>;
+        onAfterRender?: EventHandler<MonthAfterRenderArgs>;
+        onBeforeCellExport?: EventHandler<MonthBeforeCellExportArgs>;
+        onBeforeCellRender?: EventHandler<MonthBeforeCellRenderArgs>;
+        onBeforeEventExport?: EventHandler<MonthBeforeEventExportArgs>;
+        onBeforeEventRender?: EventHandler<MonthBeforeEventRenderArgs>;
+        onBeforeHeaderExport?: EventHandler<MonthBeforeHeaderExportArgs>;
+        onBeforeHeaderRender?: EventHandler<MonthBeforeHeaderRenderArgs>;
+        onEventClick?: EventHandler<MonthEventClickArgs>;
+        onEventClicked?: EventHandler<MonthEventClickedArgs>;
+        onEventDoubleClick?: EventHandler<MonthEventDoubleClickArgs>;
+        onEventDoubleClicked?: EventHandler<MonthEventDoubleClickedArgs>;
+        onEventSelect?: EventHandler<MonthEventSelectArgs>;
+        onEventSelected?: EventHandler<MonthEventSelectedArgs>;
+        onEventRightClick?: EventHandler<MonthEventRightClickArgs>;
+        onEventRightClicked?: EventHandler<MonthEventRightClickedArgs>;
+        onEventMove?: EventHandler<MonthEventMoveArgs>;
+        onEventMoved?: EventHandler<MonthEventMovedArgs>;
+        onEventResize?: EventHandler<MonthEventResizeArgs>;
+        onEventResized?: EventHandler<MonthEventResizedArgs>;
+        onTimeRangeSelect?: EventHandler<MonthTimeRangeSelectArgs>;
+        onTimeRangeSelected?: EventHandler<MonthTimeRangeSelectedArgs>;
+        onHeaderClick?: EventHandler<MonthHeaderClickArgs>;
+        onHeaderClicked?: EventHandler<MonthHeaderClickedArgs>;
+        onTimeRangeDoubleClick?: EventHandler<MonthTimeRangeDoubleClickArgs>;
+        onTimeRangeDoubleClicked?: EventHandler<MonthTimeRangeDoubleClickedArgs>;
+    }
+
+    class MonthConfig extends MonthPropsAndEvents {
+        events?: EventData;
+    }
+
+    interface MonthAjaxErrorArgs {
         readonly request: XMLHttpRequest;
     }
 
-    export interface MonthAfterEventRenderArgs {
+    interface MonthAfterEventRenderArgs {
         readonly e: DayPilot.Event;
         readonly div: HTMLElement;
     }
 
-    export interface MonthAfterRenderArgs {
+    interface MonthAfterRenderArgs {
         readonly isCallBack: boolean;
         readonly data: any;
     }
 
-    export interface MonthBeforeCellDomAddArgs {
-        readonly control: Scheduler;
-        readonly cell: {
-            start: DayPilot.Date;
-            end: DayPilot.Date;
-            events(): DayPilot.Event[];
-        };
-
-        element: any;
-    }
-
-    export interface MonthBeforeCellDomRemoveArgs {
-        readonly control: Scheduler;
-        readonly cell: {
-            start: DayPilot.Date;
-            end: DayPilot.Date;
-        };
-        readonly element: any;
-    }
-
-    export interface MonthBeforeCellExportArgs {
+    interface MonthBeforeCellExportArgs {
         readonly cell: {
             readonly start: DayPilot.Date;
             readonly end: DayPilot.Date;
@@ -2407,45 +2282,31 @@ export module DayPilot {
         horizontalAlignment: HorizontalAlignment;
     }
 
-    export interface MonthBeforeCellRenderArgs {
+    interface MonthBeforeCellRenderArgs {
         readonly cell: {
             start: DayPilot.Date;
             end: DayPilot.Date;
             properties: {
                 areas: AreaData[];
-                backColor: string;
+                cssClass: string;
+                html: string;
                 backImage: string;
                 backRepeat: string;
+                backColor: string;
                 business: boolean;
-                cssClass: string;
-                disabled: boolean;
-                headerBackColor: string;
                 headerHtml: string;
-                html: string;
+                headerBackColor: string;
             };
             events(): DayPilot.Event[];
         };
 
     }
 
-    export interface MonthBeforeEventDomAddArgs {
-        readonly control: DayPilot.Calendar;
-        readonly e: DayPilot.Event;
-        element: any;
-    }
-
-    export interface MonthBeforeEventDomRemoveArgs {
-        readonly control: DayPilot.Calendar;
-        readonly e: DayPilot.Event;
-        readonly element: any;
-    }
-
-
-    export interface MonthBeforeEventRenderArgs {
+    interface MonthBeforeEventRenderArgs {
         readonly data: EventData;
     }
 
-    export interface MonthBeforeEventExportArgs {
+    interface MonthBeforeEventExportArgs {
         readonly e: DayPilot.Event;
         text: string;
         backColor: string;
@@ -2457,7 +2318,7 @@ export module DayPilot {
         horizontalAlignment: HorizontalAlignment;
     }
 
-    export interface MonthBeforeHeaderExportArgs {
+    interface MonthBeforeHeaderExportArgs {
         readonly header: {
             readonly dayOfWeek: number;
         };
@@ -2471,7 +2332,7 @@ export module DayPilot {
         verticalAlignment: VerticalAlignment;
     }
 
-    export interface MonthBeforeHeaderRenderArgs {
+    interface MonthBeforeHeaderRenderArgs {
         readonly header: {
             readonly dayOfWeek: number;
             html: string;
@@ -2480,20 +2341,7 @@ export module DayPilot {
         };
     }
 
-    export interface MonthCellHeaderClickArgs {
-        readonly control: DayPilot.Month;
-        readonly start: DayPilot.Date;
-        readonly end: DayPilot.Date;
-        preventDefault(): void;
-    }
-
-    export interface MonthCellHeaderClickedArgs {
-        readonly control: DayPilot.Month;
-        readonly start: DayPilot.Date;
-        readonly end: DayPilot.Date;
-    }
-
-    export interface MonthEventClickArgs {
+    interface MonthEventClickArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Month;
         readonly div: HTMLElement;
@@ -2503,7 +2351,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface MonthEventClickedArgs {
+    interface MonthEventClickedArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Month;
         readonly div: HTMLElement;
@@ -2512,27 +2360,16 @@ export module DayPilot {
         readonly ctrl: boolean;
     }
 
-    export interface MonthEventDeleteArgs {
-        readonly e: DayPilot.Event;
-        readonly control: DayPilot.Month;
-        preventDefault(): void;
-    }
-
-    export interface MonthEventDeletedArgs {
-        readonly e: DayPilot.Event;
-        readonly control: DayPilot.Month;
-    }
-
-    export interface MonthEventDoubleClickArgs {
+    interface MonthEventDoubleClickArgs {
         readonly e: DayPilot.Event;
         preventDefault(): void;
     }
 
-    export interface MonthEventDoubleClickedArgs {
+    interface MonthEventDoubleClickedArgs {
         readonly e: DayPilot.Event;
     }
 
-    export interface MonthEventSelectArgs {
+    interface MonthEventSelectArgs {
         readonly e: DayPilot.Event;
         readonly selected: boolean;
         readonly meta: boolean;
@@ -2540,23 +2377,23 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface MonthEventSelectedArgs {
+    interface MonthEventSelectedArgs {
         readonly e: DayPilot.Event;
         readonly selected: boolean;
         readonly meta: boolean;
         readonly ctrl: boolean;
     }
 
-    export interface MonthEventRightClickArgs {
+    interface MonthEventRightClickArgs {
         readonly e: DayPilot.Event;
         preventDefault(): void;
     }
 
-    export interface MonthEventRightClickedArgs {
+    interface MonthEventRightClickedArgs {
         readonly e: DayPilot.Event;
     }
 
-    export interface MonthEventMoveArgs {
+    interface MonthEventMoveArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Month;
         readonly newStart: DayPilot.Date;
@@ -2568,7 +2405,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface MonthEventMovedArgs {
+    interface MonthEventMovedArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Month;
         readonly newStart: DayPilot.Date;
@@ -2579,7 +2416,7 @@ export module DayPilot {
         readonly shift: boolean;
     }
 
-    export interface MonthEventResizeArgs {
+    interface MonthEventResizeArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Month;
         readonly newStart: DayPilot.Date;
@@ -2587,92 +2424,51 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface MonthEventResizedArgs {
+    interface MonthEventResizedArgs {
         readonly e: DayPilot.Event;
         readonly control: DayPilot.Month;
         readonly newStart: DayPilot.Date;
         readonly newEnd: DayPilot.Date;
     }
 
-    export interface MonthTimeRangeSelectArgs {
+    interface MonthTimeRangeSelectArgs {
         readonly control: DayPilot.Month;
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         preventDefault(): void;
     }
 
-    export interface MonthTimeRangeSelectedArgs {
+    interface MonthTimeRangeSelectedArgs {
         readonly control: DayPilot.Month;
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
     }
 
-    export interface MonthHeaderClickArgs {
+    interface MonthHeaderClickArgs {
         readonly header: {
             readonly dayOfWeek: number;
         };
         preventDefault(): void;
     }
 
-    export interface MonthHeaderClickedArgs {
+    interface MonthHeaderClickedArgs {
         readonly header: {
             readonly dayOfWeek: number;
         };
     }
 
-    export interface MonthTimeRangeDoubleClickArgs {
+    interface MonthTimeRangeDoubleClickArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         preventDefault(): void;
     }
 
-    export interface MonthTimeRangeDoubleClickedArgs {
+    interface MonthTimeRangeDoubleClickedArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
     }
 
-    export class KanbanPropsAndEvents {
-        barWidth?: number;
-        cardDeleteHandling?: "Disabled" | "Update";
-        cardMarginBottom?: number;
-        cardMarginLeft?: number;
-        cardMarginRight?: number;
-        cardMoveHandling?: "Update" | "Disabled";
-        cellMarginBottom?: number;
-        cellMarginTop?: number;
-        columnHeaderHeight?: number;
-        columnMoveHandling?: "Disabled" | "Update";
-        columnWidth?: number;
-        columnWidthSpec?: "Auto" | "Fixed";
-        height?: number;
-        heightSpec?: "Auto" | "Max" | "Fixed" | "Parent100Pct";
-        rowMinHeight?: number;
-        swimlaneCollapsingEnabled?: boolean;
-        swimlaneHeaderWidth?: number;
-        swimlaneMoveHandling?: "Disabled" | "Update";
-        theme?: string;
-        visible?: boolean;
-
-        onCardClick?: EventHandler<KanbanCardClickArgs>;
-        onCardClicked?: EventHandler<KanbanCardClickedArgs>;
-        onCardDelete?: EventHandler<KanbanCardDeleteArgs>;
-        onCardDeleted?: EventHandler<KanbanCardDeletedArgs>;
-        onCardMove?: EventHandler<KanbanCardMoveArgs>;
-        onCardMoved?: EventHandler<KanbanCardMovedArgs>;
-        onColumnMove?: EventHandler<KanbanColumnMoveArgs>;
-        onColumnMoved?: EventHandler<KanbanColumnMovedArgs>;
-        onHeightChanged?: EventHandler<KanbanHeightChangedArgs>;
-        onSwimlaneMove?: EventHandler<KanbanSwimlaneMoveArgs>;
-        onSwimlaneMoved?: EventHandler<KanbanSwimlaneMovedArgs>;
-    }
-
-    export class KanbanConfig extends KanbanPropsAndEvents {
-        cards?: CardData[];
-        columns?: KanbanColumnData[];
-        swimlanes?: SwimlaneData[];
-    }
-
-    export class Kanban extends KanbanPropsAndEvents {
+    class Kanban extends KanbanPropsAndEvents {
         v: string;
         cards: {
             list: CardData[];
@@ -2701,51 +2497,70 @@ export module DayPilot {
 
         update(options?: KanbanConfig): void;
 
-        static makeDraggable(options: KanbanMakeDraggableOptions): void;
-
     }
 
-    export interface KanbanMakeDraggableOptions {
-        element: HTMLElement;
-        keepElement?: boolean;
-        remove?: HTMLElement;
-        data?: KanbanMakeDraggableData;
-        id?: EventId;
-        text?: string;
-        duration?: number | DayPilot.Duration;
-        externalHtml?: string;
-        externalCssClass?: string;
+    class KanbanPropsAndEvents {
+        barWidth?: number;
+        cardDeleteHandling?: "Disabled" | "Update";
+        cardMarginBottom?: number;
+        cardMarginLeft?: number;
+        cardMarginRight?: number;
+        cardMoveHandling?: "Update" | "Disabled";
+        cellMarginBottom?: number;
+        cellMarginTop?: number;
+        columnHeaderHeight?: number;
+        columnMoveHandling?: "Disabled" | "Update";
+        columnWidthSpec?: "Auto" | "Fixed";
+        crosshairColor?: string;
+        height?: number;
+        heightSpec?: "Auto" | "Max" | "Fixed" | "Parent100Pct";
+        rowMinHeight?: number;
+        swimlaneCollapsingEnabled?: boolean;
+        swimlaneHeaderWidth?: number;
+        swimlaneMoveHandling?: "Disabled" | "Update";
+        theme?: string;
+        visible?: boolean;
+
+        onCardClick?: EventHandler<KanbanCardClickArgs>;
+        onCardClicked?: EventHandler<KanbanCardClickedArgs>;
+        onCardDelete?: EventHandler<KanbanCardDeleteArgs>;
+        onCardDeleted?: EventHandler<KanbanCardDeletedArgs>;
+        onCardMove?: EventHandler<KanbanCardMoveArgs>;
+        onCardMoved?: EventHandler<KanbanCardMovedArgs>;
+        onColumnMove?: EventHandler<KanbanColumnMoveArgs>;
+        onColumnMoved?: EventHandler<KanbanColumnMovedArgs>;
+        onHeightChanged?: EventHandler<KanbanHeightChangedArgs>;
+        onSwimlaneMove?: EventHandler<KanbanSwimlaneMoveArgs>;
+        onSwimlaneMoved?: EventHandler<KanbanSwimlaneMovedArgs>;
     }
 
-    export interface KanbanMakeDraggableData {
-        id: EventId;
-        text: string;
-        duration: number | DayPilot.Duration;
+    class KanbanConfig extends KanbanPropsAndEvents {
+        cards?: CardData[];
+        columns?: KanbanColumnData[];
+        swimlanes?: SwimlaneData[];
     }
 
-
-
-    export interface KanbanCardClickArgs {
+    interface KanbanCardClickArgs {
         readonly card: DayPilot.Card;
         preventDefault(): void;
     }
 
-    export interface KanbanCardClickedArgs {
+    interface KanbanCardClickedArgs {
         readonly card: DayPilot.Card;
     }
 
-    export interface KanbanCardDeleteArgs {
+    interface KanbanCardDeleteArgs {
         readonly card: DayPilot.Card;
         readonly control: DayPilot.Kanban;
         preventDefault(): void;
     }
 
-    export interface KanbanCardDeletedArgs {
+    interface KanbanCardDeletedArgs {
         readonly card: DayPilot.Card;
         readonly control: DayPilot.Kanban;
     }
 
-    export interface KanbanCardMoveArgs {
+    interface KanbanCardMoveArgs {
         readonly control: DayPilot.Kanban;
         readonly card: DayPilot.Card;
         readonly column: { readonly data: KanbanColumnData; };
@@ -2757,7 +2572,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface KanbanCardMovedArgs {
+    interface KanbanCardMovedArgs {
         readonly control: DayPilot.Kanban;
         readonly card: DayPilot.Card;
         readonly column: { readonly data: KanbanColumnData; };
@@ -2768,7 +2583,7 @@ export module DayPilot {
         readonly next: DayPilot.Card;
     }
 
-    export interface KanbanColumnMoveArgs {
+    interface KanbanColumnMoveArgs {
         readonly column: { readonly data: KanbanColumnData; };
         readonly position: number;
         readonly previous: { readonly data: KanbanColumnData; };
@@ -2776,19 +2591,19 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface KanbanColumnMovedArgs {
+    interface KanbanColumnMovedArgs {
         readonly column: { readonly data: KanbanColumnData; };
         readonly position: number;
         readonly previous: { readonly data: KanbanColumnData; };
         readonly next: { readonly data: KanbanColumnData; };
     }
 
-    export interface KanbanHeightChangedArgs {
+    interface KanbanHeightChangedArgs {
         readonly oldHeight: number;
         readonly newHeight: number;
     }
 
-    export interface KanbanSwimlaneMoveArgs {
+    interface KanbanSwimlaneMoveArgs {
         readonly control: DayPilot.Kanban;
         readonly swimlane: { readonly data: SwimlaneData; };
         readonly position: number;
@@ -2797,7 +2612,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface KanbanSwimlaneMovedArgs {
+    interface KanbanSwimlaneMovedArgs {
         readonly control: DayPilot.Kanban;
         readonly swimlane: { readonly data: SwimlaneData; };
         readonly position: number;
@@ -2805,7 +2620,53 @@ export module DayPilot {
         readonly next: { readonly data: SwimlaneData; };
     }
 
-    export class GanttPropsAndEvents {
+    class Gantt extends GanttPropsAndEvents {
+        v: string;
+        links: {
+            list: LinkData[];
+            add(link: DayPilot.Link): void;
+            find(id: string): DayPilot.Link;
+            findByFromTo(from: DayPilot.Date | string, to: DayPilot.Date | string): DayPilot.Link;
+            remove(link: DayPilot.Link): void;
+        };
+        rows: {
+            selection: {
+                add(task: DayPilot.Task): void;
+                clear(): void;
+                get(): DayPilot.Task[];
+            };
+        };
+        tasks: {
+            list: TaskData[];
+            add(task: DayPilot.Task): void;
+            find(id: string): DayPilot.Task;
+            remove(task: DayPilot.Task): void;
+            update(task: DayPilot.Task): void;
+        };
+
+        constructor(id: string | HTMLElement, options?: GanttConfig);
+
+        commandCallBack(command: string, data?: any): void;
+
+        init(): void;
+
+        dispose(): void;
+
+        message(html: string): void;
+
+        scrollTo(date: DayPilot.Date, animated?: "fast" | "normal" | "slow" | "linear" | number, position?: "left" | "middle" | "right"): void;
+
+        scrollTo(date: string, animated?: "fast" | "normal" | "slow" | "linear" | number, position?: "left" | "middle" | "right"): void;
+
+        scrollTo(pixels: number, animated?: "fast" | "normal" | "slow" | "linear" | number, position?: "left" | "middle" | "right"): void;
+
+        setHeight(pixels: number): void;
+
+        update(options?: GanttConfig): void;
+
+    }
+
+    class GanttPropsAndEvents {
         autoRefreshCommand?: string;
         autoRefreshEnabled?: boolean;
         autoRefreshInterval?: number;
@@ -2896,7 +2757,6 @@ export module DayPilot {
         theme?: string;
         timeHeaders?: TimeHeaderData[];
         timeline?: TimelineData[];
-        treeAnimation?: boolean;
         treeAutoExpand?: boolean;
         treeIndent?: number;
         treeImageMarginLeft?: number;
@@ -2945,93 +2805,46 @@ export module DayPilot {
         onTaskRightClicked?: EventHandler<GanttTaskRightClickedArgs>;
     }
 
-    export class GanttConfig extends GanttPropsAndEvents {
+    class GanttConfig extends GanttPropsAndEvents {
         tasks?: TaskData[];
         links?: LinkData[];
     }
 
-
-    export class Gantt extends GanttPropsAndEvents {
-        v: string;
-        links: {
-            list: LinkData[];
-            add(link: DayPilot.Link): void;
-            find(id: string): DayPilot.Link;
-            findByFromTo(from: DayPilot.Date | string, to: DayPilot.Date | string): DayPilot.Link;
-            remove(link: DayPilot.Link): void;
-        };
-        rows: {
-            selection: {
-                add(task: DayPilot.Task): void;
-                clear(): void;
-                get(): DayPilot.Task[];
-            };
-        };
-        tasks: {
-            list: TaskData[];
-            add(task: DayPilot.Task): void;
-            find(id: string): DayPilot.Task;
-            remove(task: DayPilot.Task): void;
-            update(task: DayPilot.Task): void;
-        };
-
-        constructor(id: string | HTMLElement, options?: GanttConfig);
-
-        commandCallBack(command: string, data?: any): void;
-
-        init(): void;
-
-        dispose(): void;
-
-        message(html: string): void;
-
-        scrollTo(date: DayPilot.Date, animated?: "fast" | "normal" | "slow" | "linear" | number, position?: "left" | "middle" | "right"): void;
-
-        scrollTo(date: string, animated?: "fast" | "normal" | "slow" | "linear" | number, position?: "left" | "middle" | "right"): void;
-
-        scrollTo(pixels: number, animated?: "fast" | "normal" | "slow" | "linear" | number, position?: "left" | "middle" | "right"): void;
-
-        setHeight(pixels: number): void;
-
-        update(options?: GanttConfig): void;
-
-    }
-
-    export interface GanttColumnData {
+    interface GanttColumnData {
         title?: string;
         width?: number;
         property?: string;
     }
 
-    export interface GanttAfterRenderArgs {
+    interface GanttAfterRenderArgs {
         readonly isCallBack: boolean;
         readonly isScroll: boolean;
         readonly data: any;
     }
 
-    export interface GanttBeforeCellRenderArgs {
+    interface GanttBeforeCellRenderArgs {
         readonly control: Gantt;
         readonly cell: Cell;
         readonly task: DayPilot.Task;
     }
 
-    export interface GanttBeforeCornerRenderArgs {
+    interface GanttBeforeCornerRenderArgs {
         readonly control: Gantt;
         html: string;
         areas: AreaData[];
     }
 
-    export interface GanttBeforeRowHeaderRenderArgs {
+    interface GanttBeforeRowHeaderRenderArgs {
         readonly task: DayPilot.Task;
-        readonly row: RenderRow;
+        readonly row: DayPilot.Row;
     }
 
-    export interface GanttBeforeTaskRenderArgs {
+    interface GanttBeforeTaskRenderArgs {
         readonly data: TaskData;
         readonly type: TaskType;
     }
 
-    export interface GanttBeforeTimeHeaderRenderArgs {
+    interface GanttBeforeTimeHeaderRenderArgs {
         readonly control: Gantt;
         readonly header: {
             readonly start: DayPilot.Date;
@@ -3046,11 +2859,11 @@ export module DayPilot {
         };
     }
 
-    export interface GanttColumnResizedArgs {
+    interface GanttColumnResizedArgs {
         readonly column: GanttColumnData;
     }
 
-    export interface GanttLinkCreateArgs {
+    interface GanttLinkCreateArgs {
         readonly source: Task;
         readonly target: Task;
         readonly control: Gantt;
@@ -3058,43 +2871,43 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface GanttLinkCreatedArgs {
+    interface GanttLinkCreatedArgs {
         readonly source: Task;
         readonly target: Task;
         readonly control: Gantt;
         readonly type: LinkType;
     }
 
-    export interface GanttRowClickArgs {
+    interface GanttRowClickArgs {
         readonly task: Task;
         preventDefault(): void;
     }
 
-    export interface GanttRowClickedArgs {
+    interface GanttRowClickedArgs {
         readonly task: Task;
     }
 
-    export interface GanttRowCreateArgs {
+    interface GanttRowCreateArgs {
         readonly control: Gantt;
         text: string;
         preventDefault(): void;
     }
 
-    export interface GanttRowCreatedArgs {
+    interface GanttRowCreatedArgs {
         readonly control: Gantt;
         readonly text: string;
     }
 
-    export interface GanttRowDoubleClickArgs {
+    interface GanttRowDoubleClickArgs {
         readonly task: Task;
         preventDefault(): void;
     }
 
-    export interface GanttRowDoubleClickedArgs {
+    interface GanttRowDoubleClickedArgs {
         readonly task: Task;
     }
 
-    export interface GanttRowEditArgs {
+    interface GanttRowEditArgs {
         readonly task: Task;
         readonly canceled: boolean;
         newText: string;
@@ -3104,13 +2917,13 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface GanttRowEditedArgs {
+    interface GanttRowEditedArgs {
         readonly task: Task;
         readonly newText: string;
         readonly async: boolean;
     }
 
-    export interface GanttRowMoveArgs {
+    interface GanttRowMoveArgs {
         readonly source: Task;
         readonly target: Task;
         readonly control: Gantt;
@@ -3118,20 +2931,20 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface GanttRowMovedArgs {
+    interface GanttRowMovedArgs {
         readonly source: Task;
         readonly target: Task;
         readonly control: Gantt;
         readonly position: "child" | "before" | "after" | "forbidden";
     }
 
-    export interface GanttRowMovingArgs {
+    interface GanttRowMovingArgs {
         readonly source: Task;
         readonly target: Task;
         position: "child" | "before" | "after" | "forbidden";
     }
 
-    export interface GanttRowSelectArgs {
+    interface GanttRowSelectArgs {
         readonly task: Task;
         readonly ctrl: boolean;
         readonly shift: boolean;
@@ -3140,7 +2953,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface GanttRowSelectedArgs {
+    interface GanttRowSelectedArgs {
         readonly task: Task;
         readonly ctrl: boolean;
         readonly shift: boolean;
@@ -3148,7 +2961,7 @@ export module DayPilot {
         readonly selected: boolean;
     }
 
-    export interface GanttTaskClickArgs {
+    interface GanttTaskClickArgs {
         readonly task: DayPilot.Task;
         readonly ctrl: boolean;
         readonly meta: boolean;
@@ -3158,7 +2971,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface GanttTaskClickedArgs {
+    interface GanttTaskClickedArgs {
         readonly task: DayPilot.Task;
         readonly ctrl: boolean;
         readonly meta: boolean;
@@ -3167,20 +2980,20 @@ export module DayPilot {
         readonly originalEvent: MouseEvent;
     }
 
-    export interface GanttTaskDoubleClickArgs {
+    interface GanttTaskDoubleClickArgs {
         readonly task: DayPilot.Task;
         readonly control: DayPilot.Gantt;
         readonly originalEvent: MouseEvent;
         preventDefault(): void;
     }
 
-    export interface GanttTaskDoubleClickedArgs {
+    interface GanttTaskDoubleClickedArgs {
         readonly task: DayPilot.Task;
         readonly control: DayPilot.Gantt;
         readonly originalEvent: MouseEvent;
     }
 
-    export interface GanttTaskMoveArgs {
+    interface GanttTaskMoveArgs {
         readonly control: DayPilot.Gantt;
         readonly task: DayPilot.Task;
         readonly external: boolean;
@@ -3195,7 +3008,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface GanttTaskMovedArgs {
+    interface GanttTaskMovedArgs {
         readonly control: DayPilot.Gantt;
         readonly task: DayPilot.Task;
         readonly external: boolean;
@@ -3207,7 +3020,7 @@ export module DayPilot {
         readonly newEnd: DayPilot.Date;
     }
 
-    export interface GanttTaskMovingArgs {
+    interface GanttTaskMovingArgs {
         readonly ctrl: boolean;
         readonly shift: boolean;
         readonly meta: boolean;
@@ -3236,7 +3049,7 @@ export module DayPilot {
         };
     }
 
-    export interface GanttTaskResizeArgs {
+    interface GanttTaskResizeArgs {
         readonly control: DayPilot.Gantt;
         readonly task: DayPilot.Task;
         readonly what: "start" | "end";
@@ -3248,7 +3061,7 @@ export module DayPilot {
         preventDefault(): void;
     }
 
-    export interface GanttTaskResizedArgs {
+    interface GanttTaskResizedArgs {
         readonly control: DayPilot.Gantt;
         readonly task: DayPilot.Task;
         readonly what: "start" | "end";
@@ -3257,7 +3070,7 @@ export module DayPilot {
         readonly newEnd: DayPilot.Date;
     }
 
-    export interface GanttTaskResizingArgs {
+    interface GanttTaskResizingArgs {
         readonly duration: DayPilot.Duration;
         readonly task: DayPilot.Task;
         readonly shift: boolean;
@@ -3288,46 +3101,19 @@ export module DayPilot {
         html: string;
     }
 
-    export interface GanttTaskRightClickArgs {
+    interface GanttTaskRightClickArgs {
         readonly task: DayPilot.Task;
         readonly originalEvent: MouseEvent;
         preventDefault(): void;
     }
 
-    export interface GanttTaskRightClickedArgs {
+    interface GanttTaskRightClickedArgs {
         readonly task: DayPilot.Task;
         readonly originalEvent: MouseEvent;
     }
 
-    export class QueuePropsAndEvents {
-        contextMenu?: DayPilot.Menu;
-        emptyText?: string;
-        emptyHtml?: string;
-        eventClickHandling?: "Enabled" | "Disabled" | "Select";
-        eventRightClickHandling?: "ContextMenu" | "Enabled" | "Disabled";
-        eventSelectHandling?: "Update" | "Disabled";
-        eventHeight?: number;
-        eventTextWrappingEnabled?: boolean;
-        lineSpace?: number;
-        theme?: string;
 
-        onBeforeEventRender?: EventHandler<any>;
-        onEventClick?: EventHandler<any>;
-        onEventClicked?: EventHandler<any>;
-        onEventRightClick?: EventHandler<any>;
-        onEventRightClicked?: EventHandler<any>;
-        onEventMove?: EventHandler<any>;
-        onEventMoved?: EventHandler<any>;
-        onEventSelect?: EventHandler<any>;
-        onEventSelected?: EventHandler<any>;
-    }
-
-    export class QueueConfig extends QueuePropsAndEvents {
-        events?: QueueData[];
-    }
-
-
-    export class Queue extends QueuePropsAndEvents {
+    class Queue extends QueuePropsAndEvents {
         constructor(id: string | HTMLElement, options?: QueueConfig);
 
         v: string;
@@ -3358,7 +3144,34 @@ export module DayPilot {
 
     }
 
-    export class QueueData {
+    class QueuePropsAndEvents {
+        contextMenu?: DayPilot.Menu;
+        emptyText?: string;
+        emptyHtml?: string;
+        eventClickHandling?: "Enabled" | "Disabled" | "Select";
+        eventRightClickHandling?: "ContextMenu" | "Enabled" | "Disabled";
+        eventSelectHandling?: "Update" | "Disabled";
+        eventHeight?: number;
+        eventTextWrappingEnabled?: boolean;
+        lineSpace?: number;
+        theme?: string;
+
+        onBeforeEventRender?: EventHandler<any>;
+        onEventClick?: EventHandler<any>;
+        onEventClicked?: EventHandler<any>;
+        onEventRightClick?: EventHandler<any>;
+        onEventRightClicked?: EventHandler<any>;
+        onEventMove?: EventHandler<any>;
+        onEventMoved?: EventHandler<any>;
+        onEventSelect?: EventHandler<any>;
+        onEventSelected?: EventHandler<any>;
+    }
+
+    class QueueConfig extends QueuePropsAndEvents {
+        events?: QueueData[];
+    }
+
+    class QueueData {
         start?: string | DayPilot.Date;
         end?: string | DayPilot.Date;
         duration?: number | DayPilot.Duration;
@@ -3366,7 +3179,32 @@ export module DayPilot {
         text: string;
     }
 
-    export class NavigatorPropsAndEvents {
+    class Navigator extends NavigatorPropsAndEvents {
+        v: string;
+        events: {
+            list: EventDataShort[];
+        };
+
+        constructor(id: string | HTMLElement, options?: NavigatorConfig);
+
+        init(): void;
+
+        dispose(): void;
+
+        update(options?: NavigatorConfig): void;
+
+        select(date: DayPilot.Date | string): void;
+
+        hide(): void;
+
+        show(): void;
+
+        visibleEnd(): DayPilot.Date;
+
+        visibleStart(): DayPilot.Date;
+    }
+
+    class NavigatorPropsAndEvents {
         bound?: string;
         cellHeight?: number;
         cellWidth?: number;
@@ -3399,46 +3237,15 @@ export module DayPilot {
         onVisibleRangeChanged?: EventHandler<NavigatorVisibleRangeChangedArgs>;
     }
 
-    export class NavigatorConfig extends NavigatorPropsAndEvents {
+    class NavigatorConfig extends NavigatorPropsAndEvents {
         events?: EventData[];
     }
 
-    export class Navigator extends NavigatorPropsAndEvents {
-        v: string;
-        events: {
-            list: EventDataShort[];
-        };
-
-        constructor(id: string | HTMLElement, options?: NavigatorConfig);
-
-        init(): void;
-
-        dispose(): void;
-
-        update(options?: NavigatorConfig): void;
-
-        select(date: DayPilot.Date | string, options?: NavigatorSelectOptions): void;
-        select(start: DayPilot.Date | string, end: DayPilot.Date | string, options?: NavigatorSelectOptions): void;
-
-        hide(): void;
-
-        show(): void;
-
-        visibleEnd(): DayPilot.Date;
-
-        visibleStart(): DayPilot.Date;
-    }
-
-    export interface NavigatorAjaxErrorArgs {
+    interface NavigatorAjaxErrorArgs {
         readonly request: XMLHttpRequest;
     }
 
-    export interface NavigatorSelectOptions {
-        dontFocus?: boolean;
-        dontNotify?: boolean;
-    }
-
-    export interface NavigatorBeforeCellRenderArgs {
+    interface NavigatorBeforeCellRenderArgs {
         readonly cell: {
             readonly day: DayPilot.Date;
             readonly isCurrentMonth: boolean;
@@ -3449,35 +3256,46 @@ export module DayPilot {
         };
     }
 
-    export interface NavigatorTimeRangeSelectArgs {
+    interface NavigatorTimeRangeSelectArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
-        readonly day: DayPilot.Date;
         readonly days: number;
-        readonly mode: "Day" | "Week" | "Month" | "None" | "FreeHand";
+        readonly mode: "Day" | "Week" | "Month" | "None";
         preventDefault(): void;
     }
 
-    export interface NavigatorTimeRangeSelectedArgs {
+    interface NavigatorTimeRangeSelectedArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
-        readonly day: DayPilot.Date;
         readonly days: number;
-        readonly mode: "Day" | "Week" | "Month" | "None" | "FreeHand";
+        readonly mode: "Day" | "Week" | "Month" | "None";
     }
 
-    export interface NavigatorVisibleRangeChangeArgs {
+    interface NavigatorVisibleRangeChangeArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         preventDefault(): void;
     }
 
-    export interface NavigatorVisibleRangeChangedArgs {
+    interface NavigatorVisibleRangeChangedArgs {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
     }
 
-    export class BubblePropsAndEvents {
+
+    class Bubble extends BubblePropsAndEvents {
+        v: string;
+
+        constructor(options?: BubbleConfig);
+
+        hide(): void;
+
+        showEvent(e: DayPilot.Event): void;
+
+        showHtml(html: string, element?: HTMLElement): void;
+    }
+
+    class BubblePropsAndEvents {
         animated?: boolean;
         animation?: "fast" | "slow" | "jump";
         hideAfter?: number;
@@ -3495,43 +3313,33 @@ export module DayPilot {
         onDomRemove?: EventHandler<BubbleDomRemoveArgs>;
     }
 
-    export class BubbleConfig extends BubblePropsAndEvents {
+    class BubbleConfig extends BubblePropsAndEvents {
     }
 
-    export class Bubble extends BubblePropsAndEvents {
-        v: string;
+    namespace Bubble {
+        function hide(): void;
 
-        constructor(options?: BubbleConfig);
-
-        hide(): void;
-
-        showEvent(e: DayPilot.Event): void;
-
-        showHtml(html: string, element?: HTMLElement): void;
-
-        static hide(): void;
-        static getActive(): DayPilot.Bubble;
+        function getActive(): DayPilot.Bubble;
     }
 
-
-    export interface BubbleLoadArgs {
+    interface BubbleLoadArgs {
         readonly source: any;
         async: boolean;
         loaded(): void;
         html: string;
     }
 
-    export interface BubbleDomAddArgs {
+    interface BubbleDomAddArgs {
         readonly source: any;
         element: any;
     }
 
-    export interface BubbleDomRemoveArgs {
+    interface BubbleDomRemoveArgs {
         readonly source: any;
         readonly element: any;
     }
 
-    export class Locale {
+    class Locale {
         datePattern: string;
         dateTimePattern: string;
         dayNames: string[];
@@ -3553,13 +3361,23 @@ export module DayPilot {
             timeFormat: "Clock12Hours" | "Clock24Hours";
             weekStarts: number;
         });
-
-        static register(locale: DayPilot.Locale): void;
-        static find(id: string): DayPilot.Locale;
-
     }
 
-    export class MenuPropsAndEvents {
+    namespace Locale {
+        function register(locale: DayPilot.Locale): void;
+
+        function find(id: string): DayPilot.Locale;
+    }
+
+    class Menu extends MenuPropsAndEvents {
+        v: string;
+        constructor(options?: MenuConfig);
+
+        show(target?: any): void;
+        hide(): void;
+    }
+
+    class MenuPropsAndEvents {
         hideOnMouseOut?: boolean;
         items?: MenuItemData[];
         menuTitle?: string;
@@ -3570,30 +3388,23 @@ export module DayPilot {
         theme?: string;
     }
 
-    export class MenuConfig extends MenuPropsAndEvents {
+    class MenuConfig extends MenuPropsAndEvents {
     }
 
-
-    export class Menu extends MenuPropsAndEvents {
-        v: string;
-        constructor(options?: MenuConfig);
-
-        show(target?: any): void;
-        hide(): void;
-
-        static hide(): void;
-    }
-
-    export interface MenuShowArgs {
+    interface MenuShowArgs {
         readonly source: any;
         readonly menu: DayPilot.Menu;
         preventDefault(): void;
     }
 
-    export interface MenuHideArgs {
+    interface MenuHideArgs {
     }
 
-    export class MenuBar {
+    namespace Menu {
+        function hide(): void;
+    }
+
+    class MenuBar {
         items: any[];
 
         constructor(id: string, options?: any);
@@ -3603,7 +3414,7 @@ export module DayPilot {
         dispose(): void;
     }
 
-    export class Date {
+    class Date {
         constructor(str?: string | DayPilot.Date);
         constructor(date: GlobalDate, isLocal?: boolean);
 
@@ -3682,30 +3493,28 @@ export module DayPilot {
         weekNumber(): number;
 
         weekNumberISO(): number;
-
-        static fromYearMonthDay(year: number, month: number, day: number): DayPilot.Date;
-
-        static parse(input: string, pattern: string, locale?: string | DayPilot.Locale): DayPilot.Date;
-
-        static today(): DayPilot.Date;
-
-        static now(): DayPilot.Date;
-
-        static Cache: DateCache;
-
     }
 
-    class DateCache {
-        static clear(): void;
+    namespace Date {
+        function fromYearMonthDay(year: number, month: number, day: number): DayPilot.Date;
+
+        function parse(input: string, pattern: string, locale?: string | DayPilot.Locale): DayPilot.Date;
+
+        function today(): DayPilot.Date;
+
+        function now(): DayPilot.Date;
+
+        namespace Cache {
+            function clear(): void;
+        }
     }
 
-    export class Util {
-        static overlaps(start1: DayPilot.Date, end1: DayPilot.Date, start2: DayPilot.Date, end2: DayPilot.Date): boolean;
-        static overlaps(start1: number, end1: number, start2: number, end2: number): boolean;
-        static escapeHtml(html: string): string;
+    namespace Util {
+        function overlaps(start1: DayPilot.Date, end1: DayPilot.Date, start2: DayPilot.Date, end2: DayPilot.Date): boolean;
+        function overlaps(start1: number, end1: number, start2: number, end2: number): boolean;
     }
 
-    export class Duration {
+    class Duration {
 
         ticks: number;
 
@@ -3736,15 +3545,21 @@ export module DayPilot {
         days(): number;
 
         add(d: DayPilot.Duration): DayPilot.Duration;
-
-        static ofWeeks(i: number): DayPilot.Duration;
-        static ofDays(i: number): DayPilot.Duration;
-        static ofHours(i: number): DayPilot.Duration;
-        static ofMinutes(i: number): DayPilot.Duration;
-        static ofSeconds(i: number): DayPilot.Duration;
     }
 
-    export class Event {
+    namespace Duration {
+        function ofWeeks(i: number): DayPilot.Duration;
+
+        function ofDays(i: number): DayPilot.Duration;
+
+        function ofHours(i: number): DayPilot.Duration;
+
+        function ofMinutes(i: number): DayPilot.Duration;
+
+        function ofSeconds(i: number): DayPilot.Duration;
+    }
+
+    class Event {
         data: any;
 
         constructor(data: EventData);
@@ -3761,12 +3576,12 @@ export module DayPilot {
         text(newText: string): void;
 
         resource(): string;
-        resource(newResource: ResourceId): void;
+        resource(newResource: string): void;
 
         duration(): DayPilot.Duration;
     }
 
-    export class Task {
+    class Task {
         data: TaskData;
         row: {
             expand(): void;
@@ -3804,19 +3619,19 @@ export module DayPilot {
         children(): DayPilot.Task[];
     }
 
-    export class Card {
+    class Card {
         data: CardData;
 
         constructor(data: CardData);
     }
 
-    export class Link {
+    class Link {
         data: LinkData;
 
         constructor(data: LinkData);
     }
 
-    export class Row {
+    class Row {
         events: {
             all(): DayPilot.Event[];
             isEmpty(): boolean;
@@ -3835,14 +3650,14 @@ export module DayPilot {
             expandAll(): void;
             expanded(): EventGroup[];
         };
-        readonly id: string;
-        readonly name: string;
-        readonly start: DayPilot.Date;
-        readonly data: any;
-        readonly index: number;
-        readonly displayY: number;
-        readonly hidden: boolean;
-        readonly hiddenUsingFilter: boolean;
+        id: string;
+        name: string;
+        start: DayPilot.Date;
+        data: any;
+        index: number;
+        displayY: number;
+        hidden: boolean;
+        hiddenUsingFilter: boolean;
 
         addClass(className: string): void;
 
@@ -3863,7 +3678,7 @@ export module DayPilot {
         toggle(): void;
     }
 
-    export class RenderRow extends Row {
+    class RenderRow extends Row {
         areas: AreaData[];
         backColor: string;
         contextMenu: DayPilot.Menu;
@@ -3885,13 +3700,13 @@ export module DayPilot {
         }[];
     }
 
-    export class Selection {
+    class Selection {
         start: DayPilot.Date;
         end: DayPilot.Date;
-        resource: ResourceId;
+        resource: string;
     }
 
-    export class Export {
+    class Export {
         toElement(): HTMLElement;
 
         toHtml(): string;
@@ -3907,7 +3722,7 @@ export module DayPilot {
         dimensions(): { width: number, height: number };
     }
 
-    export interface CardData {
+    interface CardData {
         id: CardId;
         name: string;
         text?: string;
@@ -3917,78 +3732,76 @@ export module DayPilot {
         barColor?: string;
     }
 
-    export interface KanbanColumnData {
+    interface KanbanColumnData {
         id: ColumnId;
         name: string;
         barColor?: string;
     }
 
-    export interface SwimlaneData {
+    interface SwimlaneData {
         id: SwimlaneId;
         name: string;
         collapsed?: boolean;
     }
 
-    export interface RowHeaderColumn {
+    interface RowHeaderColumn {
         html(newHtml?: string): string | void;
     }
 
-    export interface RowHeaderColumnData {
+    interface RowHeaderColumnData {
         title?: string;
         text?: string;
         html?: string;
         width?: number;
         display?: string;
         sort?: string;
-        split?: boolean;
     }
 
-    export interface EventGroup {
+    interface EventGroup {
         expand(): void;
 
         collapse(): void;
     }
 
-    export interface RenderGroup {
+    interface RenderGroup {
         readonly count: number;
         readonly events: DayPilot.Event[];
         html: string;
     }
 
-    export interface CalendarColumnData {
+    interface CalendarColumnData {
         name: string;
         id?: ResourceId;
         start?: DayPilot.Date | string;
         html?: string;
         toolTip?: string;
-        width?: number;
         children?: CalendarColumnData[];
     }
 
-    export type GroupBy = "Minute" | "Hour" | "Day" | "Week" | "Month" | "Quarter" | "Year" | "Cell" | "None";
-    export type SortDirection = "asc" | "desc";
-    export type TaskType = "Task" | "Milestone" | "Group";
-    export type LinkType = "FinishToStart" | "FinishToFinish" | "StartToStart" | "StartToFinish";
+    type GroupBy = "Minute" | "Hour" | "Day" | "Week" | "Month" | "Quarter" | "Year" | "Cell" | "None";
+    type SortDirection = "asc" | "desc";
+    type TaskType = "Task" | "Milestone" | "Group";
+    type LinkType = "FinishToStart" | "FinishToFinish" | "StartToStart" | "StartToFinish";
 
-    export interface ZoomLevel {
+    interface ZoomLevel {
         properties: any;
 
         [prop: string]: any;
     }
 
-    export interface TimelineData {
+    interface TimelineData {
         start: DayPilot.Date | string;
         end: DayPilot.Date | string;
         width?: number;
     }
 
-    export interface TimeHeaderData {
+    interface TimeHeaderData {
         groupBy: GroupBy;
         format?: string;
         height?: number;
     }
 
-    export interface MenuItemData {
+    interface MenuItemData {
         action?: "CallBack" | "PostBack";
         command?: string;
         cssClass?: string;
@@ -3999,21 +3812,20 @@ export module DayPilot {
         image?: string;
         items?: MenuItemData[];
         onClick?: EventHandler<MenuItemClickArgs>;
-        symbol?: string;
         tags?: any;
         target?: string;
         text?: string;
         html?: string;
     }
 
-    export interface MenuItemClickArgs {
+    interface MenuItemClickArgs {
         readonly item: MenuItemData;
         readonly source: any;
         readonly originalEvent: MouseEvent;
         preventDefault(): void;
     }
 
-    export interface SeparatorData {
+    interface SeparatorData {
         location: DayPilot.Date | string;
         color?: string;
         layer?: "AboveEvents" | "BelowEvents";
@@ -4022,7 +3834,7 @@ export module DayPilot {
         cssClass?: string;
     }
 
-    export interface CellArray extends Array<Cell> {
+    interface CellArray extends Array<Cell> {
         addClass(className: string): CellArray;
 
         removeClass(className: string): CellArray;
@@ -4032,7 +3844,7 @@ export module DayPilot {
         invalidate(): CellArray;
     }
 
-    export interface Cell {
+    interface Cell {
         readonly start: DayPilot.Date;
         readonly end: DayPilot.Date;
         readonly resource: ResourceId;
@@ -4052,7 +3864,7 @@ export module DayPilot {
         events(): DayPilot.Event[];
     }
 
-    export interface CellProperties {
+    interface CellProperties {
         areas: AreaData[];
         backColor: string;
         backImage: string;
@@ -4063,14 +3875,14 @@ export module DayPilot {
         html: string;
     }
 
-    export type GridId = "top" | "main" | "bottom";
+    type GridId = "top" | "main" | "bottom";
 
-    export interface EventDataShort {
+    interface EventDataShort {
         start: string | DayPilot.Date;
         end: string | DayPilot.Date;
     }
 
-    export interface EventData {
+    interface EventData {
         start: string | DayPilot.Date;
         end: string | DayPilot.Date;
         id: EventId;
@@ -4116,11 +3928,9 @@ export module DayPilot {
 
         // calendar
         allday?: boolean;
-
-        [prop: string]: any;
     }
 
-    export interface VersionData {
+    interface VersionData {
         start: string | DayPilot.Date;
         end: string | DayPilot.Date;
         id?: EventId;
@@ -4143,10 +3953,10 @@ export module DayPilot {
         toolTip?: string;
     }
 
-    export interface LinkData {
-        from: TaskId;
-        to: TaskId;
-        id?: LinkId;
+    interface LinkData {
+        from: string;
+        to: string;
+        id?: string;
         type?: LinkType;
         width?: number;
         color?: string;
@@ -4155,10 +3965,10 @@ export module DayPilot {
         layer?: "Above" | "Below";
     }
 
-    export interface TaskData {
+    interface TaskData {
         id: TaskId;
         text: string;
-        start?: DayPilot.Date | string;
+        start: DayPilot.Date | string;
         end?: DayPilot.Date | string;
         type?: TaskType;
         complete?: number;
@@ -4201,7 +4011,7 @@ export module DayPilot {
         };
     }
 
-    export interface ResourceData {
+    interface ResourceData {
         id: ResourceId;
         name?: string;
 
@@ -4226,15 +4036,13 @@ export module DayPilot {
         marginTop?: number;
         minHeight?: number;
         moveDisabled?: boolean;
-        preventUsage?: boolean;
-        split?: ResourceData[];
         tags?: any;
         toolTip?: string;
 
         [prop: string]: any;
     }
 
-    export interface AreaData {
+    interface AreaData {
         action?: "Default" | "None" | "JavaScript" | "ContextMenu" | "HoverMenu" | "ResizeEnd" | "ResizeStart" | "Move" | "Bubble";
         backColor?: string;
         background?: string;
@@ -4269,30 +4077,30 @@ export module DayPilot {
         width?: number;
     }
 
-    export function guid(): string;
+    function guid(): string;
 
-    export interface EventHandler<T> {
+    interface EventHandler<T> {
         (args: T): void;
     }
 
-    export type HorizontalAlignment = "right" | "center" | "left";
-    export type VerticalAlignment = "top" | "center" | "bottom";
-    export type FontStyle = "normal" | "italic" | "bold";
-    export interface SchedulerViewPort {
+    type HorizontalAlignment = "right" | "center" | "left";
+    type VerticalAlignment = "top" | "center" | "bottom";
+    type FontStyle = "normal" | "italic" | "bold";
+    interface SchedulerViewPort {
         start: DayPilot.Date,
         end: DayPilot.Date,
         resources: ResourceId[]
     }
-    export type ResourceId = string | number;
-    export type EventId = string | number;
-    export type LinkId = string | number;
-    export type TaskId = string | number;
-    export type CardId = string | number;
-    export type ColumnId = string | number;
-    export type SwimlaneId = string | number;
-    export type AreaId = string | number;
+    type ResourceId = string | number;
+    type EventId = string | number;
+    type LinkId = string | number;
+    type TaskId = string | number;
+    type CardId = string | number;
+    type ColumnId = string | number;
+    type SwimlaneId = string | number;
+    type AreaId = string | number;
 
-    export interface RowHeaderExportColumn {
+    interface RowHeaderExportColumn {
         backColor: string;
         fontColor: string;
         fontSize: string;
@@ -4303,18 +4111,23 @@ export module DayPilot {
         text: string;
     }
 
-    export interface KeyBoardFocus {
-        e?: DayPilot.Event;
-        cell?: {
-            start: DayPilot.Date,
-            end: DayPilot.Date,
-            resource: ResourceId
-        }
-    }
-
-    export type MouseButton = "left" | "right" | "middle";
+    type MouseButton = "left" | "right" | "middle";
 
     // modal
+
+    export class Modal extends ModalPropsAndEvents {
+        constructor(options?: ModalConfig)
+
+        close(result?: any): void;
+
+        closeSerialized(): void;
+
+        showHtml(html: string | HTMLElement): void;
+
+        showUrl(url: string): void;
+
+        stretch(): void;
+    }
 
     export class ModalPropsAndEvents {
         autoFocus?: boolean;
@@ -4340,34 +4153,21 @@ export module DayPilot {
         onShow?: EventHandler<ModalShowArgs>;
     }
 
-    export class ModalConfig extends ModalPropsAndEvents {
+    export namespace Modal {
+        function close(): void;
+
+        function opener(): void;
+
+        function prompt(message: string, defaultValue?: string, options?: ModalPromptConfig): Promise<ModalClosedArgs>;
+
+        function alert(message: string, options?: ModalAlertConfig): Promise<ModalClosedArgs>;
+
+        function confirm(message: string, options?: ModalConfirmConfig): Promise<ModalClosedArgs>;
+
+        function form(form?: ModalFormItem[], data?: any, options?: ModalFormConfig): Promise<ModalClosedArgs>;
     }
 
-    export class Modal extends ModalPropsAndEvents {
-        constructor(options?: ModalConfig)
-
-        close(result?: any): void;
-
-        closeSerialized(): void;
-
-        showHtml(html: string | HTMLElement): void;
-
-        showUrl(url: string): void;
-
-        stretch(): void;
-
-        static close(): void;
-
-        static opener(): void;
-
-        static prompt(message: string, defaultValue?: string, options?: ModalPromptConfig): Promise<ModalClosedArgs>;
-
-        static alert(message: string, options?: ModalAlertConfig): Promise<ModalClosedArgs>;
-
-        static confirm(message: string, options?: ModalConfirmConfig): Promise<ModalClosedArgs>;
-
-        static form(form?: ModalFormItem[], data?: any, options?: ModalFormConfig): Promise<ModalClosedArgs>;
-
+    export class ModalConfig extends ModalPropsAndEvents {
     }
 
     export class ModalAlertConfig extends ModalConfig {

@@ -25,7 +25,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Appointment> Appointment { get; set; }
     public DbSet<FAQ> FAQ  { get; set; }
     public DbSet<Doctor> Doctor { get; set; }
-    public DbSet<Availability> Availability { get; set; }
+
     public DbSet<MedicalHistory> MedicalHistory { get; set; }
     public DbSet<Message> Message { get; set; }
     public DbSet<Survey> Survey { get; set; }

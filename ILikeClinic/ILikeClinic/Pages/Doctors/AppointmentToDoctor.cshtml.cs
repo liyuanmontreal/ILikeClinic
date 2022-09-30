@@ -53,7 +53,7 @@ namespace ILikeClinic.Pages.Doctors
         public void OnGet()
         {
             var appointmentsToD = _DB.Appointment.Where(a => a.Doctor.Id == Doctor.Id).AsNoTracking();
-            
+            var doctor = _DB.Doctor.Where(d => d.Id == Doctor.Id).AsNoTracking();
 
                 //lambda 
                 if (!string.IsNullOrEmpty(SearchNameString))
@@ -63,6 +63,7 @@ namespace ILikeClinic.Pages.Doctors
                 }
 
                 Appointments = appointmentsToD.Include(c => c.Patient);
+            
         }
 
 

@@ -213,12 +213,3 @@ namespace ILikeClinic.Controller
 
 
 
-namespace Project.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AppointmentsController : ControllerBase
-    {
-        
-    }
-}
