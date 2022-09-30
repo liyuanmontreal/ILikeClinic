@@ -53,7 +53,12 @@ namespace ILikeClinic.Pages.Patient
         {
             var items2 = await _DB.Doctor.ToListAsync();
             DoctorList = new SelectList(items2, "Id", "FullName");
-            Doctor = _DB.Doctor.Find(id);
+            if(id != null)
+            {
+                Doctor = _DB.Doctor.Find(id);
+            }
+            
+
         }
 
         public async Task<IActionResult> OnPostAsync(IFormFile file)

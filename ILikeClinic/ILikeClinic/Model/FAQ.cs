@@ -16,7 +16,7 @@ namespace ILikeClinic.Model
 
         [Display(Name = "Answer")]
         [StringLength(200, ErrorMessage = "Answer cannot be longer than 200 characters")]
-        public string Answer { get; set; }
+        public string? Answer { get; set; }
 
         [Display(Name = "From Email")]
         [StringLength(50, ErrorMessage = "Email cannot be longer than 50 characters")]
