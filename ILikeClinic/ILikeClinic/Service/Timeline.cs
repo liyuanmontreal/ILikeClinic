@@ -31,7 +31,6 @@ namespace ILikeClinic.Service
                         slot.Start = slotStart;
                         slot.End = slotEnd;
                         slot.Status = "free";
-
                         result.Add(slot);
 
                     }

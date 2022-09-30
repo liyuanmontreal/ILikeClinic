@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ILikeClinic</title>
     <link rel="stylesheet" href="~/css/BootswatchMateria.css"/>
+   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+   
     <link rel="stylesheet" href="~/ILikeClinic.styles.css" asp-append-version="true" />
+     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <!--Toastr-->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
@@ -32,23 +34,6 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                       
-@*                      <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Admin">Admin</a>
-                        </li>
-
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Doctor">Doctor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Patient/PatientHome">Patient</a>
-                        </li>*@
                     </ul>
                      <partial name="_LoginPartial" />
                 </div>
@@ -81,7 +66,40 @@
             </ul>
         </div>
     }
-    @if (User.IsInRole("Doctor"))
+  
+
+    @if (User.IsInRole("Admin"))
+
+    {
+        <div class="nav-tabs p-1">
+            <ul class="nav nav-tabs nav-justified bg-primary" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="/Admin/Index" >Overview</a>
+                </li>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="/Admin/Doctor_List" >Doctor</a>
+                </li>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="/Admin/Patient_List" >Patient</a>
+                </li>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="/Admin/Appointment_List" >Appointment</a>
+                </li>                
+               
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="/Admin/Schedule">Schedule</a>
+                </li>             
+                 <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="/FAQ/Index">FAQ</a>
+                </li>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="/Admin/Message_List" >MessageBox</a>
+                </li>
+
+            </ul>
+        </div>
+    }
+      @if (User.IsInRole("Doctor"))
     {
         <div class="nav-tabs p-1">
             <ul class="nav nav-tabs nav-justified bg-primary" role="tablist">
@@ -101,39 +119,12 @@
                     <a class="nav-link text-white" asp-page="/Doctors/DoctorSendMessage">Message Box</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" asp-page="/Doctors/Schedule">Schedule</a>
+                    <a class="nav-link text-white" asp-page="/Doctors/DoctorSchedule">Schedule</a>
                 </li>
             </ul>
         </div>
     }
 
-    @if (User.IsInRole("Admin"))
-
-    {
-        <div class="nav-tabs p-1">
-            <ul class="nav nav-tabs nav-justified bg-primary" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" asp-page="/Admin/Index" >Overview</a>
-                </li>
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" asp-page="/Admin/Doctor_List" >Doctor</a>
-                </li>
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" asp-page="/Admin/Patient_List" >Patient</a>
-                </li>
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" asp-page="/Admin/Appointment_List" >Appointment</a>
-                </li>
-                 <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" asp-page="/FAQ/Index">FAQ</a>
-                </li>
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link text-white" asp-page="/Admin/Message_List" >MessageBox</a>
-                </li>
-
-            </ul>
-        </div>
-    }
     @if (User.IsInRole("Patient"))
 
     {
@@ -151,6 +142,9 @@
                 <li class="nav-item" role="presentation">
                     <a class="nav-link  text-white" asp-page="/Patient/PatientAppointment">Appointment</a>
                 </li>
+                 <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" asp-page="/Patient/Calender" >Calender</a>
+                </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link text-white" asp-page="/Patient/PatientSendMessage">Message Box</a>
                 </li>
@@ -159,11 +153,16 @@
         </div>
     }
 
-    <div class="container">
+ 
+
+
+  <div class="container">
         <main role="main"  class="pb-3">
-            @RenderBody()
+                @RenderBody()
         </main>
-    </div>
+   </div>
+
+ 
 
     <footer class="border-top footer text-muted bg-primary">
         <div class="container text-white text-center">

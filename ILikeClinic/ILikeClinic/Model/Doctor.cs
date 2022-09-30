@@ -10,6 +10,13 @@ namespace ILikeClinic.Model
         [Key]
         public int Id { get; set; }
 
+        public string Name { get
+            {
+                return FirstName + " " + LastName;
+            }         
+
+        }
+
         [Required]
         [Display(Name = "First Name")]
         [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters")]

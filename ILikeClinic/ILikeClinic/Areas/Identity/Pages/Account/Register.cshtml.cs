@@ -143,9 +143,9 @@ namespace ILikeClinic.Areas.Identity.Pages.Account
                         {
                             await _roleManager.CreateAsync(new IdentityRole(ILikeClinic.Utility.ClinicRoles.DoctorUser));
                         }
-                   //await _userManager.AddToRoleAsync(user, ILikeClinic.Utility.ClinicRoles.PatientUser);
-                   await _userManager.AddToRoleAsync(user, ILikeClinic.Utility.ClinicRoles.DoctorUser);
-                   // await _userManager.AddToRoleAsync(user, ILikeClinic.Utility.ClinicRoles.AdminUser);
+                   await _userManager.AddToRoleAsync(user, ILikeClinic.Utility.ClinicRoles.PatientUser);
+                   //await _userManager.AddToRoleAsync(user, ILikeClinic.Utility.ClinicRoles.DoctorUser);
+                   //await _userManager.AddToRoleAsync(user, ILikeClinic.Utility.ClinicRoles.AdminUser);
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

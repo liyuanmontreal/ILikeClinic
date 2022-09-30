@@ -30,5 +30,9 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Message> Message { get; set; }
     public DbSet<Survey> Survey { get; set; }
 
+    //add for calender function    
+    public DbSet<AppointmentSlot> Appointments { get; set; }
+    //public DbSet<DoctorItemForCalendar> DoctorItemForCalendar { get; set; }
+    
     public int ADMIN_ID;
 }

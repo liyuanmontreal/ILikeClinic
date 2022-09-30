@@ -1,0 +1,88 @@
+﻿@page
+@model ILikeClinic.Pages.Patient.AppointmentSlotModel
+@{
+}
+
+<partial name="_ToastrNotification" />
+
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-info bottom-left">
+                All Your Appointments
+            </h1>
+        </div>
+    </div>
+
+    <br />
+   
+
+     <div class="row">
+
+        <div class="col-6 ">
+            <a asp-route-id="@Model.Patient.Id" asp-page="PatientMakeAppointment" class="btn btn-primary text-bg-light">
+                <i class="bi bi-plus-circle fs-4 "></i> &nbsp Make An Appointment
+            </a>
+        </div>
+        <div class="col-6">
+            <form method="get">
+                <div class="input-group">
+                    <input class="form-control" asp-for="Search" placeholder=" Searching by name..." />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary text-bg-info">Search</button>
+                    </div>
+                    <div class="input-group-append">
+                        <a asp-page="PatientAppointment" class="btn btn-secondary form-control text-bg-secondary">Clear</a>
+                    </div>
+
+                </div>
+            </form>
+        </div>   
+    </div>
+ 
+</div>
+
+<form method="post">
+    <table class="table table-bordered table-striped fs-5 text-center" style="width:100%">
+        <thead>
+            <tr>
+                <th>Doctor Name</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Appointment)
+            {
+                <tr>
+                    <td width="25%">@item.Doctor.FullName</td> 
+                    <td width="25%">@item.Start.ToString("yyyy-MM-dd")</td>
+                    <td width="25%">@item.End.ToString("HH:MM")</td>                    
+                    <td width="25%">
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-page="PatientEditAppointment" asp-route-id="@item.Id" class="btn btn-primary mx-2   @((item.Status.Equals("Finished")) ?"disabled": null) ">
+                                Edit
+                            </a>
+@*
+                            <span style="width:100px" class="fs-4">   &nbsp         |  &nbsp       </span>
+*@
+                            <button asp-route-id="@item.Id" asp-page-handler="Delete" onclick="return confirm('Are you sure to cancel it?')" class="btn btn-warning mx-2 ">
+                                Cancel
+                            </button>
+                            <a asp-page="AnswerSurvey"  asp-route-id="@item.Id" class="btn btn-info mx-2 ">Survey</a>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <br />
+</form>
+
+
+
