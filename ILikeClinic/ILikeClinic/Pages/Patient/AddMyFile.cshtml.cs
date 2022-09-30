@@ -1,14 +1,17 @@
 using ILikeClinic.Data;
 using ILikeClinic.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Security.Claims;
 
 namespace ILikeClinic.Pages.Patient
 {
+    [Authorize(Roles = "Patient")]
     public class AddMyFileModel : PageModel
     {
         [BindProperty]

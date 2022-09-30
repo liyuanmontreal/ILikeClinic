@@ -7,7 +7,7 @@
 }
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-<partial name="_ToastrNotification" />
+
 <br />
 <h1 class="text-info">Make An Appointment</h1>
 <br />
@@ -77,6 +77,7 @@
         <br />
         <div class="form-group row fs-4">
             <div id="datepicker" class="col-3 "></div>
+            
         </div>
         <br />
         <br />
@@ -141,11 +142,34 @@
         $(function () {
             $("#datepicker").datepicker({
                 dateFormat: "yy-mm-dd",
+                minDate:0,
                 onSelect: function (dateText) {
                     console.log("date = " + dateText + " with value of " + this.value)
                     $("#dateSelect").val(this.value + "T00:00")
                 }
             });
+        });
+    </script>
+   
+    <script>
+        $(function () {
+            var dtToday = new Date();
+
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if (month < 10)
+                month = '0' + month.toString();
+            if (day < 10)
+                day = '0' + day.toString();
+
+            var maxDate = year + '-' + month + '-' + day;
+
+            // or instead:
+            // var maxDate = dtToday.toISOString().substr(0, 10);
+
+           
+            $("#dateSelect").attr('min', maxDate);
         });
     </script>
 }

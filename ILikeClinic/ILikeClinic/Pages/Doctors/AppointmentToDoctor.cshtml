@@ -7,7 +7,7 @@
 }
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-
+<partial name="_ToastrNotification" />
 
 
 <div class="container p-3">
@@ -28,7 +28,7 @@
     </p>
 </form>
 
-
+<form method="post">
 <table class="table">
     <thead>
         <tr>
@@ -70,34 +70,41 @@
 
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.Patient.FullName)
+                    @item.Patient.FullName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Patient.PhoneNumber)
+                    @item.Patient.PhoneNumber
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Patient.DateOfBirth)
+                    @item.Patient.DateOfBirth
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Patient.Gender)
+                    @item.Patient.Gender
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Patient.MedicalCardNo)
+                    @item.Patient.MedicalCardNo
                 </td>
                 <td>
                     @item.AppStartAt.ToString()
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Reason)
+                    @item.Reason
                 </td>
 
                 <td>
-                    <a asp-page="./Appointment_Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Appointment_Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Appointment_Delete" asp-route-id="@item.Id">Delete</a>
+                        <div class="btn-group" role="group">
+                              <a asp-page="DoctorModifyAppointment" asp-route-id="@item.Id" class="btn btn-primary mx-2   @((item.Status.Equals("Finished")) ?"disabled": null) ">
+                                Edit
+                            </a>
 
+                            <a asp-page="RejectAppointment"  asp-route-id="@item.Id" class="btn btn-danger mx-2 ">
+                                Reject
+                            </a>
+                   
+                        </div>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+</form>

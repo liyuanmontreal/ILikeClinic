@@ -1,54 +1,66 @@
 ﻿@page
-@model ILikeClinic.Pages.Patient.PatientEditAppointmentModel
+@using ILikeClinic.Model
+@using Microsoft.AspNetCore.Identity
+@model ILikeClinic.Pages.Doctors.DoctorModifyAppointmentModel
 @{
+    ViewData["Title"] = "Doctor modify appointment for the patient";
 }
+
+
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 <br />
-<h1 class="text-info">Review / Edit Your Appointment</h1>
+<h1 class="text-info">Make An Appointment</h1>
 <br />
 
 <div class="border container p-4">
     <form method="post" enctype="multipart/form-data">
 
+       
         <input hidden asp-for="Appointment.Id" />
-        <input hidden asp-for="Appointment.PatientId" />
+       
+      
 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+
+
+
         <div class="form-group-lg row fs-5 ">
             <h3>Step 1:</h3>
+
         </div>
         <br />
         <div class="form-group row fs-4">
             <div class="col-3 offset-1">
-                <label asp-for="Appointment.PatientId">Patient's Name :</label>
+                <label asp-for="Appointment.DoctorId">Doctor Name:</label>
+                <input hidden asp-for="Appointment.DoctorId"/>
             </div>
             <div class="col-6">
-                @Model.Patient.FullName
-
+                @Model.Doctor.FullName
             </div>
-            <br />
-            <br />
-            <br />
+           
         </div>
+        <br />
+        <br />
 
 
         <div class="form-group-lg row fs-5 ">
             <h3>Step 2:</h3>
-            <span>*Choose your family doctor, or you can choose another doctor, or call us by 456-456-4566.</span>
 
         </div>
         <br />
         <div class="form-group row fs-4">
             <div class="col-3 offset-1">
-                <label asp-for="Appointment.Doctor">Choose a doctor: </label>
+                <label asp-for="Appointment.PatientId">Patient Name:</label>
+                <input hidden asp-for="Appointment.PatientId" />
             </div>
             <div class="col-6">
-                @* <div>@Model.Doctor.Id</div>*@
-                <select class="custom-select w-100" asp-for="Appointment.DoctorId" asp-items="Model.DoctorList">
-                    <option value="">--Select a doctor--</option>
-                </select>
+                @Model.Patient.FullName
             </div>
-            <span asp-validation-for="Appointment.DoctorId" class="text-danger fs-5"></span>
+
         </div>
         <br />
         <br />
@@ -57,10 +69,10 @@
         <div class="form-group-lg row fs-5">
             <h3>Step 3:</h3>
             <div class="col-4">
-                <label asp-for="Appointment.AppStartAt">*Check the schedule and choose a time slot.</label>
+                *Check the schedule and choose a time slot.
             </div>
             <div class="col-6">
-                <input class="form-control" id="dateSelect" asp-for="Appointment.AppStartAt"  />
+                <input class="form-control" id="dateSelect" asp-for="Appointment.AppStartAt"/>
             </div>
         </div>
         <br />
@@ -86,34 +98,24 @@
             <span asp-validation-for="Appointment.Reason" class="text-danger fs-5"></span>
         </div>
         <br />
-        <br />
-        <br />
-        <div class="fs-5">*If you have medical document needed to declare, please upload it (Optional)</div>
-        <br />
-
-        <div class="form-group row fs-5">
-
-            <div class="col-3">
-                <label asp-for="Appointment.FileUrl">Upload Medical Document:</label>
-            </div>
-            <div class="col-6">
-                <input type="file" id="uploadbox" class="form-control" name="file" />
-            </div>
-            <span asp-validation-for="Appointment.FileUrl" class="text-danger fs-5"></span>
-        </div>
+        
+       
         <br />
 
 
 
         <br />
         <div class="form-group row fs-3">
-            <div class="col-3 ">
-                <a asp-page="PatientAppointment" class="text-info form-control fs-5">Back to the list</a>
-            </div>
+
             <div class="col-3">
-                <button type="submit" class="btn btn-info form-control">Save your changement</button>
+                <button type="submit" class="btn btn-primary form-control">Update</button>
             </div>
 
+            <div class="col-6">
+                <a asp-page="AppointmentToDoctor"
+                   class="btn btn-secondary form-control text-bg-info">See Appointment list</a>
+
+            </div>
 
         </div>
 
@@ -129,13 +131,12 @@
             $("#datepicker").datepicker({
                 dateFormat: "yy-mm-dd",
                 minDate: 0,
-                onSelect: function (dateText) {
+                onSelect: function (dateText, inst) {
+                   
                     console.log("date = " + dateText + " with value of " + this.value)
-                    $("#dateSelect").val(this.value + "T00:00")
+                       $("#dateSelect").val(this.value + "T00:00")
                 }
             });
         });
-
-
     </script>
 }

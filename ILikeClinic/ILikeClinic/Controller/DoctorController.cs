@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ILikeClinic.Model;
 using ILikeClinic.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace ILikeClinic.Controllers
+namespace ILikeClinic.Controller
 {
-    [Route("api/[controller]")]
+    [Route("api/doctors")]
     [ApiController]
-    public class DoctorsController : ControllerBase
+    public class DoctorController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-
-        public DoctorsController(ApplicationDbContext context)
+        
+        public DoctorController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -25,6 +21,10 @@ namespace ILikeClinic.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Doctor>>> GetDoctors()
         {
+            if (_context.Doctor == null)
+            {
+                return NotFound();
+            }
             return await _context.Doctor.ToListAsync();
         }
 
@@ -32,6 +32,10 @@ namespace ILikeClinic.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Doctor>> GetDoctor(int id)
         {
+            if (_context.Doctor == null)
+            {
+                return NotFound();
+            }
             var doctor = await _context.Doctor.FindAsync(id);
 
             if (doctor == null)
@@ -106,4 +110,3 @@ namespace ILikeClinic.Controllers
         }
     }
 }
-

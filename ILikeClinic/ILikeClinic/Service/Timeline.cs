@@ -8,10 +8,10 @@ namespace ILikeClinic.Service
         public static int SlotDurationMinutes = 60;
 
         public static int MorningShiftStarts = 9;
-        public static int MorningShiftEnds = 12;
+        public static int MorningShiftEnds = 13;
 
-        public static int AfternoonShiftStarts = 13;
-        public static int AfternoonShiftEnds = 17;
+        public static int AfternoonShiftStarts = 14;
+        public static int AfternoonShiftEnds = 18;
 
 
         public static List<AppointmentSlot> GenerateSlots(DateTime start, DateTime end, string scale)
@@ -96,5 +96,4 @@ namespace ILikeClinic.Service
         public DateTime Start;
         public DateTime End;
     }
-
 }

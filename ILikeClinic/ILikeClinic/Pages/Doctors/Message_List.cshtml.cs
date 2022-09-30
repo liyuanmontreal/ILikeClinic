@@ -48,7 +48,7 @@ namespace ILikeClinic.Pages.Doctors
                                select a;
 
                 //lambda 
-                messages = messages.Where(s => s.ToId == Doctor.Id);// || s.ToId == Doctor.Id);
+                messages = messages.Where(s => s.ToId == Doctor.Id || s.FromId == Doctor.Id);// || s.ToId == Doctor.Id);
 
                 Messages = await messages.ToListAsync();
             }
