@@ -14,9 +14,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                From
-            </th>
+            
             <th>
                 Text
             </th>
@@ -33,9 +31,7 @@
         @foreach (var item in Model.Messages)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FromId)
-                </td>
+               
                 <td>
                     @Html.DisplayFor(modelItem => item.Text)
                 </td>

@@ -11,8 +11,7 @@ namespace ILikeClinic.Controller
     public class DoctorController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public SelectList DoctorList { get; set; }
-
+        
         public DoctorController(ApplicationDbContext context)
         {
             _context = context;
@@ -22,6 +21,10 @@ namespace ILikeClinic.Controller
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Doctor>>> GetDoctors()
         {
+            if (_context.Doctor == null)
+            {
+                return NotFound();
+            }
             return await _context.Doctor.ToListAsync();
         }
 
@@ -29,6 +32,10 @@ namespace ILikeClinic.Controller
         [HttpGet("{id}")]
         public async Task<ActionResult<Doctor>> GetDoctor(int id)
         {
+            if (_context.Doctor == null)
+            {
+                return NotFound();
+            }
             var doctor = await _context.Doctor.FindAsync(id);
 
             if (doctor == null)

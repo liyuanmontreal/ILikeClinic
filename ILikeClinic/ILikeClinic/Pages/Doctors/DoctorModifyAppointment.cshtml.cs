@@ -13,7 +13,7 @@ namespace ILikeClinic.Pages.Doctors
     public class DoctorModifyAppointmentModel : PageModel
     {
         [BindProperty]
-        public Appointment Appointment { get; set; }
+        public ILikeClinic.Model.Appointment Appointment { get; set; }
 
         [BindProperty]
         public Status Status { get; set; }

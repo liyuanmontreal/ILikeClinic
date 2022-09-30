@@ -128,6 +128,7 @@
         $(function () {
             $("#datepicker").datepicker({
                 dateFormat: "yy-mm-dd",
+                minDate: 0,
                 onSelect: function (dateText) {
                     console.log("date = " + dateText + " with value of " + this.value)
                     $("#dateSelect").val(this.value + "T00:00")

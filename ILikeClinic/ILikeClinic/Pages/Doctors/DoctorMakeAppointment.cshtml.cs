@@ -87,7 +87,7 @@ namespace ILikeClinic.Pages.Doctors
             await _DB.SaveChangesAsync();
 
             TempData["success"] = "Appointment created successfully";
-            return Page();
+            return RedirectToPage("AppointmentToDoctor");
 
 
         }

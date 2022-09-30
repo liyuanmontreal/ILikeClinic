@@ -67,7 +67,7 @@ namespace ILikeClinic.Pages.Doctors
             await _DB.SaveChangesAsync();
 
             TempData["success"] = "Message sent successfully";
-            return RedirectToPage("/Index");
+            return RedirectToPage("Message_List");
         }
     }
 }

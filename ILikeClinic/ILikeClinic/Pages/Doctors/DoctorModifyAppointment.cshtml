@@ -10,7 +10,7 @@
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-<partial name="_ToastrNotification" />
+
 <br />
 <h1 class="text-info">Make An Appointment</h1>
 <br />
@@ -19,8 +19,9 @@
     <form method="post" enctype="multipart/form-data">
 
        
-        
-        <input hidden asp-for="Doctor.Id"/>
+        <input hidden asp-for="Appointment.Id" />
+       
+      
 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -34,8 +35,8 @@
         <br />
         <div class="form-group row fs-4">
             <div class="col-3 offset-1">
-                <label asp-for="Doctor.FullName"></label> 
-                
+                <label asp-for="Appointment.DoctorId">Doctor Name:</label>
+                <input hidden asp-for="Appointment.DoctorId"/>
             </div>
             <div class="col-6">
                 @Model.Doctor.FullName
@@ -53,8 +54,8 @@
         <br />
         <div class="form-group row fs-4">
             <div class="col-3 offset-1">
-                <label asp-for="Patient.FullName"></label>
-
+                <label asp-for="Appointment.PatientId">Patient Name:</label>
+                <input hidden asp-for="Appointment.PatientId" />
             </div>
             <div class="col-6">
                 @Model.Patient.FullName
@@ -71,7 +72,7 @@
                 *Check the schedule and choose a time slot.
             </div>
             <div class="col-6">
-                <input class="form-control" id="dateSelect" asp-for="Appointment.AppStartAt" asp-format="{0:yyyy-MM-dd}" />
+                <input class="form-control" id="dateSelect" asp-for="Appointment.AppStartAt"/>
             </div>
         </div>
         <br />
@@ -129,19 +130,9 @@
         $(function () {
             $("#datepicker").datepicker({
                 dateFormat: "yy-mm-dd",
-               
+                minDate: 0,
                 onSelect: function (dateText, inst) {
-                    //Get today's date at midnight
-                    var today = new Date();
-                    today = Date.parse(today.getMonth() + 1 + '/' + today.getDate() + '/' + today.getFullYear());
-                    //Get the selected date (also at midnight)
-                    var selDate = Date.parse(dateText);
-
-                    if (selDate < today) {
-                        //If the selected date was before today, continue to show the datepicker
-                        $('#datepicker').val('');
-                        $(inst).datepicker('show');
-                    }
+                   
                     console.log("date = " + dateText + " with value of " + this.value)
                        $("#dateSelect").val(this.value + "T00:00")
                 }
