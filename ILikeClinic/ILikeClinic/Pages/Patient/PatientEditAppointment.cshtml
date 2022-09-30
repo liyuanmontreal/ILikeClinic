@@ -9,8 +9,8 @@
 <div class="border container p-4">
     <form method="post" enctype="multipart/form-data">
 
-        <input  asp-for="Appointment.Id" />
-        <input asp-for="Appointment.PatientId" />
+        <input hidden asp-for="Appointment.Id"/>
+        <input hidden asp-for="Patient.Id"/>
 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -24,7 +24,7 @@
             </div>
             <div class="col-6">
                 @Model.Patient.FullName
-
+                <input hidden asp-for="Appointment.PatientId" />
             </div>
             <br />
             <br />
@@ -60,7 +60,7 @@
                 <label asp-for="Appointment.AppStartAt">*Check the schedule and choose a time slot.</label>
             </div>
             <div class="col-6">
-                <input class="form-control" id="dateSelect" asp-for="Appointment.AppStartAt"  />
+                <input class="form-control" id="dateSelect" asp-for="Appointment.AppStartAt" />
             </div>
         </div>
         <br />
