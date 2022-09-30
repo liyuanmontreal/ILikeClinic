@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
+using System.Text.Json.Nodes;
 
 namespace ILikeClinic.Pages.Patient
 {
@@ -63,6 +64,30 @@ namespace ILikeClinic.Pages.Patient
                 Doctor = _db.Doctor.Find(id);
             }
             return Page();
+        }
+
+        public ActionResult OnGetTimeSlots(DateTime selectedDate, int doctorID)
+        {
+            
+            var nextDay = selectedDate.AddDays(1);
+            JsonArray toReturnArray = new JsonArray();
+            var items = _db.Appointment
+                .Where(s => s.DoctorId == doctorID && s.AppStartAt >= selectedDate && s.AppStartAt < nextDay)
+                .ToList();
+            for (int i = 9; i<=17; i++)
+            {
+                JsonObject itemJsonObject = new JsonObject();
+                if(items.Find(s => s.AppStartAt.Hour == i) == null)
+                {
+                    itemJsonObject.Add(new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, i, 0, 0).ToString(), true);
+                }
+                else
+                {
+                    itemJsonObject.Add(new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, i, 0, 0).ToString(), false);
+                }
+                toReturnArray.Add(itemJsonObject);
+            }
+            return new JsonResult(toReturnArray);
         }
 
         public async Task<IActionResult> OnPostAsync(IFormFile file)

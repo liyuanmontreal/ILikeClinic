@@ -50,7 +50,7 @@
                     <div>@Model.Doctor.FullName</div>
                 }
                 else {
-                    <select class="custom-select w-100" asp-for="Appointment.DoctorId" asp-items="Model.DoctorList">
+                    <select id="selectedDoctor" class="custom-select w-100" asp-for="Appointment.DoctorId" asp-items="Model.DoctorList">
                         <option value="">--Select a doctor--</option>
                     </select>
                 }
@@ -74,11 +74,14 @@
         <br />
         <br />
         <div class="form-group row fs-4">
-          <div id="datepicker" class="col-3 "></div>   
-          <div class="col-3">
-
+            <div id="datepicker" class="col-6"></div>
+            <div id="timepicker" class="col-3">
+                <table id="timePickerTable" class="tg">
+                        <thead>
+                            <tr>Time Selection</tr>
+                        </thead>
+                    </table>
           </div>
-          
         </div>
         <br />
         <br />
@@ -139,6 +142,35 @@
 
     </form>
 
+    <style type="text/css">
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+            .tg td {
+                border-color: black;
+                border-style: solid;
+                border-width: 1px;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                overflow: hidden;
+                padding: 10px 5px;
+                word-break: normal;
+            }
+
+            .tg .tg-selected {
+                background-color: #50C878;
+                text-align: left;
+                vertical-align: top
+            }
+            .tg .tg-locked {
+                background-color: #808080;
+                text-align: left;
+                vertical-align: top
+            }
+
+    </style>
 </div>
 
 
@@ -150,12 +182,77 @@
                 dateFormat: "yy-mm-dd",
                 minDate:0,
                 onSelect: function (dateText) {
-                    console.log("date = " +  dateText + " with value of " + this.value)
-                    $("#dateSelect").val(this.value+"T00:00")
+                    const selectedDoctor = $("#selectedDoctor").val()
+                    if (selectedDoctor != '') {
+                        console.log("date = " +  dateText + " with value of " + this.value)
+                        $("#dateSelect").val(this.value+"T00:00")
+                        $.ajax({
+                            type: "GET",
+                            url: "/Patient/PatientMakeAppointment?handler=TimeSlots",
+                            data: { selectedDate: this.value,
+                                doctorID: parseInt($("#selectedDoctor").val())},
+                            headers: {
+                                RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+                            },
+                            success: function(data){
+                                createTimeTable(data);
+                            },
+                            error: function () {
+                                alert("there was an error");
+                            }
+                        })
+
+                    } else {
+                        alert("Select a doctor first");
+                    }
                 }
             });
         });
 
+        function createTimeTable(data){
+            console.log(data)
+
+            $('#timePickerTable tbody').empty();
+            var html = "";
+            if(data != null){
+                html += '<tbody>';
+
+                $.each(data, function (key, value) {
+                    html += '<tr>'
+                    var key = Object.keys(value)[0]
+                    if (value[key] == false){
+                        html += '<td class="tg-locked">' + new Date(Object.keys(value)[0]).getHours() + ':00' + '</td>'
+                    }else{
+                        html += '<td>' + new Date(Object.keys(value)[0]).getHours() + ':00' + '</td>'
+                    }
+
+                    html += '</tr>'
+                });
+                html += '</tbody>';
+
+                $('#timePickerTable').append(html);
+                installListener();
+            }
+        }
+        function installListener(){
+            $("#timePickerTable tr").click(function () {
+                if ($(this).find(':first-child').hasClass("tg-locked")) {
+                    alert("This time slot is already taken")
+                } else {
+                    $(this).addClass('tg-selected').siblings().removeClass('tg-selected');
+                    var value = $(this).find('td:first').html();
+                    var thisDate = new Date($("#dateSelect").val());
+                    var hoursToSet = value.toString().split(":")[0];
+                    var day =  ("0" + thisDate.getDate()).slice(-2);
+                    var month = ("0" + (thisDate.getMonth() + 1)).slice(-2)
+                    var timeString = thisDate.getFullYear() + "-" + month + "-" + day + "T" + hoursToSet + ":00:00";
+                    console.log("timestring = ", timeString);
+                    console.log("Setting hours ", hoursToSet);
+                    //thisDate.setHours(hoursToSet);
+                    $("#dateSelect").val(timeString)
+                }
+            });
+            }
 
     </script>
 }
