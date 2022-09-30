@@ -9,8 +9,8 @@
 <div class="border container p-4">
     <form method="post" enctype="multipart/form-data">
 
-        <input  asp-for="Appointment.Id" />
-        <input asp-for="Appointment.PatientId" />
+        <input hidden asp-for="Appointment.Id" />
+        <input hidden asp-for="Appointment.PatientId" />
 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 

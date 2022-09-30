@@ -10,18 +10,19 @@
             Patient Medical Documents
         </h2>
 
-        <input asp-for="MedicalHistory.Id" />
-        <<input asp-for="MedicalHistory.PatientId" />
+        <input hidden asp-for="MedicalHistory.Id" />
+        <input hidden asp-for="MedicalHistory.PatientId" />
     </div>
     <br />
     <hr />
     <br />
     <div>
-        @Model.MedicalHistory.Weight
+        &nbsp &nbsp Date: @Model.MedicalHistory.DateOfApp.ToString("yyyy-MM-dd")
+
     </div>
-        
+    <br />
         <ul>
-            <li>Doctor: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp @Model.MedicalHistory.Id</li>
+            <li>Doctor: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp @Model.MedicalHistory.Doctor.FullName</li>
             <li>Weight: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp @Model.MedicalHistory.Weight cm</li>
             <li>Height: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp @Model.MedicalHistory.Height kg</li>
             <li>Blood Pressure: @Model.MedicalHistory.BloodPressure</li>

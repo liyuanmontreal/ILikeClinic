@@ -92,7 +92,7 @@
                 <label asp-for="MedicalHistory.DateOfApp">Date</label>
             </div>
             <div class="col-6">
-                <input class="form-control" asp-for="@DateTime.Today" />
+                <input class="form-control" asp-for="@DateTime.UtcNow.GetDateTimeFormats('d')[0]" />
             </div>
             <span asp-validation-for="MedicalHistory.DateOfApp" class="text-danger fs-5"></span>
         </div>

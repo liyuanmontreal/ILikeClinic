@@ -45,8 +45,8 @@
                                 Download This Record
                             </button>
                         <span style="width:100px" class="fs-4">   &nbsp           &nbsp       </span>
-
-                        <button type="submit" class="btn" asp-route-id="@item.Id" asp-page="PrintPage">Print</button>                       
+                                <a asp-route-id="@item.Id" asp-route-patientId="@item.PatientId" asp-page="PrintPage" class="btn btn-primary">Print</a>
+                                
 
                     </div>
                 </div>

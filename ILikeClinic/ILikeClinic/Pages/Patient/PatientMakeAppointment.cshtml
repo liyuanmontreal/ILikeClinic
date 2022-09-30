@@ -13,7 +13,7 @@
     <form method="post" enctype="multipart/form-data">
 
         <input hidden asp-for="Doctor.Id" />
-        <input  asp-for="Patient.Id" />
+        <input hidden asp-for="Patient.Id" />
 
 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -74,7 +74,11 @@
         <br />
         <br />
         <div class="form-group row fs-4">
-          <div id="datepicker" class="col-3 "></div>            
+          <div id="datepicker" class="col-3 "></div>   
+          <div class="col-3">
+
+          </div>
+          
         </div>
         <br />
         <br />
@@ -115,9 +119,17 @@
 
         <br />
         <div class="form-group row fs-3">
-            <div class="col-3">
-                <a asp-page="PatientAppointment" class="text-info form-control fs-5">To the Appointment list</a>                
-            </div>
+            @if(Model.Doctor != null) {
+                <div class="col-3">
+                    <a asp-page="PatientFindDoctor" class="text-info form-control fs-5">To the Doctor list</a>
+                </div>
+            }
+            else {
+                <div class="col-3">
+                    <a asp-page="PatientAppointment" class="text-info form-control fs-5">To the Appointment list</a>
+                </div>
+            }
+
             <div class="col-3">
                 <button type="submit" class="btn btn-info form-control  ">Create</button>
             </div>
@@ -136,6 +148,7 @@
         $(function () {
             $("#datepicker").datepicker({
                 dateFormat: "yy-mm-dd",
+                minDate:0,
                 onSelect: function (dateText) {
                     console.log("date = " +  dateText + " with value of " + this.value)
                     $("#dateSelect").val(this.value+"T00:00")

@@ -18,6 +18,8 @@ namespace ILikeClinic.Pages.Patient
 
         [BindProperty]
         public ILikeClinic.Model.Patient Patient { get; set; }
+        [BindProperty]
+        public ILikeClinic.Model.Doctor Doctor { get; set; }
 
         public Message_ListModel(ApplicationDbContext db, IHttpContextAccessor httpContextAccessor)
         {
@@ -40,7 +42,7 @@ namespace ILikeClinic.Pages.Patient
 
         public async Task OnGetAsync()
         {
-            var userId = _HttpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+           // var userId = _HttpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (_DB.Message != null)
             {
                 // using system.linq
@@ -48,9 +50,10 @@ namespace ILikeClinic.Pages.Patient
                                select a;
 
                 //lambda 
-                messages = messages.Where(s => s.ToId == Patient.Id);// || s.ToId == Doctor.Id);
+                messages = messages.Where(s => s.FromId == Patient.Id);// || s.ToId == Doctor.Id);
 
                 Messages = await messages.ToListAsync();
+
             }
         }
     }
