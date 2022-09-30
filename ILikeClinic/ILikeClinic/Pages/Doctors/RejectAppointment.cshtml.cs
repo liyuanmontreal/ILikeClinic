@@ -63,9 +63,8 @@ namespace ILikeClinic.Pages.Doctors
                 _db.Appointment.Remove(Appointment);
                 await _db.SaveChangesAsync();
 
-
             }
-            TempData["delete"] = "Appointment Deleted successfully";
+            TempData["success"] = "Appointment Deleted successfully";
             return RedirectToPage("AppointmentToDoctor");
         }
     }
