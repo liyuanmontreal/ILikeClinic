@@ -12,6 +12,7 @@
     <form method="post" enctype="multipart/form-data">
        
         <input hidden asp-for="Patient.Id"/>
+        <input hidden asp-for="@Model.Doctor.Id" />
 
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -27,6 +28,7 @@
             </div>
             <div class="col-6">
                 @Model.Patient.FullName
+
             </div>
            
         </div>
@@ -43,11 +45,17 @@
             <div class="col-3 offset-1">
                 <label asp-for="Message.ToId">Choose a Doctor: </label>
             </div>
-            <div class="col-6">
-                <select class="custom-select w-100" asp-for="Message.ToId" asp-items="Model.DoctorList">
-                    <option value="">--Select a Doctor--</option>
-                </select>
-            </div>
+            @if(Model.Doctor != null){
+                    <div class="col-6">@Model.Doctor.FullName</div>
+            }
+            else {
+                <div class="col-6">
+                    <select class="custom-select w-100" asp-for="Message.ToId" asp-items="Model.DoctorList">
+                        <option value="">--Select a Doctor--</option>
+                    </select>
+                </div>
+            }
+
             <span asp-validation-for="Message.ToId" class="text-danger fs-5"></span>
         </div>
         <br />
@@ -71,10 +79,19 @@
             <div class="col-3">
                 <button type="submit" class="btn btn-primary form-control  ">Send</button>
             </div>
-            <div class="col-3">
-                <a asp-page="PatientHome"
+            @if (Model.Doctor != null){
+                <div class="col-3">
+                    <a asp-page="PatientFindDoctor"
                    class="btn btn-secondary form-control text-bg-info">Back </a>
-            </div>
+                </div>
+            }
+            else {
+                <div class="col-3">
+                    <a asp-page="Message_List"
+                   class="btn btn-secondary form-control text-bg-info">Back </a>
+                </div>
+            }
+
 
         </div>
 

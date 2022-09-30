@@ -14,7 +14,7 @@
                 Frequently Asked Questions
             </h2>
         </div>
-        @if (!User.IsInRole("Patient"))
+        @if (User.Identity.IsAuthenticated)
         {
             <div class="col-6 text-end">
                 <a asp-page="Create" class="btn btn-primary">
@@ -35,16 +35,21 @@
                 <div class="col-2 ">
                     <div class="text-primary">Question</div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div class="">@obj.Question</div>
                 </div>
                 <br>
                 <div class="col-2 ">
                     <div class="text-primary">Answer </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div class="">@obj.Answer</div>
                 </div>
+                @if (User.IsInRole("Doctor")){
+                    <div class="col-2">
+                        <a asp-page="Create" class="@((obj.Answer != null) ? "" : "active")" asp-route-id="@obj.Id">To answer</a>
+                    </div>
+                }
                 <hr>
             </div>
 

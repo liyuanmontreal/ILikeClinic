@@ -25,7 +25,7 @@
         @foreach (var item in Model.Doctors)
         {            
        
-            <img src="@Url.Content(@item.ProfilePhoto)" />
+            <img style="width:200px" src="@Url.Content(@item.ProfilePhoto)" />
             <dl class="row">
                 <dt class="col-sm-2">          
                     @Html.DisplayNameFor(modelItem => item.FullName)
