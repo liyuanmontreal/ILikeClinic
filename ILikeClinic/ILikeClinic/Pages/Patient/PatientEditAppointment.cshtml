@@ -66,7 +66,18 @@
         <br />
         <br />
         <div class="form-group row fs-4">
-            <div id="datepicker" class="col-3 "></div>
+            <div class="col-6">
+                <br />
+                <br />
+                <div id="datepicker"></div>
+            </div>
+            <div id="timepicker" class="col-3">
+                <table id="timePickerTable" class="table table-hover text-center">
+                    <thead>
+                        <tr> &nbsp &nbsp &nbsp &nbsp &nbsp Time Selection</tr>
+                    </thead>
+                </table>
+            </div>
         </div>
         <br />
         <br />
@@ -130,11 +141,79 @@
                 dateFormat: "yy-mm-dd",
                 minDate: 0,
                 onSelect: function (dateText) {
-                    console.log("date = " + dateText + " with value of " + this.value)
-                    $("#dateSelect").val(this.value + "T00:00")
+                    const selectedDoctor = $("#selectedDoctor").val()
+                    if (selectedDoctor != '') {
+                        console.log("date = " + dateText + " with value of " + this.value)
+                        $("#dateSelect").val(this.value + "T00:00")
+                        $.ajax({
+                            type: "GET",
+                            url: "/Patient/PatientMakeAppointment?handler=TimeSlots",
+                            data: {
+                                selectedDate: this.value,
+                                doctorID: parseInt($("#selectedDoctor").val())
+                            },
+                            headers: {
+                                RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+                            },
+                            success: function (data) {
+                                createTimeTable(data);
+                            },
+                            error: function () {
+                                alert("there was an error");
+                            }
+                        })
+
+                    } else {
+                        alert("Select a doctor first");
+                    }
                 }
             });
         });
+
+        function createTimeTable(data) {
+            console.log(data)
+
+            $('#timePickerTable tbody').empty();
+            var html = "";
+            if (data != null) {
+                html += '<tbody>';
+
+                $.each(data, function (key, value) {
+                    html += '<tr>'
+                    var key = Object.keys(value)[0]
+                    if (value[key] == false) {
+                        html += '<td class="tg-locked">' + new Date(Object.keys(value)[0]).getHours() + ':00' + '</td>'
+                    } else {
+                        html += '<td>' + new Date(Object.keys(value)[0]).getHours() + ':00' + '</td>'
+                    }
+
+                    html += '</tr>'
+                });
+                html += '</tbody>';
+
+                $('#timePickerTable').append(html);
+                installListener();
+            }
+        }
+        function installListener() {
+            $("#timePickerTable tr").click(function () {
+                if ($(this).find(':first-child').hasClass("tg-locked")) {
+                    alert("This time slot is already taken")
+                } else {
+                    $(this).addClass('tg-selected').siblings().removeClass('tg-selected');
+                    var value = $(this).find('td:first').html();
+                    var thisDate = new Date($("#dateSelect").val());
+                    var hoursToSet = value.toString().split(":")[0];
+                    var day = ("0" + thisDate.getDate()).slice(-2);
+                    var month = ("0" + (thisDate.getMonth() + 1)).slice(-2)
+                    var timeString = thisDate.getFullYear() + "-" + month + "-" + day + "T" + hoursToSet + ":00:00";
+                    console.log("timestring = ", timeString);
+                    console.log("Setting hours ", hoursToSet);
+                    //thisDate.setHours(hoursToSet);
+                    $("#dateSelect").val(timeString)
+                }
+            });
+        }
 
 
     </script>

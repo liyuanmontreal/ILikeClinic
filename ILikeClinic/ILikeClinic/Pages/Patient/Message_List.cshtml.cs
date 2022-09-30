@@ -56,5 +56,19 @@ namespace ILikeClinic.Pages.Patient
 
             }
         }
+
+        public async Task<IActionResult> OnPostDelete(int id)
+        {
+            var Message = await _DB.Message.FindAsync(id);
+            if (Message == null)
+            {
+                return NotFound();
+            }
+            _DB.Message.Remove(Message);
+            _DB.SaveChanges();
+
+            TempData["delete"] = "Message deleted successfully!";
+            return RedirectToPage();
+        }
     }
 }
