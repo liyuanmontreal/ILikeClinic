@@ -13,6 +13,7 @@ namespace ILikeClinic.Pages.Admin
         public IList<ILikeClinic.Model.Patient> Patients { get; set; } = default!;
         public IList<ILikeClinic.Model.Doctor> Doctors { get; set; } = default!;
         public IList<ILikeClinic.Model.Appointment> Appointments { get; set; } = default!;
+        //public IList<ILikeClinic.Model.AppointmentSlot> Appointments { get; set; } = default!;
 
         public int doctorNum;
         public int patientNum;
@@ -27,8 +28,10 @@ namespace ILikeClinic.Pages.Admin
         public void OnGet()
         {
             Doctors= _db.Doctor.ToList();
-            Patients = _db.Patient.ToList(); 
+            Patients = _db.Patient.ToList();
             Appointments = _db.Appointment.ToList();
+            //Appointments = _db.Appointments.ToList();
+        
             doctorNum = Doctors.Count;
             patientNum = Patients.Count;
             appointmentNum = Appointments.Count;

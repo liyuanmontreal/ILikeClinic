@@ -49,17 +49,20 @@ namespace ILikeClinic.Pages.Admin
             public void OnGet()
             {
                 var query = _db.Appointment.AsNoTracking();
-                /*if (!string.IsNullOrEmpty(Search))
-                {
-                    query = query.Where(s => s.Doctor.FirstName.Contains(Search) || s.Doctor.LastName.Contains(Search));
-                }*/
+            /*if (!string.IsNullOrEmpty(Search))
+            {
+                query = query.Where(s => s.Doctor.FirstName.Contains(Search) || s.Doctor.LastName.Contains(Search));
+            }*/
 
-                // using system.linq
-                var appointments = from a in _db.Appointment
-                               select a;
+            // using system.linq
+            var appointments = from a in _db.Appointment
+                           select a;
 
-                 appointments = appointments.Include(c => c.Patient);
-                 appointments = appointments.Include(c => c.Doctor);
+             appointments = appointments.Include(c => c.Patient);
+             appointments = appointments.Include(c => c.Doctor);
+            
+
+
             //lambda 
             if (!string.IsNullOrEmpty(SearchDoctorString))
                 {

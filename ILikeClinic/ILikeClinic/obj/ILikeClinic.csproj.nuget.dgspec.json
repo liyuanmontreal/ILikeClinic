@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {}
+    "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {
+    "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
+        "projectUniqueName": "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
         "projectName": "ILikeClinic",
-        "projectPath": "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
-        "packagesPath": "C:\\Users\\kicas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kicas\\Documents\\ILikeclinic project\\IntegrationProject\\ILikeClinic\\ILikeClinic\\obj\\",
+        "projectPath": "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\ILikeClinic.csproj",
+        "packagesPath": "C:\\Users\\liyua\\.nuget\\packages\\",
+        "outputPath": "D:\\E\\githubroot\\IntegrationProject\\ILikeClinic\\ILikeClinic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\kicas\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\liyua\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -81,8 +80,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -94,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.109\\RuntimeIdentifierGraph.json"
         }
       }
     }

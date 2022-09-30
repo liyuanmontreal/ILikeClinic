@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace ILikeClinic.Model
 {
-    public class AppointmentSlot
+    public class AppointmentSlot 
     {
 
         public int Id { get; set; }

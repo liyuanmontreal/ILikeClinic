@@ -61,6 +61,40 @@ namespace ILikeClinic.Migrations
                     b.ToTable("Appointment");
                 });
 
+            modelBuilder.Entity("ILikeClinic.Model.AppointmentSlot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PatientId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PatientName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("Appointments");
+                });
+
             modelBuilder.Entity("ILikeClinic.Model.Availability", b =>
                 {
                     b.Property<int>("Id")
@@ -137,6 +171,23 @@ namespace ILikeClinic.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Doctor");
+                });
+
+            modelBuilder.Entity("ILikeClinic.Model.DoctorItemForCalender", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DoctorItemForCalender");
                 });
 
             modelBuilder.Entity("ILikeClinic.Model.FAQ", b =>
@@ -223,6 +274,36 @@ namespace ILikeClinic.Migrations
                     b.ToTable("MedicalHistory");
                 });
 
+            modelBuilder.Entity("ILikeClinic.Model.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("FromId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SendTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ToId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Message");
+                });
+
             modelBuilder.Entity("ILikeClinic.Model.Patient", b =>
                 {
                     b.Property<int>("Id")
@@ -269,6 +350,44 @@ namespace ILikeClinic.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Patient");
+                });
+
+            modelBuilder.Entity("ILikeClinic.Model.Survey", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Answer1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Answer2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Answer3")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Answer4")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Answer5")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.ToTable("Survey");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -484,6 +603,17 @@ namespace ILikeClinic.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("ILikeClinic.Model.AppointmentSlot", b =>
+                {
+                    b.HasOne("ILikeClinic.Model.DoctorItemForCalender", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
             modelBuilder.Entity("ILikeClinic.Model.Availability", b =>
                 {
                     b.HasOne("ILikeClinic.Model.Doctor", "Doctor")
@@ -512,6 +642,15 @@ namespace ILikeClinic.Migrations
                     b.Navigation("Doctor");
 
                     b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("ILikeClinic.Model.Survey", b =>
+                {
+                    b.HasOne("ILikeClinic.Model.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId");
+
+                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

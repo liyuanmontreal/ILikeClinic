@@ -32,7 +32,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 
     //add for calender function    
     public DbSet<AppointmentSlot> Appointments { get; set; }
-    //public DbSet<DoctorItemForCalendar> DoctorItemForCalendar { get; set; }
+    public DbSet<DoctorItemForCalender> DoctorItemForCalender { get; set; }
     
     public int ADMIN_ID;
 }

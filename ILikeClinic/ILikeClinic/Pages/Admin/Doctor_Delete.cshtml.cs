@@ -15,6 +15,7 @@ namespace ILikeClinic.Pages.Admin
 
 
         public ILikeClinic.Model.Doctor Doctor { get; set; } = default!;
+        public ILikeClinic.Model.DoctorItemForCalender DoctorItem { get; set; } = default!;
         private readonly UserManager<IdentityUser> _userManager;
 
         public Doctor_DeleteModel(ILikeClinic.Data.ApplicationDbContext context, UserManager<IdentityUser> userManager)
@@ -62,6 +63,20 @@ namespace ILikeClinic.Pages.Admin
 
             }
             TempData["delete"] = "Doctor Account Deleted successfully";
+
+
+
+            //delete doctor item
+            var doctoritem = await _db.DoctorItemForCalender.FindAsync(id);
+          
+            if (doctoritem != null)
+            {
+                DoctorItem = doctoritem;
+                _db.DoctorItemForCalender.Remove(DoctorItem);
+                await _db.SaveChangesAsync();
+           
+            }
+         
             return RedirectToPage("./Doctor_List");
         }
     }

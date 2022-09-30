@@ -42,8 +42,15 @@ namespace ILikeClinic.Pages.Admin
             _db.Doctor.Add(Doctor);
             _db.SaveChanges();
 
+
             TempData["success"] = "Doctor profile created successfully";
 
+
+            //add doctor item
+            ILikeClinic.Model.DoctorItemForCalender DoctorItem = new ILikeClinic.Model.DoctorItemForCalender();
+            DoctorItem.Name = Doctor.FullName;
+            _db.DoctorItemForCalender.Add(DoctorItem);
+            _db.SaveChanges();
 
             return RedirectToPage("Doctor_List");
         }
