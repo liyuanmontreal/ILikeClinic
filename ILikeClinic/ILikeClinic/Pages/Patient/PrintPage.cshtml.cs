@@ -1,14 +1,16 @@
 using ILikeClinic.Data;
+using ILikeClinic.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Versioning;
 
 namespace ILikeClinic.Pages.Patient
 {
     public class PrintPageModel : PageModel
     {
-        [BindProperty]
-        public Model.MedicalHistory MedicalHistory { get; set; }
+        [BindProperty]        
+        public ILikeClinic.Model.MedicalHistory MedicalHistory { get; set; }
 
         private readonly ApplicationDbContext _db;
 
@@ -18,7 +20,13 @@ namespace ILikeClinic.Pages.Patient
         }
         public async Task OnGet(int id)
         {
-            MedicalHistory = _db.MedicalHistory.Find(id);
+            var query = _db.MedicalHistory.Include(c =>c.Doctor);
+            var result = query.Where(s => s.Id.Equals(id));
+            if (result.Count() > 0)
+            {
+                MedicalHistory = result.First();        
+            }
+            
 
         }
     }

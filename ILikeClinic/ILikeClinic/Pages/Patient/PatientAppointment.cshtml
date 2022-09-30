@@ -66,15 +66,25 @@
                     <tr>
                         <td width="25%">@item.Doctor.FullName</td>
                         <td width="25%">@item.AppStartAt.ToString("yyyy-MM-dd")</td>
-                        <td width="15%">@item.AppStartAt.ToString("HH:MM")</td>                    
+                        <td width="15%">@item.AppStartAt.ToString("hh:mm tt")</td>                    
                         <td width="35%">
                             <div class="w-75 btn-group" role="group">
-                                <a asp-page="PatientEditAppointment" asp-route-id="@item.Id" class="btn btn-primary mx-2   @((item.Status.Equals("Finished")) ?"disabled": null) ">
-                                    Edit
-                                </a>
-                                <button asp-route-id="@item.Id" asp-page-handler="Delete" onclick="return confirm('Are you sure to cancel it?')" class="btn btn-warning mx-2 ">
-                                    Cancel
-                                </button>
+                                @if(item.AppStartAt.CompareTo(DateTime.Today) < 0){
+                                    <button asp-page="PatientEditAppointment" asp-route-id="@item.Id" class="btn btn-primary mx-2 disabled">
+                                        Edit
+                                    </button>
+                                    <button asp-route-id="@item.Id" asp-page-handler="Delete" class="btn btn-warning mx-2 disabled">
+                                        Cancel
+                                    </button>
+                                }
+                                else {
+                                    <a asp-page="PatientEditAppointment" asp-route-id="@item.Id" class="btn btn-primary mx-2   @((item.Status.Equals("Finished")) ?"disabled": null) ">
+                                        Edit
+                                    </a>
+                                    <button asp-route-id="@item.Id" asp-page-handler="Delete" onclick="return confirm('Are you sure to cancel it?')" class="btn btn-warning mx-2 ">
+                                        Cancel
+                                    </button>
+                                }
                                 <a asp-page="AnswerSurvey"  asp-route-id="@item.Id" class="btn btn-info mx-2 ">Survey</a>
                             </div>
                         </td>

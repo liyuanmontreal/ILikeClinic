@@ -42,14 +42,10 @@ namespace ILikeClinic.Pages.FAQ
         }
 
 
-        // public void OnGet()
-        // {
-        // fAQs = _db.FAQ;
-        /* if (Patient == null)
-             return RedirectToPage("AddMyFile");
-         return Page();
-        */
-        // }
+        public void OnGet(int? id)
+        {
+            fAQ = _db.FAQ.Find(id);
+         }
 
         public IActionResult OnPost()
         {
@@ -57,11 +53,26 @@ namespace ILikeClinic.Pages.FAQ
             fAQ.AspNetUsersId = 0;
  //           if (ModelState.IsValid)
  //           {
+
+            if(fAQ.Answer == null)
+            {
+                fAQ.Answer = " ";
+            }
+
+            if(fAQ.Id != null)
+            {
+                _db.FAQ.Update(fAQ);
+                _db.SaveChanges();
+                TempData["success"] = "You answer the question successfully";
+            }else
+            {
                 _db.FAQ.Add(fAQ);
                 _db.SaveChanges();
+                TempData["success"] = "Your question has been sent successfully";
                 return RedirectToPage("Index");
- //           }
- //           return Page();
+            }
+
+            return RedirectToPage("Index");
         }
     }
 }

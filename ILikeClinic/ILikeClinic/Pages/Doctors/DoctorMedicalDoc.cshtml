@@ -12,7 +12,7 @@
             </h2>
         </div>
         <form method="get">
-            <input asp-for="Patient.Id" />
+            <input hidden asp-for="Patient.Id" />
             <div>
                 <a asp-route-id="@Model.Patient.Id" asp-page="DoctorCreateEditMedicalDoc" class="btn btn-primary text-bg-light">
                     <i class="bi bi-plus-circle fs-4 "></i> &nbsp New Medical Document
@@ -58,7 +58,7 @@
                                 <a asp-route-id="@item.Id" asp-route-patientId="@item.PatientId" asp-page="/Patient/PrintPage" class="btn btn-primary">Print</a>
                                 <span style="width:100px" class="fs-4">   &nbsp           &nbsp       </span>
 
-                                <input type="submit" asp-route-id="@item.Id" asp-route-patientID="@Model.Patient.Id" asp-page-handler="Delete" onclick="return confirm('Are you sure to delete it @item.Id?')" class="btn btn-warning " value="Delete">
+                                <input type="submit" asp-route-id="@item.Id" asp-route-patientID="@Model.Patient.Id" asp-page-handler="Delete" onclick="return confirm('Are you sure to delete it ?')" class="btn btn-warning " value="Delete">
 
                             </div>
                         </div>
