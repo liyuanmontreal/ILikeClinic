@@ -13,7 +13,7 @@
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">
-                Doctor List
+                Our Doctors
             </h2>
         </div>
       
@@ -24,14 +24,14 @@
 
         @foreach (var item in Model.Doctors)
         {   
-            <div class="row">
+            <div class="row mt-6">
 
-                <div class="col-4">
+                <div class="col m-2">
             <img src="@Url.Content(@item.ProfilePhoto)" />
                 </div>
            
        
-            <div class="col-7">
+            <div class="col-6 m-2">
             <dl class="row">
                 <dt class="col-sm-3">          
                     @Html.DisplayNameFor(modelItem => item.FullName)
@@ -42,7 +42,7 @@
                 <dt class="col-sm-3">
                     @Html.DisplayNameFor(modelItem => item.LicenseNumber)
                 </dt>
-                    <dd class="col-sm-9">
+                    <dd class="col-sm-8">
                 @Html.DisplayFor(modelItem=> item.LicenseNumber)
                     </dd>
                 <dt class="col-sm-3">
@@ -58,7 +58,7 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </dd>
                 </dl>
-               <br/>
+               
                </div>
                </div>
         }
